@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cmorg634ye26m"
+path="res://.godot/imported/The-Never-ending-Night.ogg-4763d8f7e5e840bc2db42930b4820080.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/The-Never-ending-Night.ogg"
+dest_files=["res://.godot/imported/The-Never-ending-Night.ogg-4763d8f7e5e840bc2db42930b4820080.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

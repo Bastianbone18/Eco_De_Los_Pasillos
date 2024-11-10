@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="4_43fot"]
 
 [node name="Creditos" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +58,23 @@ Agradecimientos: especiales: Familia Pm"
 horizontal_alignment = 2
 autowrap_mode = 2
 
+[node name="Volver" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.752941)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("3_lkajn")
+theme_override_font_sizes/font_size = 15
+text = "Volver"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -75,19 +93,26 @@ horizontal_alignment = 1
 
 [node name="Tiktok" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Tiktok"
 
 [node name="IG" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Instagram"
 
 [node name="Art" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.768627)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Artstation"
 
+[connection signal="pressed" from="TextureRect/Volver" to="." method="_on_volver_pressed"]
 [connection signal="pressed" from="VBoxContainer/Tiktok" to="." method="_on_tiktok_pressed"]
 [connection signal="pressed" from="VBoxContainer/IG" to="." method="_on_ig_pressed"]
 [connection signal="pressed" from="VBoxContainer/Art" to="." method="_on_art_pressed"]

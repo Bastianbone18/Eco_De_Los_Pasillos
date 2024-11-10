@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci14xp5axq51j"]
+[gd_scene load_steps=10 format=3 uid="uid://ci14xp5axq51j"]
 
 [ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_0x46t"]
+[ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="2_j76cs"]
+[ext_resource type="AudioStream" uid="uid://cmorg634ye26m" path="res://Musica y sonidos/The-Never-ending-Night.ogg" id="3_m0s73"]
+[ext_resource type="AudioStream" uid="uid://msht2dv2bnnr" path="res://Musica y sonidos/Atmosfera.ogg" id="4_7bsrc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4ae3x"]
 sky_top_color = Color(0.176471, 0.203922, 0.278431, 1)
@@ -53,3 +56,17 @@ shape = SubResource("ConcavePolygonShape3D_21wb8")
 
 [node name="Player" parent="." instance=ExtResource("1_0x46t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01362, 0)
+
+[node name="Pausa" parent="." instance=ExtResource("2_j76cs")]
+
+[node name="MusicaFondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_m0s73")
+volume_db = -15.0
+autoplay = true
+bus = &"Musica"
+
+[node name="Atmosfera" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7bsrc")
+volume_db = 5.652
+autoplay = true
+bus = &"Atmosfera"

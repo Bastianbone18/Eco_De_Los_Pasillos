@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkxrgur8ebjks"]
+
+[ext_resource type="Script" path="res://Pantallas/pausa.gd" id="1_s6fb4"]
+[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_dsmbo"]
+
+[node name="Pausa" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_s6fb4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.194349, 0.194349, 0.194349, 0.470588)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -50.0
+offset_right = 44.0
+offset_bottom = 52.0001
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SliderMusica" type="HSlider" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="SliderAtmosfera" type="HSlider" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="BotonCreditos" type="Button" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("2_dsmbo")
+text = "Creditos"
+
+[node name="BotonMenu" type="Button" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.745098)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("2_dsmbo")
+text = "Salir al Menu"
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -85.0
+offset_right = 45.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sonidos"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/BotonCreditos" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/BotonMenu" to="." method="_on_button_3_pressed"]
