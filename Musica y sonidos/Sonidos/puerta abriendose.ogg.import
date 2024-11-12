@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ce6bjtduq2tuh"
+path="res://.godot/imported/puerta abriendose.ogg-0ff0af4fff5063f5b26eb8f87bd3dd5e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/puerta abriendose.ogg"
+dest_files=["res://.godot/imported/puerta abriendose.ogg-0ff0af4fff5063f5b26eb8f87bd3dd5e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

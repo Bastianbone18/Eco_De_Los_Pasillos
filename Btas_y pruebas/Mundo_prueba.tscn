@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ci14xp5axq51j"]
+[gd_scene load_steps=12 format=3 uid="uid://ci14xp5axq51j"]
 
 [ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_0x46t"]
 [ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="2_j76cs"]
 [ext_resource type="AudioStream" uid="uid://cmorg634ye26m" path="res://Musica y sonidos/The-Never-ending-Night.ogg" id="3_m0s73"]
 [ext_resource type="AudioStream" uid="uid://msht2dv2bnnr" path="res://Musica y sonidos/Atmosfera.ogg" id="4_7bsrc"]
+[ext_resource type="PackedScene" uid="uid://ccgfucnylljgk" path="res://Btas_y pruebas/door.tscn" id="5_0mkv5"]
+[ext_resource type="PackedScene" uid="uid://ck3sxddxsgpc6" path="res://Btas_y pruebas/llave.tscn" id="6_ulk7h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4ae3x"]
 sky_top_color = Color(0.176471, 0.203922, 0.278431, 1)
@@ -55,7 +57,7 @@ mesh = SubResource("PlaneMesh_p722t")
 shape = SubResource("ConcavePolygonShape3D_21wb8")
 
 [node name="Player" parent="." instance=ExtResource("1_0x46t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01362, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 0)
 
 [node name="Pausa" parent="." instance=ExtResource("2_j76cs")]
 
@@ -70,3 +72,21 @@ stream = ExtResource("4_7bsrc")
 volume_db = 5.652
 autoplay = true
 bus = &"Atmosfera"
+
+[node name="Door" parent="." instance=ExtResource("5_0mkv5")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, -6.50058)
+StartsOpened = true
+
+[node name="Door2" parent="." instance=ExtResource("5_0mkv5")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 3.86463, 0, -6.50058)
+isLocked = true
+needsKey = true
+
+[node name="Door3" parent="." node_paths=PackedStringArray("neededKey") instance=ExtResource("5_0mkv5")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -4.76026, 0, -6.50058)
+isLocked = true
+needsKey = true
+neededKey = NodePath("Llave")
+
+[node name="Llave" parent="Door3" instance=ExtResource("6_ulk7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.512777, 0.5, 11.4735)

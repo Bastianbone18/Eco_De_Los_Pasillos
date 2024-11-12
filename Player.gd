@@ -6,9 +6,9 @@ const SPRINT_SPEED = 8.0
 const SENSITIVITY = 0.004
 
 # Variables para el efecto de bobbing
-const BOB_FREQ = 1.5  # Reducido para un movimiento más suave
-const BOB_AMP = 0.04  # Reducido para menos movimiento
-var t_bob = 0.0  # Inicialización de t_bob a 0
+const BOB_FREQ = 1.5
+const BOB_AMP = 0.04
+var t_bob = 0.0
 
 # Variables para el FOV
 const BASE_FOV = 75.0
@@ -20,11 +20,11 @@ var gravity = 9.8
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var raycast : RayCast3D = $Head/Camera3D/RayCast3D
-@onready var flashlight = $Head/Camera3D/SpotLight3D  # Asegúrate de que esta ruta sea correcta
+@onready var flashlight = $Head/Camera3D/SpotLight3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	flashlight.visible = true  # Comienza encendida
+	flashlight.visible = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -34,6 +34,8 @@ func _unhandled_input(event):
 	elif event is InputEventKey:
 		if event.is_action_pressed("toggle_flashlight"):
 			toggle_flashlight()
+		elif event.is_action_pressed("action_use"):
+			process_raycast()  # Procesa el raycast cuando presionas la tecla E
 
 func _physics_process(delta):
 	# Añadir gravedad.
@@ -85,3 +87,11 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+# Revisa el raycast y llama a la función `action_use` si se colisiona con un objeto interactivo
+func process_raycast():
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider.has_method("action_use"):
+			collider.action_use()
+			print("Interacción con:", collider)

@@ -17,6 +17,7 @@ mesh = SubResource("CapsuleMesh_liagf")
 shape = SubResource("ConvexPolygonShape3D_46vrg")
 
 [node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67386, 0)
@@ -27,3 +28,6 @@ light_energy = 4.0
 light_volumetric_fog_energy = 0.1
 spot_range = 70.0
 spot_angle_attenuation = 3.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -5)

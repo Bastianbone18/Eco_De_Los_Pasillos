@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bil2x3ekh5s7o"
+path="res://.godot/imported/Bloqueada.ogg-d414281ccb8f89c5a22edccb6fa2a351.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Bloqueada.ogg"
+dest_files=["res://.godot/imported/Bloqueada.ogg-d414281ccb8f89c5a22edccb6fa2a351.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

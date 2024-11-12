@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck3sxddxsgpc6"]
+
+[ext_resource type="Script" path="res://Scripts Practicos/llave.gd" id="1_ipj0q"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_l1np7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7lpls"]
+
+[node name="Llave" type="StaticBody3D"]
+script = ExtResource("1_ipj0q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_l1np7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7lpls")

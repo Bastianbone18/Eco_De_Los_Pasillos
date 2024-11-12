@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bga0g3tfh5wrx"
+path="res://.godot/imported/puerta cerrandose.ogg-92b4842920628852650686686f7caa3f.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/puerta cerrandose.ogg"
+dest_files=["res://.godot/imported/puerta cerrandose.ogg-92b4842920628852650686686f7caa3f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
