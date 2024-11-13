@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkxrgur8ebjks"]
+[gd_scene load_steps=4 format=3 uid="uid://dkxrgur8ebjks"]
 
 [ext_resource type="Script" path="res://Pantallas/pausa.gd" id="1_s6fb4"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_dsmbo"]
+[ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="3_mk4v5"]
 
 [node name="Pausa" type="CanvasLayer"]
 process_mode = 3
@@ -68,6 +69,9 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Sonidos"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mk4v5")
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/BotonCreditos" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/BotonMenu" to="." method="_on_button_3_pressed"]

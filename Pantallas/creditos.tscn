@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6jt7mt63yw4y"]
+[gd_scene load_steps=6 format=3 uid="uid://c6jt7mt63yw4y"]
 
 [ext_resource type="Script" path="res://Pantallas/creditos.gd" id="1_flsdi"]
 [ext_resource type="Texture2D" uid="uid://b5lmr34ew1cm0" path="res://Imagenes_pantallas/Editable.png" id="1_k6wxx"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_lkajn"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="4_43fot"]
+[ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="5_7oahe"]
 
 [node name="Creditos" type="Control"]
 process_mode = 3
@@ -111,6 +112,9 @@ theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Artstation"
+
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7oahe")
 
 [connection signal="pressed" from="TextureRect/Volver" to="." method="_on_volver_pressed"]
 [connection signal="pressed" from="VBoxContainer/Tiktok" to="." method="_on_tiktok_pressed"]

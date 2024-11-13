@@ -1,15 +1,16 @@
 extends CanvasLayer
 
-# Referencias a los botones y sliders
+# Referencias a los botones, sliders y AudioStreamPlayer para los sonidos de los botones
 @onready var boton_creditos = $ColorRect/VBoxContainer/BotonCreditos
 @onready var boton_menu = $ColorRect/VBoxContainer/BotonMenu
 @onready var slider_musica = $ColorRect/VBoxContainer/SliderMusicaFondo
 @onready var slider_atmosfera = $ColorRect/VBoxContainer/SliderAtmosfera
+@onready var button_sound_player = $AudioStreamPlayerBoton  # Reproductor de sonido para botones
 
 # Configuración inicial
 func _ready():
-	# Verificar que los botones y sliders existan antes de conectarlos
-	if boton_creditos and boton_menu and slider_musica and slider_atmosfera:
+	# Verificar que los botones, sliders y el AudioStreamPlayer existan antes de conectarlos
+	if boton_creditos and boton_menu and slider_musica and slider_atmosfera and button_sound_player:
 		# Conectar señales de botones a funciones usando Callable
 		boton_creditos.connect("pressed", Callable(self, "_on_boton_creditos_pressed"))
 		boton_menu.connect("pressed", Callable(self, "_on_boton_menu_pressed"))
@@ -25,6 +26,11 @@ func _ready():
 	slider_musica.value = db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Musica")))
 	slider_atmosfera.value = db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Atmosfera")))
 
+# Función para reproducir el sonido del botón
+func play_button_sound():
+	if button_sound_player:
+		button_sound_player.play()
+
 # Mostrar u ocultar el menú de pausa
 func toggle_pausa():
 	visible = not visible
@@ -36,14 +42,14 @@ func toggle_pausa():
 
 # Función para el botón "Créditos"
 func _on_boton_creditos_pressed():
+	play_button_sound()  # Reproduce el sonido al hacer clic
 	print("Mostrar créditos")
-	# Aquí podrías abrir una pantalla de créditos
 	get_tree().change_scene_to_file("res://Pantallas/creditos.tscn")
 
 # Función para el botón "Menú"
 func _on_boton_menu_pressed():
+	play_button_sound()  # Reproduce el sonido al hacer clic
 	print("Regresar al menú principal")
-	# Cambia a la escena del menú principal
 	get_tree().change_scene_to_file("res://Pantallas/menu.tscn")
 
 # Muestra el cursor
