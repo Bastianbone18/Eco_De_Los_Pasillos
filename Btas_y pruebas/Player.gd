@@ -2,18 +2,18 @@ extends CharacterBody3D
 
 # Variables de movimiento
 var speed
-const WALK_SPEED = 3.7  # Velocidad al caminar
-const SPRINT_SPEED = 6.8  # Velocidad al correr, reducido un 15%
+const WALK_SPEED = 3.4# Velocidad al caminar
+const SPRINT_SPEED = 6.0  # Velocidad al correr
 const SENSITIVITY = 0.005  # Sensibilidad del mouse
 
 # Variables para el efecto de bobbing
 const BOB_FREQ = 1.5  # Frecuencia del efecto de movimiento de cabeza
-const BOB_AMP = 0.06  # Amplitud del bobbing
+const BOB_AMP = 0.08  # Amplitud del bobbing
 var t_bob = 0.0  # Tiempo para el bobbing
 
 # Variables para el FOV (campo de visión)
 const BASE_FOV = 75.0  # FOV base
-const FOV_CHANGE = 3.0  # Incrementado para hacer el cambio de FOV más notorio
+const FOV_CHANGE = 3.0  # Cambio en el FOV al correr
 
 # Gravedad
 var gravity = 9.8  # Fuerza de gravedad
@@ -21,9 +21,14 @@ var gravity = 9.8  # Fuerza de gravedad
 # Variables para stamina
 var stamina = 100.0  # Nivel actual de estamina
 const MAX_STAMINA = 100.0  # Estamina máxima
-const STAMINA_DRAIN = 30.0  # Drenaje por segundo al correr
-const STAMINA_RECOVERY = 10.0  # Recuperación más lenta por segundo
+const STAMINA_DRAIN = 40.0  # Drenaje por segundo al correr
+const STAMINA_RECOVERY = 10.0  # Recuperación por segundo
 var can_sprint = true  # Impide correr si la estamina es 0
+
+# Variables para la inclinación de la linterna
+const FLASHLIGHT_NORMAL_ROTATION = Vector3(-0.2, 0, 0)  # Rotación normal
+const FLASHLIGHT_RUN_ROTATION = Vector3(-1.6, 0.2, 0)  # Rotación al correr
+const FLASHLIGHT_SMOOTHNESS = 5.0  # Suavidad de la transición de rotación
 
 # Referencias de nodos
 @onready var head = $Head
@@ -31,6 +36,7 @@ var can_sprint = true  # Impide correr si la estamina es 0
 @onready var raycast : RayCast3D = $Head/Camera3D/RayCast3D
 @onready var flashlight = $Head/Camera3D/SpotLight3D
 @onready var stamina_bar = $Head/Camera3D/CanvasLayer/Control/StaminaBar
+@onready var stamina_exhaust_audio = $StaminaExhaustAudio  # Nodo de audio
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -44,9 +50,9 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 	elif event is InputEventKey:
 		if event.is_action_pressed("toggle_flashlight"):
-			toggle_flashlight()  # Alternar la visibilidad de la linterna
+			toggle_flashlight()
 		elif event.is_action_pressed("action_use"):
-			process_raycast()  # Procesa el raycast cuando presionas la tecla E
+			process_raycast()
 
 func _physics_process(delta):
 	# Añadir gravedad
@@ -57,19 +63,32 @@ func _physics_process(delta):
 	if Input.is_action_pressed("sprint") and stamina > 0 and can_sprint:
 		speed = SPRINT_SPEED
 		stamina -= STAMINA_DRAIN * delta
-		stamina = max(stamina, 0)  # Limitar stamina a un mínimo de 0
+		stamina = max(stamina, 0)
 		if stamina == 0:
-			can_sprint = false  # Bloquea el sprint cuando se agota la stamina
+			can_sprint = false
+			if not stamina_exhaust_audio.is_playing():
+				stamina_exhaust_audio.play()
+
+		# Suavizar la inclinación de la linterna hacia el suelo
+		flashlight.rotation = flashlight.rotation.lerp(FLASHLIGHT_RUN_ROTATION, FLASHLIGHT_SMOOTHNESS * delta)
 	else:
 		speed = WALK_SPEED
-		# Recuperación más lenta de la stamina cuando está bajo el 60%
+
+		# Recuperación de estamina
 		if stamina < 60:
-			stamina += STAMINA_RECOVERY * delta * 0.5  # Recarga más lenta si está bajo el 60%
+			stamina += STAMINA_RECOVERY * delta * 0.5
 		else:
-			stamina += STAMINA_RECOVERY * delta  # Recuperación normal
-		stamina = min(stamina, MAX_STAMINA)  # Limitar stamina al máximo
-		if stamina > 60:  # Reactiva el sprint solo si la estamina es al menos 60
+			stamina += STAMINA_RECOVERY * delta
+		stamina = min(stamina, MAX_STAMINA)
+		if stamina > 60:
 			can_sprint = true
+
+		# Restaurar la rotación de la linterna a la posición normal
+		flashlight.rotation = flashlight.rotation.lerp(FLASHLIGHT_NORMAL_ROTATION, FLASHLIGHT_SMOOTHNESS * delta)
+
+	# Detener el jadeo si la estamina se recupera por encima de un umbral
+	if stamina > 20 and stamina_exhaust_audio.is_playing():
+		stamina_exhaust_audio.stop()
 
 	# Actualizar la barra de stamina
 	if stamina_bar:
@@ -83,7 +102,6 @@ func _physics_process(delta):
 
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	# Si está en el suelo, mover al jugador
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
@@ -117,10 +135,9 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-# Revisa el raycast y llama a la función `action_use` si se colisiona con un objeto interactivo
 func process_raycast():
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()
 		if collider.has_method("action_use"):
-			collider.action_use()  # Llama al método de acción del objeto interactivo
+			collider.action_use()
 			print("Interacción con:", collider)

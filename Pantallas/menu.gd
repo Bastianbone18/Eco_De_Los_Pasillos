@@ -41,7 +41,7 @@ func play_button_sound():
 # Función para cuando el botón "Play" es presionado
 func _on_play_pressed():
 	play_button_sound()
-	get_tree().change_scene_to_file("res://Btas_y pruebas/Mundo_prueba.tscn")
+	get_tree().change_scene_to_file("res://Pantallas/Register.tscn")
 
 # Función para cuando el botón "Options" es presionado
 func _on_options_pressed():

@@ -80,7 +80,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_emqvn")
 theme_override_font_sizes/font_size = 26
-text = "Eco De Los Pasillos"
+text = "Echoes of the Forgotten"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_jv32v")

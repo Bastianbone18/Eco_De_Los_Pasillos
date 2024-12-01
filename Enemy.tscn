@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://balx7s011p7bg"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_br1c1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8n4bj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yc2ph"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_br1c1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8n4bj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_yc2ph")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 10)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

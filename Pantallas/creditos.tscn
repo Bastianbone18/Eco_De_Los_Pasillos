@@ -54,8 +54,8 @@ theme_override_font_sizes/font_size = 14
 text = "Desarrollo Principal: BastianBone
 Programacion: Juan Prieto
 Diseño de juego: Juan Prieto
-Sonido y música: Suno (IA)
-Agradecimientos: especiales: Familia Pm"
+Música: Suno (IA)
+Sonidos:freesound.org"
 horizontal_alignment = 2
 autowrap_mode = 2
 

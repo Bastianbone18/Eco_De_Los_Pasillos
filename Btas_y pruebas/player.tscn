@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c728ra6cs3vud"]
+[gd_scene load_steps=7 format=3 uid="uid://c728ra6cs3vud"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_h50lu"]
+[ext_resource type="Script" path="res://Btas_y pruebas/Player.gd" id="1_tgstb"]
+[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_wrn4w"]
+[ext_resource type="AudioStream" uid="uid://boyq0jb54rtib" path="res://Musica y sonidos/Sonidos/Respiracion_agitada.ogg" id="3_2thru"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_liagf"]
 
@@ -10,7 +12,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v0y5y"]
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_h50lu")
+script = ExtResource("1_tgstb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_liagf")
@@ -32,7 +34,7 @@ spot_range = 70.0
 spot_angle_attenuation = 3.0
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
-target_position = Vector3(0, 0, -5)
+target_position = Vector3(0, 0, -4)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D"]
 
@@ -47,5 +49,11 @@ custom_minimum_size = Vector2(0, 11.92)
 layout_mode = 1
 offset_right = 58.0
 offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_outline_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("2_wrn4w")
 theme_override_styles/background = SubResource("StyleBoxEmpty_v0y5y")
 value = 100.0
+
+[node name="StaminaExhaustAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2thru")
