@@ -1,18 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://balx7s011p7bg"]
+[gd_scene load_steps=7 format=3 uid="uid://balx7s011p7bg"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_br1c1"]
+[ext_resource type="AudioStream" uid="uid://ei5iwoc6kuis" path="res://Musica y sonidos/Sonidos/Risa_embestida.ogg" id="2_nlthm"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8n4bj"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0loke"]
+radius = 12.094
+height = 31.764
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntsl3"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yc2ph"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nin4q"]
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_br1c1")
 
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("CapsuleShape3D_0loke")
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_8n4bj")
+shape = SubResource("CapsuleShape3D_ntsl3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_yc2ph")
@@ -20,6 +32,14 @@ mesh = SubResource("CapsuleMesh_yc2ph")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, 10)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="BoostTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.551275, 0, 0, 0, 0.273531, 0, 0, 0, 0.617319, 0, 0.45789, 0.449865)
+mesh = SubResource("BoxMesh_nin4q")
+
+[node name="BoostSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_nlthm")

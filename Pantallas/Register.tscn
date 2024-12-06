@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvwwgel1boywc"]
+[gd_scene load_steps=5 format=3 uid="uid://dvwwgel1boywc"]
 
 [ext_resource type="Script" path="res://Pantallas/Register.gd" id="1_tdykx"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_3unfx"]
+[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_smuqr"]
+[ext_resource type="AudioStream" uid="uid://2u8g87ckunfh" path="res://Musica y sonidos/Game_over.ogg" id="4_q3ek5"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -44,6 +46,7 @@ offset_right = 77.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_smuqr")
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
@@ -55,6 +58,7 @@ anchor_right = 1.0
 offset_left = -86.0
 offset_bottom = 31.0
 grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_smuqr")
 text = "Continuar"
 
 [node name="LabelError" type="Label" parent="."]
@@ -66,5 +70,9 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3unfx")
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_q3ek5")

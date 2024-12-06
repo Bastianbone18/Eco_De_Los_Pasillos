@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://cny4dv5ohvj3d"]
+
+[ext_resource type="Script" path="res://Pantallas/Game_Over.gd" id="1_5shxi"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_llihh"]
+[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_rkuoy"]
+[ext_resource type="AudioStream" uid="uid://2u8g87ckunfh" path="res://Musica y sonidos/Game_over.ogg" id="4_8hnvm"]
+
+[node name="Game Over" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5shxi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0142752, 0.0142752, 0.0142752, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.26875
+anchor_right = 0.5
+anchor_bottom = 0.26875
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_llihh")
+theme_override_font_sizes/font_size = 26
+text = "GAME OVER"
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelMessage" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_rkuoy")
+
+[node name="LabelScore" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_rkuoy")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = -66.0
+offset_right = 62.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ExitButton" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_llihh")
+text = "Salir"
+
+[node name="MenuButton" type="Button" parent="VBoxContainer2"]
+process_mode = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_llihh")
+text = "Volver al Menu"
+
+[node name="Game_over" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8hnvm")
+autoplay = true
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8hnvm")
