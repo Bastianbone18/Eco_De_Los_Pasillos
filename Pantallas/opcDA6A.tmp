@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb47nkydcw24w"]
+
+[ext_resource type="Script" path="res://Pantallas/opciones.gd" id="1_1mhj1"]
+[ext_resource type="Texture2D" uid="uid://jui2qvi4j67y" path="res://Imagenes_pantallas/untitled.png" id="1_2j3l2"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="3_7vulr"]
+[ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="4_5ki6n"]
+
+[node name="Opciones" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1mhj1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2j3l2")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 5
+
+[node name="Creditos" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.776471)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("3_7vulr")
+text = "CREDITOS"
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_fonts/font = ExtResource("3_7vulr")
+text = "VOLVER"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_7vulr")
+theme_override_font_sizes/font_size = 20
+text = "Opciones"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5ki6n")
+
+[connection signal="pressed" from="VBoxContainer/Creditos" to="." method="_on_creditos_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

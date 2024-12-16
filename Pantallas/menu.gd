@@ -5,6 +5,7 @@ extends Control
 @onready var button_sound_player = $AudioStreamPlayerBoton  # Nodo para el sonido de los botones
 
 # Configuración inicial
+
 func _ready():
 	# Configurar el Slider
 	slider_musica_menu.min_value = 0  # Valor mínimo
@@ -52,3 +53,4 @@ func _on_options_pressed():
 func _on_exit_pressed():
 	play_button_sound()
 	get_tree().quit()
+

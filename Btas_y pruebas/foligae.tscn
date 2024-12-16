@@ -1,0 +1,146 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4n4na0cig4do"]
+
+[ext_resource type="PackedScene" uid="uid://bqpoe5icfvav5" path="res://Modelos_Blender/Foligae.glb" id="1_4eit7"]
+[ext_resource type="Texture2D" uid="uid://b6tvn6lytc0y4" path="res://Modelos_Blender/Foligae_Pasto.png" id="2_qbsi5"]
+
+[sub_resource type="Shader" id="Shader_pvxjy"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx;
+
+// Colores y texturas base
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_nearest_mipmap, repeat_enable;
+
+// Parámetros de transparencia
+uniform float alpha_scissor_threshold;
+uniform float point_size : hint_range(0, 128);
+
+// Propiedades de material
+uniform float roughness : hint_range(0, 1);
+uniform float metallic;
+uniform float specular;
+
+// Texturas adicionales
+uniform sampler2D texture_metallic : hint_default_white, filter_nearest_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_nearest_mipmap, repeat_enable;
+
+// Escala y offset UV
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// Grupo de parámetros de viento
+group_uniforms wind;
+uniform sampler2D noise_tex;
+uniform float wind_speed = 0.1;
+uniform float wind_strength = 0.01;
+
+void vertex() {
+    // Ajuste de UV
+    UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+    // Aplicación de ruido basado en el tiempo
+    float offset = TIME * wind_speed;
+    float noise = texture(noise_tex, vec2(VERTEX.x - offset, VERTEX.z)).r;
+
+    // Centrado del ruido y escalado
+    noise = (noise - 0.5) * wind_strength;
+
+    // Desplazamiento del vértice
+    VERTEX.xy += noise * length(VERTEX.y) * length(VERTEX.xz);
+}
+
+void fragment() {
+    // Base UV
+    vec2 base_uv = UV;
+
+    // Textura del albedo
+    vec4 albedo_tex = texture(texture_albedo, base_uv);
+    ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+    // Textura de metálico
+    float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+    METALLIC = metallic_tex * metallic;
+
+    // Textura de rugosidad
+    vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0); // Canal R predeterminado
+    float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+    ROUGHNESS = roughness_tex * roughness;
+
+    // Especularidad
+    SPECULAR = specular;
+
+    // Transparencia
+    ALPHA *= albedo.a * albedo_tex.a;
+    ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dwgh1"]
+frequency = 0.005
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4mm51"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_dwgh1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e26yo"]
+resource_name = "pasto"
+render_priority = 0
+shader = SubResource("Shader_pvxjy")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic_texture_channel = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_qbsi5")
+shader_parameter/wind_speed = 0.1
+shader_parameter/wind_strength = 0.2
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_4mm51")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_v7s2j"]
+_surfaces = [{
+"aabb": AABB(-1, -0.0615904, -0.848677, 2, 2, 1.69736),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray(0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 3, 0, 4, 0, 7, 0, 5, 0, 4, 0, 6, 0, 7, 0, 8, 0, 11, 0, 9, 0, 8, 0, 10, 0, 11, 0),
+"name": "pasto",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray(76, 60, 0, 0, 254, 255, 0, 0, 178, 195, 0, 0, 0, 0, 0, 0, 76, 60, 255, 255, 254, 255, 0, 0, 178, 195, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 127, 0, 0, 255, 255, 0, 0, 255, 127, 0, 0, 0, 0, 254, 255, 255, 127, 0, 0, 255, 255, 254, 255, 255, 127, 0, 0, 50, 202, 0, 0, 228, 250, 0, 0, 204, 53, 0, 0, 26, 5, 0, 0, 50, 202, 254, 255, 228, 250, 0, 0, 204, 53, 254, 255, 26, 5, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4lc45"]
+resource_name = "Foligae_Plane_003"
+_surfaces = [{
+"aabb": AABB(-1, -0.0615904, -0.848677, 2, 2, 1.69736),
+"attribute_data": PackedByteArray(0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray(0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 3, 0, 4, 0, 7, 0, 5, 0, 4, 0, 6, 0, 7, 0, 8, 0, 11, 0, 9, 0, 8, 0, 10, 0, 11, 0),
+"material": SubResource("ShaderMaterial_e26yo"),
+"name": "pasto",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray(76, 60, 0, 0, 254, 255, 74, 169, 178, 195, 0, 0, 0, 0, 74, 169, 76, 60, 255, 255, 254, 255, 74, 169, 178, 195, 255, 255, 0, 0, 74, 169, 0, 0, 0, 0, 255, 127, 0, 128, 255, 255, 0, 0, 255, 127, 0, 128, 0, 0, 254, 255, 255, 127, 0, 128, 255, 255, 254, 255, 255, 127, 0, 128, 50, 202, 0, 0, 228, 250, 49, 217, 204, 53, 0, 0, 26, 5, 49, 217, 50, 202, 254, 255, 228, 250, 49, 217, 204, 53, 254, 255, 26, 5, 49, 217, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0, 255, 127, 0, 0)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_v7s2j")
+
+[node name="Foligae" instance=ExtResource("1_4eit7")]
+
+[node name="foiliage" parent="." index="0"]
+transform = Transform3D(-0.741379, 0, 0.671087, 0, 1, 0, -0.671087, 0, -0.741379, 0, 0, 0)
+mesh = SubResource("ArrayMesh_4lc45")

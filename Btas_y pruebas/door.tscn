@@ -11,6 +11,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wh0f"]
 albedo_texture = ExtResource("2_nsb0y")
+texture_filter = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjumr"]
 
@@ -55,6 +56,7 @@ shadow_mesh = SubResource("ArrayMesh_viwup")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egqer"]
 albedo_texture = ExtResource("3_khcyo")
+texture_filter = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uf2sp"]
 render_priority = 0

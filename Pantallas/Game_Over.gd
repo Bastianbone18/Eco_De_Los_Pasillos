@@ -1,5 +1,12 @@
 extends Control
 
+# Lista de mensajes posibles
+var messages = [
+	"Tu historia termina aquí, valiente.",
+	"La oscuridad te ha consumido.",
+	"No todos los finales son felices."
+]
+
 @onready var exit_button = $VBoxContainer2/ExitButton
 @onready var menu_button = $VBoxContainer2/MenuButton
 @onready var message_label = $VBoxContainer/LabelMessage  # Asegúrate de que el label del mensaje exista
@@ -21,9 +28,11 @@ func _ready():
 	if menu_button:
 		menu_button.pressed.connect(_on_menu_pressed)
 
-	# Mostrar el mensaje de Game Over y los datos del jugador
+	# Seleccionar un mensaje aleatorio de la lista
 	if message_label:
-		message_label.text = "Tu historia termina aquí " + GameData.player_name
+		var random_message = messages[randi() % messages.size()]  # Selección aleatoria
+		message_label.text = random_message + " " + GameData.player_name
+
 	if score_label:
 		score_label.text = "Tiempo sobreviviendo: " + str(GameData.survival_time) + " segundos"
 
@@ -41,4 +50,3 @@ func _on_menu_pressed():
 func _play_click_sound():
 	if click_audio:
 		click_audio.play()
-		

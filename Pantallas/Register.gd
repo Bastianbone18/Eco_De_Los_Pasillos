@@ -29,7 +29,7 @@ func _on_confirm_pressed():
 	GameData.survival_time = 0.0  # Reinicia el tiempo sobrevivido al iniciar el juego
 
 	print("Nombre ingresado: %s" % player_name)
-	get_tree().change_scene_to_file("res://Btas_y pruebas/Mundo_prueba.tscn")
+	get_tree().change_scene_to_file("res://Btas_y pruebas/Mapa_beta.tscn")
 	
 	  # Cambia a la escena principal
 func _play_click_sound():

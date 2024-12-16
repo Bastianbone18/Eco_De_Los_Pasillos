@@ -18,6 +18,7 @@ script = ExtResource("1_tgstb")
 mesh = SubResource("CapsuleMesh_liagf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
 shape = SubResource("ConvexPolygonShape3D_46vrg")
 
 [node name="Head" type="Node3D" parent="."]
@@ -28,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67386, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
 light_color = Color(0.753764, 0.642595, 0.614877, 1)
-light_energy = 8.0
+light_energy = 4.0
 light_volumetric_fog_energy = 0.1
 spot_range = 70.0
 spot_angle_attenuation = 3.0
