@@ -28,7 +28,7 @@ func _ready():
 func _physics_process(delta):
 	tiempo_para_boost -= delta  # Reducir tiempo restante para el próximo boost
 
-	if tiempo_para_boost <= 0.0:
+	if chasing_player and tiempo_para_boost <= 0.0:
 		_activate_boost()
 		tiempo_para_boost = boost_interval  # Reiniciar el temporizador para el próximo boost
 
@@ -49,6 +49,10 @@ func _check_player_detection():
 		var distance_to_player = global_transform.origin.distance_to(player.global_transform.origin)
 		chasing_player = distance_to_player <= detection_range
 
+		# Si el enemigo no está persiguiendo, detener cualquier sonido de boost
+		if not chasing_player and boost_sound and boost_sound.playing:
+			boost_sound.stop()
+		
 		# Depuración
 		print("Distancia al jugador: %.2f, Persiguiendo: %s" % [distance_to_player, chasing_player])
 
@@ -62,14 +66,14 @@ func _activate_boost():
 	print("Boost activado.")
 	is_boosted = true
 
-	# Reproducir sonido del boost
-	if boost_sound:
+	# Reproducir sonido del boost si el enemigo está persiguiendo al jugador
+	if boost_sound and chasing_player:
 		if boost_sound.playing:
 			boost_sound.stop()  # Detener sonido previo
 		boost_sound.play()
 		print("Reproduciendo sonido de boost.")
 	else:
-		print("Advertencia: nodo 'BoostSound' no encontrado o no tiene audio configurado.")
+		print("Advertencia: Nodo 'BoostSound' no encontrado o no se está persiguiendo al jugador.")
 
 	# Desactivar el boost después de un tiempo
 	_deactivate_boost_after_time()
@@ -78,4 +82,8 @@ func _deactivate_boost_after_time():
 	# Usar un temporizador para desactivar el boost
 	await get_tree().create_timer(boost_duration).timeout
 	is_boosted = false
+
+	# Detener el sonido del boost al finalizar
+	if boost_sound and boost_sound.playing:
+		boost_sound.stop()
 	print("Boost desactivado.")

@@ -14,15 +14,17 @@ var messages = [
 @onready var click_audio = $AudioStreamPlayerClick  # Nodo para el sonido de clic
 @onready var game_over_audio = $AudioStreamPlayerGameOver  # Nodo para el sonido de Game Over
 
+var rng = RandomNumberGenerator.new()  # Inicializamos el generador de números aleatorios.
+
 func _ready():
 	# Liberar el ratón para que sea visible en la pantalla de Game Over
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	# Reproducir el audio de Game Over en loop
-	if game_over_audio:
+	# Reproducir el audio de Game Over si no está reproduciéndose
+	if game_over_audio and not game_over_audio.playing:
 		game_over_audio.play()
 
-	# Conectar las señales de los botones
+	# Conectar las señales de los botones (si no están ya conectadas)
 	if exit_button:
 		exit_button.pressed.connect(_on_exit_pressed)
 	if menu_button:
@@ -30,7 +32,7 @@ func _ready():
 
 	# Seleccionar un mensaje aleatorio de la lista
 	if message_label:
-		var random_message = messages[randi() % messages.size()]  # Selección aleatoria
+		var random_message = messages[rng.randi_range(0, messages.size() - 1)]  # Selección aleatoria usando RandomNumberGenerator
 		message_label.text = random_message + " " + GameData.player_name
 
 	if score_label:
@@ -48,5 +50,5 @@ func _on_menu_pressed():
 
 # Función para reproducir el sonido de clic
 func _play_click_sound():
-	if click_audio:
+	if click_audio and not click_audio.playing:
 		click_audio.play()

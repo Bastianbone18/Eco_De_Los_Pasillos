@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cp2db2y32due4"]
+[gd_scene load_steps=19 format=3 uid="uid://cp2db2y32due4"]
 
 [ext_resource type="Script" path="res://Btas_y pruebas/tiempo_mundo.gd" id="1_qgu5h"]
 [ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="2_3nq3n"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://balx7s011p7bg" path="res://Enemy.tscn" id="6_kmx4i"]
 [ext_resource type="AudioStream" uid="uid://cmorg634ye26m" path="res://Musica y sonidos/The-Never-ending-Night.ogg" id="7_0pu7j"]
 [ext_resource type="AudioStream" uid="uid://msht2dv2bnnr" path="res://Musica y sonidos/Atmosfera.ogg" id="8_otmjd"]
+[ext_resource type="PackedScene" uid="uid://dyg3d4uut4bic" path="res://Btas_y pruebas/controlador_sonidos.tscn" id="10_0q54t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iy11a"]
 albedo_texture = ExtResource("4_ebehy")
@@ -81,7 +82,7 @@ visible = false
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_qcyk7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.304, 1.323, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.336, 0.280558, 0)
 
 [node name="Mapa" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_iy11a")
@@ -129,3 +130,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6046, 0, -17.9527)
 environment = SubResource("Environment_hypuq")
 
 [node name="Pausa" parent="." instance=ExtResource("2_3nq3n")]
+
+[node name="ControladorSonidos" parent="." instance=ExtResource("10_0q54t")]

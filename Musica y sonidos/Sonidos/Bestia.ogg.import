@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cu467x33xh3r6"
+path="res://.godot/imported/Bestia.ogg-b925eab999c54134d8891e04cde0a4e7.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Bestia.ogg"
+dest_files=["res://.godot/imported/Bestia.ogg-b925eab999c54134d8891e04cde0a4e7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

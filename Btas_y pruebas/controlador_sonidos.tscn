@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyg3d4uut4bic"]
+
+[ext_resource type="Script" path="res://Audios_terror.gd" id="1_f6mer"]
+
+[node name="ControladorSonidos" type="Node3D"]
+script = ExtResource("1_f6mer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Atmosfera"
