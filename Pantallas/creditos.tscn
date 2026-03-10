@@ -1,10 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6jt7mt63yw4y"]
+[gd_scene load_steps=8 format=3 uid="uid://c6jt7mt63yw4y"]
 
 [ext_resource type="Script" path="res://Pantallas/creditos.gd" id="1_flsdi"]
 [ext_resource type="Texture2D" uid="uid://b5lmr34ew1cm0" path="res://Imagenes_pantallas/Editable.png" id="1_k6wxx"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="2_8na40"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_lkajn"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="4_43fot"]
 [ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="5_7oahe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6iga"]
+shader = ExtResource("2_8na40")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
 
 [node name="Creditos" type="Control"]
 process_mode = 3
@@ -15,6 +26,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_flsdi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_p6iga")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -45,8 +68,10 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -51.0
-offset_bottom = 51.0
+offset_left = -4.0
+offset_top = -54.0
+offset_right = -4.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_lkajn")
@@ -70,8 +95,8 @@ offset_left = -38.0
 offset_top = -17.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.752941)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.752941)
 theme_override_fonts/font = ExtResource("3_lkajn")
 theme_override_font_sizes/font_size = 15
 text = "Volver"
@@ -94,22 +119,22 @@ horizontal_alignment = 1
 
 [node name="Tiktok" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Tiktok"
 
 [node name="IG" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Instagram"
 
 [node name="Art" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.768627)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.768627)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Artstation"
 

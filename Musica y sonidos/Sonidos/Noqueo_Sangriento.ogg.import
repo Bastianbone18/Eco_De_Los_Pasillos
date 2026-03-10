@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://465t3ehygikp"
+path="res://.godot/imported/Noqueo_Sangriento.ogg-5758bf83ffc152d666990ac20e9c6418.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Noqueo_Sangriento.ogg"
+dest_files=["res://.godot/imported/Noqueo_Sangriento.ogg-5758bf83ffc152d666990ac20e9c6418.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

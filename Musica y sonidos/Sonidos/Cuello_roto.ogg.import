@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dhpuct8o2jm03"
+path="res://.godot/imported/Cuello_roto.ogg-2b85663a8b9a216a1f5a9e18f777c8f2.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Cuello_roto.ogg"
+dest_files=["res://.godot/imported/Cuello_roto.ogg-2b85663a8b9a216a1f5a9e18f777c8f2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

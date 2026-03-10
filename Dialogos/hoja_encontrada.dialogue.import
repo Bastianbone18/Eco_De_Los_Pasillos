@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://okun244qf6qn"
+path="res://.godot/imported/hoja_encontrada.dialogue-b14c171f699121cdf82ad3dca69a5432.tres"
+
+[deps]
+
+source_file="res://Dialogos/hoja_encontrada.dialogue"
+dest_files=["res://.godot/imported/hoja_encontrada.dialogue-b14c171f699121cdf82ad3dca69a5432.tres"]
+
+[params]
+
+defaults=true

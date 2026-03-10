@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxs1e2mmn6m5l"]
+
+[ext_resource type="Script" path="res://Pantallas/SobreviveMision.gd" id="1_v6l0n"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="1_yjf8k"]
+
+[node name="SobreviveMisionHUD" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_v6l0n")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopCenter" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -114.0
+offset_right = 160.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="Root/TopCenter"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_yjf8k")
+theme_override_font_sizes/font_size = 22
+text = "01:25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomLeft" type="HBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = 90.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="ObjectiveLabel" type="Label" parent="Root/BottomLeft"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_yjf8k")
+theme_override_font_sizes/font_size = 17
+text = "SOBREVIVE"

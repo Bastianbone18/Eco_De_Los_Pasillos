@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://kkbbj8g17rgs"
+path="res://.godot/imported/Cold.ogg-b1a5e191926d3eb59704e8ca36f08512.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Cold.ogg"
+dest_files=["res://.godot/imported/Cold.ogg-b1a5e191926d3eb59704e8ca36f08512.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

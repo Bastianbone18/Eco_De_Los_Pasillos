@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c30y8br2ttbvt"
+path.s3tc="res://.godot/imported/Muñeco_viejo_Muñeco_viejo_Muñeco_de_trapo_BaseColor.png-11f12f582f7fabc8d673743db3338222.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "e5383abd6137ec1ebe0bc0f697d78bb2"
+}
+
+[deps]
+
+source_file="res://Modelos_Blender/Muñeco_Viejo/Muñeco_viejo_Muñeco_viejo_Muñeco_de_trapo_BaseColor.png"
+dest_files=["res://.godot/imported/Muñeco_viejo_Muñeco_viejo_Muñeco_de_trapo_BaseColor.png-11f12f582f7fabc8d673743db3338222.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

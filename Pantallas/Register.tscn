@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvwwgel1boywc"]
+[gd_scene load_steps=8 format=3 uid="uid://dvwwgel1boywc"]
 
 [ext_resource type="Script" path="res://Pantallas/Register.gd" id="1_tdykx"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_3unfx"]
+[ext_resource type="Texture2D" uid="uid://c86cuugrthtt5" path="res://Imagenes_pantallas/Login.png" id="2_y8r3t"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_smuqr"]
-[ext_resource type="AudioStream" uid="uid://2u8g87ckunfh" path="res://Musica y sonidos/Game_over.ogg" id="4_q3ek5"]
+[ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="5_4nwn7"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_bgawp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6ygd"]
+shader = ExtResource("6_bgawp")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -14,6 +26,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tdykx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_y8r3t")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -28,9 +50,10 @@ offset_right = 83.0
 offset_bottom = 18.32
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_3unfx")
 theme_override_font_sizes/font_size = 16
-text = "Igresa Nomre de la victima"
+text = "Ingresa Nomre de la victima"
 horizontal_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="."]
@@ -71,8 +94,20 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_3unfx")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_q3ek5")
+stream = ExtResource("5_4nwn7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_y6ygd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

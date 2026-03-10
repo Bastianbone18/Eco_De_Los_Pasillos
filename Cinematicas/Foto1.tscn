@@ -1,0 +1,220 @@
+[gd_scene load_steps=13 format=4 uid="uid://ciatqvh24u7ct"]
+
+[ext_resource type="Texture2D" uid="uid://c2k0mjwnbtg5l" path="res://Modelos_Blender/NOTAS_prueba.jpg" id="2_dlw68"]
+[ext_resource type="Texture2D" uid="uid://hap3xc7n1xjv" path="res://Modelos_Blender/NOTAS_Capitulo_1_fotinvert.jpg" id="3_vp4qq"]
+
+[sub_resource type="GDScript" id="GDScript_tgpf3"]
+script/source = "extends StaticBody3D
+
+var isVist = false
+var canInteract = true
+
+# Llamado cuando el nodo entra por primera vez al árbol de escena.
+func _ready():
+	$AnimationPlayer.animation_finished.connect(self._on_animation_player_animation_finished)
+
+# Acción de uso, por ejemplo, cuando se presiona la tecla \"E\".
+func action_use():
+	if canInteract:
+		if not isVist:
+			visi_ble()
+		else:
+			baja_da()
+
+# Función para reproducir la animación \"Revisar\".
+func visi_ble():
+	canInteract = false
+	$AnimationPlayer.play(\"Revisar\")
+	isVist = true
+
+# Función para reproducir la animación \"Bajar\".
+func baja_da():
+	canInteract = false
+	$AnimationPlayer.play(\"Bajar\")
+	isVist = false
+
+# Callback cuando termina una animación.
+func _on_animation_player_animation_finished(anim_name: String) -> void:
+	canInteract = true
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vdrn"]
+resource_name = "Foto_adelante"
+cull_mode = 2
+albedo_texture = ExtResource("2_dlw68")
+metallic_specular = 0.0
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oomtb"]
+resource_name = "texto_atras"
+cull_mode = 2
+albedo_texture = ExtResource("3_vp4qq")
+metallic_specular = 0.0
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fcbqy"]
+_surfaces = [{
+"aabb": AABB(-0.1802, -0.120048, -3.2457e-08, 0.360411, 0.240096, 1.00649e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AAADAAEAAAACAAMA"),
+"name": "Foto_adelante",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/f8AAKYBAAAAAAAARAAAAP3///9iAQAAAAD//wAAAAA=")
+}, {
+"aabb": AABB(-0.1802, -0.120048, -3.2457e-08, 0.360411, 0.240096, 0.00500853),
+"format": 34359742465,
+"index_count": 30,
+"index_data": PackedByteArray("BQAHAAQABQAGAAcAAgAFAAQAAgAAAAUAAwAEAAcAAwACAAQAAAAGAAUAAAABAAYAAQAHAAYAAQADAAcA"),
+"name": "texto_atras",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("dYY4Pqvb9b3QZgszdYY4vqvb9b0Np7yydYY4Pqvb9T0Np7wydYY4vqvb9T3QZguzdYY4Pqvb9T04HqQ7dYY4Pqvb9b1PHqQ7dYY4vqvb9b3aHaQ7dYY4vqvb9T3DHaQ7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dqjmf"]
+resource_name = "NOTAS_Plane"
+_surfaces = [{
+"aabb": AABB(-0.1802, -0.120048, -3.2457e-08, 0.360411, 0.240096, 1.00649e-05),
+"attribute_data": PackedByteArray("AAD///////8AAAAA//8AAA=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAADAAEAAAACAAMA"),
+"material": SubResource("StandardMaterial3D_6vdrn"),
+"name": "Foto_adelante",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("/f8AAKYB//8AAAAARAD///3///9iAf//AAD//wAA////f////3////9/////f///")
+}, {
+"aabb": AABB(-0.1802, -0.120048, -3.2457e-08, 0.360411, 0.240096, 0.00500853),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAIA/AAAAAP//fz8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA///9/PwAAADQAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8Urg+zAAAAAAAAgD8AAAAAFK6Ps/7/fz8AAIA/AAAAAA=="),
+"format": 34359742487,
+"index_count": 30,
+"index_data": PackedByteArray("DAASAAgADAAQABIABQANAAoABQABAA0ABwAJABMABwAEAAkAAAAPAAsAAAADAA8AAgARAA4AAgAGABEA"),
+"material": SubResource("StandardMaterial3D_oomtb"),
+"name": "texto_atras",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("dYY4Pqvb9b3QZgszdYY4Pqvb9b3QZgszdYY4vqvb9b0Np7yydYY4vqvb9b0Np7yydYY4Pqvb9T0Np7wydYY4Pqvb9T0Np7wydYY4vqvb9T3QZguzdYY4vqvb9T3QZguzdYY4Pqvb9T04HqQ7dYY4Pqvb9T04HqQ7dYY4Pqvb9T04HqQ7dYY4Pqvb9b1PHqQ7dYY4Pqvb9b1PHqQ7dYY4Pqvb9b1PHqQ7dYY4vqvb9b3aHaQ7dYY4vqvb9b3aHaQ7dYY4vqvb9b3aHaQ7dYY4vqvb9T3DHaQ7dYY4vqvb9T3DHaQ7dYY4vqvb9T3DHaQ7/38AAP///7////9/////vwAA/3////+//38AAP///7//f///////v////3////+/AAD/f////7//f///////v/9//3/+//8//3///////7////9/////v/9/AAD///+//3//f////z////9/////vwAA/3////+//38AAP///7//f/9//v//PwAA/3////+//3//f////z//f///////vw==")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_fcbqy")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kuchw"]
+points = PackedVector3Array(0.1802, 0.120048, 0.00500801, 0.1802, -0.120048, 0.00500801, 0.1802, 0.120048, -3.2457e-08, -0.1802, 0.120048, 0.00500801, 0.1802, -0.120048, -3.2457e-08, -0.1802, -0.120048, 0.00500801, -0.1802, 0.120048, -3.2457e-08, -0.1802, -0.120048, -3.2457e-08)
+
+[sub_resource type="Animation" id="Animation_6hmif"]
+resource_name = "Bajar"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.00104532, 0.515086, 0.357653), Vector3(0.001, 0.006, 0.358)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.14159, 0), Vector3(1.5708, -3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jyrko"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, -3.14159, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00104532, 0.00553525, 0.000522643)]
+}
+
+[sub_resource type="Animation" id="Animation_vsjc5"]
+resource_name = "Revisar"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7, 1.1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, -3.14159, 0), Vector3(0.436332, -3.14159, 0), Vector3(0, -3.31613, 0), Vector3(0, 0.174533, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.00104532, 0.00553525, 0.000522643), Vector3(0.001, 1.34083, 0.409505)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u6yw5"]
+_data = {
+"Bajar": SubResource("Animation_6hmif"),
+"RESET": SubResource("Animation_jyrko"),
+"Revisar": SubResource("Animation_vsjc5")
+}
+
+[node name="NOTAS" type="StaticBody3D"]
+transform = Transform3D(-1, -2.53518e-06, 9.17733e-12, 0, -3.61999e-06, -1, 2.53518e-06, -1, 3.61999e-06, 0.00104532, 0.00553525, 0.000522643)
+script = SubResource("GDScript_tgpf3")
+
+[node name="Foto_original" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_dqjmf")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_kuchw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u6yw5")
+}
+
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

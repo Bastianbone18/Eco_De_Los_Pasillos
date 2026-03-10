@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b7id7klvx03mx"
+path="res://.godot/imported/Intro_Mundo2.dialogue-2796ebcf21a4e96ac966cf492c724eaf.tres"
+
+[deps]
+
+source_file="res://Dialogos/Intro_Mundo2.dialogue"
+dest_files=["res://.godot/imported/Intro_Mundo2.dialogue-2796ebcf21a4e96ac966cf492c724eaf.tres"]
+
+[params]
+
+defaults=true

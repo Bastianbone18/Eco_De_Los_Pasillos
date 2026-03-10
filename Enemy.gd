@@ -1,38 +1,37 @@
 extends CharacterBody3D
 
 # Variables configurables
-@export var detection_range: float = 12.0  # Rango de detección del jugador
-@export var speed: float = 3.0  # Velocidad normal del enemigo
-@export var boosted_speed: float = 6.5  # Velocidad aumentada durante el boost
-@export var boost_duration: float = 1.5  # Duración del boost
-@export var boost_interval: float = 10.0  # Intervalo de tiempo para activar el boost automáticamente
+@export var detection_range: float = 12.0
+@export var speed: float = 3.0
+@export var boosted_speed: float = 6.5
+@export var boost_duration: float = 1.5
+@export var boost_interval: float = 10.0
 
 # Referencias de nodos
-@onready var player: CharacterBody3D = null  # Referencia al jugador
-@onready var boost_sound: AudioStreamPlayer3D = $BoostSound  # Nodo de sonido del boost
+@onready var player: CharacterBody3D = null
+@onready var boost_sound: AudioStreamPlayer3D = $BoostSound
 
 # Variables internas
 var chasing_player: bool = false
 var is_boosted: bool = false
-var tiempo_para_boost = boost_interval  # Tiempo restante para el próximo boost
-
-# Cargar la escena de Game Over
-var game_over_scene = preload("res://Pantallas/Game_Over.tscn")
+var tiempo_para_boost: float = boost_interval
+var has_touched_player: bool = false
 
 func _ready():
-	# Buscar al jugador en la escena
 	player = get_tree().current_scene.get_node("Player") as CharacterBody3D
 	if player == null:
 		print("Error: No se encontró el nodo 'Player' en la escena.")
 
 func _physics_process(delta):
-	tiempo_para_boost -= delta  # Reducir tiempo restante para el próximo boost
+	if has_touched_player:
+		return  # Si ya tocó al jugador, no hacer nada más
+
+	tiempo_para_boost -= delta
 
 	if chasing_player and tiempo_para_boost <= 0.0:
 		_activate_boost()
-		tiempo_para_boost = boost_interval  # Reiniciar el temporizador para el próximo boost
+		tiempo_para_boost = boost_interval
 
-	# Detectar al jugador y perseguirlo
 	_check_player_detection()
 
 	if chasing_player and player:
@@ -40,50 +39,59 @@ func _physics_process(delta):
 		velocity = direction * (boosted_speed if is_boosted else speed)
 		move_and_slide()
 
-		# Si el enemigo alcanza al jugador
 		if global_transform.origin.distance_to(player.global_transform.origin) <= 1.0:
 			_on_player_touched()
 
 func _check_player_detection():
 	if player:
-		var distance_to_player = global_transform.origin.distance_to(player.global_transform.origin)
-		chasing_player = distance_to_player <= detection_range
+		var distance = global_transform.origin.distance_to(player.global_transform.origin)
+		chasing_player = distance <= detection_range
 
-		# Si el enemigo no está persiguiendo, detener cualquier sonido de boost
 		if not chasing_player and boost_sound and boost_sound.playing:
 			boost_sound.stop()
-		
-		# Depuración
-		print("Distancia al jugador: %.2f, Persiguiendo: %s" % [distance_to_player, chasing_player])
+
+		print("Distancia al jugador: %.2f, Persiguiendo: %s" % [distance, chasing_player])
 
 func _on_player_touched():
-	print("El enemigo ha tocado al jugador. Cambiando a pantalla de Game Over...")
-	
-	# Cambiar a la escena de Game Over usando el método correcto
-	get_tree().change_scene_to_file("res://Pantallas/Game_Over.tscn")
+	if has_touched_player:
+		return
+
+	has_touched_player = true  # Detener al enemigo en el siguiente frame
+	velocity = Vector3.ZERO  # Frenar movimiento inmediato
+	print("El enemigo ha tocado al jugador. Mostrando jumpscare...")
+
+	if GameData.has_method("stop_survival_timer"):
+		GameData.stop_survival_timer()
+	else:
+		print("Advertencia: GameData no tiene el método 'stop_survival_timer'.")
+
+	var jumpscare_scene_resource = preload("res://Cinematicas/jumpscare.tscn")
+	var jumpscare_scene = jumpscare_scene_resource.instantiate()
+	get_tree().current_scene.add_child(jumpscare_scene)
+
+	if jumpscare_scene.has_method("play_jumpscare"):
+		jumpscare_scene.play_jumpscare()
+	else:
+		print("Advertencia: La escena de jumpscare no tiene el método 'play_jumpscare'.")
 
 func _activate_boost():
 	print("Boost activado.")
 	is_boosted = true
 
-	# Reproducir sonido del boost si el enemigo está persiguiendo al jugador
 	if boost_sound and chasing_player:
 		if boost_sound.playing:
-			boost_sound.stop()  # Detener sonido previo
+			boost_sound.stop()
 		boost_sound.play()
-		print("Reproduciendo sonido de boost.")
 	else:
 		print("Advertencia: Nodo 'BoostSound' no encontrado o no se está persiguiendo al jugador.")
 
-	# Desactivar el boost después de un tiempo
 	_deactivate_boost_after_time()
 
 func _deactivate_boost_after_time():
-	# Usar un temporizador para desactivar el boost
 	await get_tree().create_timer(boost_duration).timeout
 	is_boosted = false
 
-	# Detener el sonido del boost al finalizar
 	if boost_sound and boost_sound.playing:
 		boost_sound.stop()
+
 	print("Boost desactivado.")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b1qdb8rpyopdb"
+path="res://.godot/imported/susurro.ogg-a80be397ca5aad238d93820c8e46680c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/susurro.ogg"
+dest_files=["res://.godot/imported/susurro.ogg-a80be397ca5aad238d93820c8e46680c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

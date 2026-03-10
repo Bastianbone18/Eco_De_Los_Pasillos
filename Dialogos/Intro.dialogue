@@ -1,0 +1,29 @@
+title: Intro_Start
+~ start
+=> intro_luna
+
+title: Intro_Luna
+~ intro_luna
+"[font_size=16][b]Una noche silenciosa...[/b][/font_size]"
+"[font_size=14][i]Viajaba de regreso a casa; mis padres me llamaron por una emergencia.[/i][/font_size]"
+"[font_size=14][wave amp=4 freq=9][color=#C0C0C0]El camino estaba vacío... sólo la luna acompañaba el horizonte.[/color][/wave]"
+"[font_size=14][shake rate=18 level=3][i](Pero algo no se sentía bien.)[/i][/shake]"
+=> intro_auto
+
+title: Intro_Auto
+~ intro_auto
+"[font_size=16][b]El motor comenzó a toser...[/b][/font_size]"
+"[font_size=14][i]Pensé que solo era sobrecalentamiento.[/i][/font_size]"
+"[font_size=14][wave amp=5 freq=10][color=#AFAFAF]El rugido se apagó... y el auto murió en seco.[/color][/wave]"
+"[font_size=14][color=#7A7A7A]Sin señal en el teléfono. Ni una luz a lo lejos.[/color][/font_size]"
+"[font_size=14][shake rate=22 level=3][i]Solo quedaba el viento... y mis pensamientos.[/i][/shake]"
+=> intro_llegada
+
+title: Intro_Llegada
+~ intro_llegada
+"[font_size=16][b]Entonces la vi...[/b][/font_size]"
+"[font_size=14][wave amp=4 freq=8][color=#9B9B9B]Un cartel viejo cubierto por la neblina.[/color][/wave]"
+"[font_size=14][b][color=#B0B0B0]“Sanctum Mortis.”[/color][/b][/font_size]"
+"[font_size=14][i]Nunca había oído hablar de ese lugar.[/i][/font_size]"
+"[font_size=14][shake rate=20 level=4][color=#808080](Esa noche cometí el error de acercarme.)[/color][/shake]"
+=> END

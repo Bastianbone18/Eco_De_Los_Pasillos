@@ -1,0 +1,245 @@
+[gd_scene load_steps=16 format=3 uid="uid://di3ebxeubopff"]
+
+[ext_resource type="Script" path="res://Cinematicas/mundo_3_intro.gd" id="1_m4cj1"]
+[ext_resource type="Texture2D" uid="uid://bt1vpuanwuvjr" path="res://Imagenes_pantallas/Foto_iglesia.png" id="2_sgxck"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_tbfj7"]
+[ext_resource type="Texture2D" uid="uid://ckq2b2lo0hiaq" path="res://Imagenes_pantallas/Foto_simbolo.png" id="3_2d5oh"]
+[ext_resource type="Texture2D" uid="uid://wv125uutuy5q" path="res://Imagenes_pantallas/Foto-de_familia.png" id="4_308yq"]
+[ext_resource type="Texture2D" uid="uid://cdw73yu4sp2n1" path="res://Imagenes_pantallas/Anillo_de_rebeca.png" id="5_xs181"]
+[ext_resource type="Texture2D" uid="uid://bygoo7bhxeuc0" path="res://Imagenes_pantallas/iGLESIAiNT.png" id="6_7ku0g"]
+[ext_resource type="Texture2D" uid="uid://dkh1ob7bhwnfu" path="res://Imagenes_pantallas/Padre.png" id="7_36n2c"]
+[ext_resource type="Texture2D" uid="uid://nvscdxpr3nxh" path="res://Imagenes_pantallas/dIBUJO.png" id="8_60w38"]
+[ext_resource type="Texture2D" uid="uid://c5gl5486sppk3" path="res://Imagenes_pantallas/Entidad.png" id="9_rtd1o"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="11_b6rxm"]
+
+[sub_resource type="Animation" id="Animation_03j2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fondo:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextoDespierta:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.721569, 0.721569, 0.721569, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tfgkl"]
+resource_name = "intro"
+length = 6.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fondo:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3.5, 5.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.160784, 0.0196078, 0.0196078, 1), Color(0.819608, 0.780392, 0.721569, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 4, 4.1, 4.24, 4.28, 4.38, 4.42, 4.53333, 4.56, 4.66, 4.7, 4.8, 4.84, 4.93333, 4.96667, 5.06667, 5.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [true],
+"method": &"set_shaking"
+}, {
+"args": [0],
+"method": &"show_lore_image"
+}, {
+"args": [1],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [2],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [3],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [4],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [5],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [6],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [8],
+"method": &"show_lore_image"
+}, {
+"args": [],
+"method": &"hide_lore_image"
+}, {
+"args": [],
+"method": &"finish_intro"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2, 2.8, 3.3, 3.7, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [1.5],
+"method": &"set_shake_strength"
+}, {
+"args": [4.0],
+"method": &"set_shake_strength"
+}, {
+"args": [8.0],
+"method": &"set_shake_strength"
+}, {
+"args": [14.0],
+"method": &"set_shake_strength"
+}, {
+"args": [18.0],
+"method": &"set_shake_strength"
+}, {
+"args": [false],
+"method": &"set_shaking"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextoDespierta:theme_override_colors/font_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 2, 3.5, 5.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.721569, 0.721569, 0.721569, 0), Color(0.721569, 0.721569, 0.721569, 1), Color(0.858824, 0.858824, 0.858824, 1), Color(0.0313726, 0.0313726, 0.0313726, 1), Color(0.0313726, 0.0313726, 0.0313726, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_paa8q"]
+_data = {
+"RESET": SubResource("Animation_03j2f"),
+"intro": SubResource("Animation_tfgkl")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d71sr"]
+shader = ExtResource("11_b6rxm")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m4cj1")
+lore_images = Array[Texture2D]([ExtResource("2_sgxck"), ExtResource("3_2d5oh"), ExtResource("4_308yq"), ExtResource("5_xs181"), ExtResource("6_7ku0g"), ExtResource("7_36n2c"), ExtResource("8_60w38"), ExtResource("9_rtd1o")])
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ImagenLore" type="TextureRect" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="TextoDespierta" type="Label" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -14.0
+offset_right = 52.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.721569, 0.721569, 0.721569, 0)
+theme_override_fonts/font = ExtResource("2_tbfj7")
+theme_override_font_sizes/font_size = 30
+text = "DESPIERTA
+"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_paa8q")
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_d71sr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

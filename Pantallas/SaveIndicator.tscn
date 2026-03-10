@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://hxhu1eltsm4n"]
+
+[ext_resource type="Script" path="res://Pantallas/SaveIndicator.gd" id="1_p04gd"]
+[ext_resource type="Texture2D" uid="uid://ssdwvh0bfvie" path="res://Imagenes_pantallas/Espiral.png" id="1_p6k7p"]
+[ext_resource type="AudioStream" uid="uid://dmjiosd0nge5s" path="res://Musica y sonidos/Sonidos/Guardar.ogg" id="3_d2osj"]
+
+[node name="SaveIndicator" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_p04gd")
+
+[node name="Sigil" type="TextureRect" parent="."]
+texture_filter = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(32, 32)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_p6k7p")
+stretch_mode = 3
+
+[node name="SaveSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_d2osj")
+volume_db = -6.0
+bus = &"Atmosfera"

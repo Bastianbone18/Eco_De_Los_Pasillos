@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cay8thh3pqk6a"
+path="res://.godot/imported/Audio_Estatua.ogg-53b05f116ba7998716daeab74c95c7ea.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Audio_Estatua.ogg"
+dest_files=["res://.godot/imported/Audio_Estatua.ogg-53b05f116ba7998716daeab74c95c7ea.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

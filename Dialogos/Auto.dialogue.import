@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://dgn006d26xmuu"
+path="res://.godot/imported/Auto.dialogue-b74d413cd0cd59b0b99968e9c365597b.tres"
+
+[deps]
+
+source_file="res://Dialogos/Auto.dialogue"
+dest_files=["res://.godot/imported/Auto.dialogue-b74d413cd0cd59b0b99968e9c365597b.tres"]
+
+[params]
+
+defaults=true

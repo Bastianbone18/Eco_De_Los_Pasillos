@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cr75hjw7h3wfb"
+path="res://.godot/imported/Roca_accidente.dialogue-e9ada300dd16229300739a05be3d2815.tres"
+
+[deps]
+
+source_file="res://Dialogos/Roca_accidente.dialogue"
+dest_files=["res://.godot/imported/Roca_accidente.dialogue-e9ada300dd16229300739a05be3d2815.tres"]
+
+[params]
+
+defaults=true

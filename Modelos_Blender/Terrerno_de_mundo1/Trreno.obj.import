@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://qu0etdba1fwa"
+path="res://.godot/imported/Trreno.obj-b064a5524a94f290a8b3142b7b5902cc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Trreno.obj-b064a5524a94f290a8b3142b7b5902cc.mesh"]
+
+source_file="res://Modelos_Blender/Terrerno_de_mundo1/Trreno.obj"
+dest_files=["res://.godot/imported/Trreno.obj-b064a5524a94f290a8b3142b7b5902cc.mesh", "res://.godot/imported/Trreno.obj-b064a5524a94f290a8b3142b7b5902cc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

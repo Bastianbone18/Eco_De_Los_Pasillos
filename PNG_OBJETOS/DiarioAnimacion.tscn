@@ -1,0 +1,305 @@
+[gd_scene load_steps=73 format=3 uid="uid://bmuam30yd5n05"]
+
+[ext_resource type="Texture2D" uid="uid://bmfn8ajxbk7fy" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0001.png" id="1_lutme"]
+[ext_resource type="Texture2D" uid="uid://icq5pejy47vp" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0002.png" id="2_mflgi"]
+[ext_resource type="Texture2D" uid="uid://ca4xlliw3mrt2" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0003.png" id="3_x06tb"]
+[ext_resource type="Texture2D" uid="uid://ppbj25v616uj" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0004.png" id="4_vpp27"]
+[ext_resource type="Texture2D" uid="uid://dpebo5xo50uvl" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0005.png" id="5_5dl22"]
+[ext_resource type="Texture2D" uid="uid://dg6dabmb8qpf6" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0006.png" id="6_w56wf"]
+[ext_resource type="Texture2D" uid="uid://62im8ucneb70" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0007.png" id="7_ntkse"]
+[ext_resource type="Texture2D" uid="uid://mn8q3xyq5703" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0008.png" id="8_4362a"]
+[ext_resource type="Texture2D" uid="uid://b63uxlht0ycas" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0009.png" id="9_dduof"]
+[ext_resource type="Texture2D" uid="uid://coa2im5mefkrf" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0010.png" id="10_po4u0"]
+[ext_resource type="Texture2D" uid="uid://blxqb55ey6uvi" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0011.png" id="11_6osuo"]
+[ext_resource type="Texture2D" uid="uid://bi404egym4sw6" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0012.png" id="12_y8wso"]
+[ext_resource type="Texture2D" uid="uid://bl4xjk1ud37t8" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0013.png" id="13_30m4v"]
+[ext_resource type="Texture2D" uid="uid://chekdnsvn5qt3" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0014.png" id="14_57yxg"]
+[ext_resource type="Texture2D" uid="uid://7xi21kuwbhhw" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0015.png" id="15_vthh2"]
+[ext_resource type="Texture2D" uid="uid://dtm1a0r1amcvg" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0016.png" id="16_t1b4w"]
+[ext_resource type="Texture2D" uid="uid://b2w538fsoylgj" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0017.png" id="17_b5xsi"]
+[ext_resource type="Texture2D" uid="uid://bfm8m5qc6djab" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0018.png" id="18_jw6la"]
+[ext_resource type="Texture2D" uid="uid://bkvlkknplcmgd" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0019.png" id="19_3ifvv"]
+[ext_resource type="Texture2D" uid="uid://bwxicsexmkh7o" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0020.png" id="20_4m3rf"]
+[ext_resource type="Texture2D" uid="uid://x71qalej82an" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0021.png" id="21_lmyp2"]
+[ext_resource type="Texture2D" uid="uid://dx5q4dsv6jlhy" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0022.png" id="22_80b1s"]
+[ext_resource type="Texture2D" uid="uid://bl7scgwonuo7g" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0023.png" id="23_qvq1t"]
+[ext_resource type="Texture2D" uid="uid://b4cdfjct4apai" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0024.png" id="24_aqq10"]
+[ext_resource type="Texture2D" uid="uid://momytcxjssc2" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0025.png" id="25_i4v7b"]
+[ext_resource type="Texture2D" uid="uid://ce2swpvd4qy55" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0026.png" id="26_4onrh"]
+[ext_resource type="Texture2D" uid="uid://clk6435jp10p" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0027.png" id="27_pwj22"]
+[ext_resource type="Texture2D" uid="uid://ddwou66q7ccr1" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0028.png" id="28_dgypx"]
+[ext_resource type="Texture2D" uid="uid://ba1f2pdwnqfc5" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0029.png" id="29_2dvia"]
+[ext_resource type="Texture2D" uid="uid://okiih5gpm3f3" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0030.png" id="30_d8c4m"]
+[ext_resource type="Texture2D" uid="uid://c5fpixaf0kaeq" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0031.png" id="31_rwc2x"]
+[ext_resource type="Texture2D" uid="uid://d3pxera7qqkqc" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0032.png" id="32_mauwu"]
+[ext_resource type="Texture2D" uid="uid://bk7gly0yej2jy" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0033.png" id="33_5s0e0"]
+[ext_resource type="Texture2D" uid="uid://ba1e6gvf5ec1k" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0034.png" id="34_2ljj2"]
+[ext_resource type="Texture2D" uid="uid://xfdbv2w2ltpq" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0035.png" id="35_fntxk"]
+[ext_resource type="Texture2D" uid="uid://b1wxlx5uofc6p" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0036.png" id="36_eqkti"]
+[ext_resource type="Texture2D" uid="uid://b7miiih7uklyt" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0037.png" id="37_xail1"]
+[ext_resource type="Texture2D" uid="uid://bh8i87vlhd6jr" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0038.png" id="38_ddaew"]
+[ext_resource type="Texture2D" uid="uid://dkvvuekflg2ef" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0039.png" id="39_vruvc"]
+[ext_resource type="Texture2D" uid="uid://d073fpajot10" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0040.png" id="40_kpyts"]
+[ext_resource type="Texture2D" uid="uid://b3bmmp2jpxcms" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0041.png" id="41_ffuhh"]
+[ext_resource type="Texture2D" uid="uid://bqwwc0ukwaku0" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0042.png" id="42_nsh8q"]
+[ext_resource type="Texture2D" uid="uid://cp8nfhkf45j7v" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0043.png" id="43_8f1te"]
+[ext_resource type="Texture2D" uid="uid://b5xuxn746ghrh" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0044.png" id="44_hc4qc"]
+[ext_resource type="Texture2D" uid="uid://coo6q04h5ccj" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0045.png" id="45_ridyf"]
+[ext_resource type="Texture2D" uid="uid://bmuk3wud456ol" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0046.png" id="46_12etg"]
+[ext_resource type="Texture2D" uid="uid://ctgxlwcysy7sl" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0047.png" id="47_6nv52"]
+[ext_resource type="Texture2D" uid="uid://bwvefxoo6d5cm" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0048.png" id="48_imrml"]
+[ext_resource type="Texture2D" uid="uid://dq04luph0v7kw" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0049.png" id="49_43q5e"]
+[ext_resource type="Texture2D" uid="uid://d4gq3hh502fip" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0050.png" id="50_ksbix"]
+[ext_resource type="Texture2D" uid="uid://2ebpkw5by3v8" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0051.png" id="51_6pfie"]
+[ext_resource type="Texture2D" uid="uid://brq2n5ddk1y3q" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0052.png" id="52_6tpbp"]
+[ext_resource type="Texture2D" uid="uid://bgeee02cf4qom" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0053.png" id="53_g3g78"]
+[ext_resource type="Texture2D" uid="uid://dw42stfka4q7u" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0054.png" id="54_ry343"]
+[ext_resource type="Texture2D" uid="uid://blxh8yx61xh1d" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0055.png" id="55_ne122"]
+[ext_resource type="Texture2D" uid="uid://ceo6y1xib2kq4" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0056.png" id="56_3w7to"]
+[ext_resource type="Texture2D" uid="uid://cewnmneabcxrv" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0057.png" id="57_5lw3w"]
+[ext_resource type="Texture2D" uid="uid://oisp2ahu5wew" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0058.png" id="58_5sowp"]
+[ext_resource type="Texture2D" uid="uid://b538dy4m4rub8" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0059.png" id="59_nvqyr"]
+[ext_resource type="Texture2D" uid="uid://cp5tk4ms63lao" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0060.png" id="60_rr18r"]
+[ext_resource type="Texture2D" uid="uid://gst5it8dot6o" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0061.png" id="61_f83oy"]
+[ext_resource type="Texture2D" uid="uid://du3mhx7fiwvp1" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0062.png" id="62_yc1uy"]
+[ext_resource type="Texture2D" uid="uid://bndmd1hbnqa6x" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0063.png" id="63_llbug"]
+[ext_resource type="Texture2D" uid="uid://b8uodxoisga1f" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0064.png" id="64_8h3ar"]
+[ext_resource type="Texture2D" uid="uid://bpdquda650ryh" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0065.png" id="65_4f7c0"]
+[ext_resource type="Texture2D" uid="uid://bhiojoftkkr25" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0066.png" id="66_t1d40"]
+[ext_resource type="Texture2D" uid="uid://djiuki7sr4m7d" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0067.png" id="67_2rri5"]
+[ext_resource type="Texture2D" uid="uid://nu3n47s6hr8l" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0068.png" id="68_43c7h"]
+[ext_resource type="Texture2D" uid="uid://wskxyrjdtfno" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0069.png" id="69_fe5sk"]
+[ext_resource type="Texture2D" uid="uid://djg5gnwhql2xw" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0070.png" id="70_a8cl7"]
+[ext_resource type="Texture2D" uid="uid://cqfm7ao1pl2qh" path="res://PNG_OBJETOS/Diario_de_rebeca.pngs/Diario_de_rebeca0071.png" id="71_tg6k2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uayis"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lutme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mflgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x06tb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vpp27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5dl22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w56wf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ntkse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4362a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dduof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_po4u0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6osuo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_y8wso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_30m4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_57yxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vthh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_t1b4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_b5xsi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jw6la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_3ifvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_4m3rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_lmyp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_80b1s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_qvq1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_aqq10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_i4v7b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_4onrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_pwj22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_dgypx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_2dvia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_d8c4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_rwc2x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_mauwu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_5s0e0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_2ljj2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_fntxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_eqkti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_xail1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_ddaew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_vruvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_kpyts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_ffuhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_nsh8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_8f1te")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_hc4qc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_ridyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_12etg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_6nv52")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_imrml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_43q5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ksbix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_6pfie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_6tpbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_g3g78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_ry343")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_ne122")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_3w7to")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_5lw3w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_5sowp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_nvqyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_rr18r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_f83oy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_yc1uy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_llbug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_8h3ar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_4f7c0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_t1d40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_2rri5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_43c7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_fe5sk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_a8cl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_tg6k2")
+}],
+"loop": true,
+"name": &"mostrar",
+"speed": 24.0
+}]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="AnimDiario" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+position = Vector2(208, 96)
+scale = Vector2(0.15, 0.169444)
+sprite_frames = SubResource("SpriteFrames_uayis")
+animation = &"mostrar"
+frame = 37
+frame_progress = 0.317133

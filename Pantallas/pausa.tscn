@@ -1,11 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkxrgur8ebjks"]
+[gd_scene load_steps=9 format=3 uid="uid://dkxrgur8ebjks"]
 
 [ext_resource type="Script" path="res://Pantallas/pausa.gd" id="1_s6fb4"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_dsmbo"]
 [ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="3_mk4v5"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="3_obnmk"]
+[ext_resource type="Texture2D" uid="uid://d3oaydtsl0osh" path="res://Imagenes_pantallas/Musica.png" id="4_w5ybi"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="5_p2kwd"]
+[ext_resource type="Texture2D" uid="uid://bd6hqg8y3x3rn" path="res://Imagenes_pantallas/Global.png" id="5_v2dtt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8koj0"]
+shader = ExtResource("5_p2kwd")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 24.0
 
 [node name="Pausa" type="CanvasLayer"]
 process_mode = 3
+layer = 50
 script = ExtResource("1_s6fb4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -16,6 +31,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.194349, 0.194349, 0.194349, 0.470588)
 
+[node name="CRTOverlay" type="ColorRect" parent="ColorRect"]
+material = SubResource("ShaderMaterial_8koj0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 8
@@ -23,52 +49,73 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = -50.0
-offset_right = 44.0
-offset_bottom = 52.0001
+offset_left = -56.0
+offset_top = -81.0
+offset_right = 56.0
+offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SliderMusicaFondo" type="HSlider" parent="ColorRect/VBoxContainer"]
+[node name="Label2" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_obnmk")
+theme_override_font_sizes/font_size = 20
+text = "SONIDO"
+horizontal_alignment = 1
+
+[node name="HBoxMusica" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="IconoMusica" type="TextureRect" parent="ColorRect/VBoxContainer/HBoxMusica"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = ExtResource("4_w5ybi")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="SliderMusicaFondo" type="HSlider" parent="ColorRect/VBoxContainer/HBoxMusica"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 
-[node name="SliderAtmosfera" type="HSlider" parent="ColorRect/VBoxContainer"]
+[node name="HBoxSFX" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
+
+[node name="IconoSFX" type="TextureRect" parent="ColorRect/VBoxContainer/HBoxSFX"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = ExtResource("5_v2dtt")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="SliderAtmosfera" type="HSlider" parent="ColorRect/VBoxContainer/HBoxSFX"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
 
 [node name="BotonCreditos" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
 theme_override_fonts/font = ExtResource("2_dsmbo")
 text = "Creditos"
 
+[node name="PantallaCompleta" type="Button" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
+theme_override_fonts/font = ExtResource("3_obnmk")
+text = "Vetana"
+
 [node name="BotonMenu" type="Button" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.745098)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.745098)
 theme_override_fonts/font = ExtResource("2_dsmbo")
 text = "Salir al Menu"
-
-[node name="Label" type="Label" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -85.0
-offset_right = 45.0
-offset_bottom = -62.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Sonidos"
-horizontal_alignment = 1
 
 [node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_mk4v5")

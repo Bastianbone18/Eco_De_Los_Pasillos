@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://51qa7kfcgq5u"]
+
+[ext_resource type="Script" path="res://UI/anxiety_overlay.gd" id="1_nvabl"]
+[ext_resource type="Shader" path="res://shaders/AnxietyOverlay.gdshader" id="1_xns8j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4v2kb"]
+shader = ExtResource("1_xns8j")
+shader_parameter/strength = 0.0
+shader_parameter/pulse_speed = 3.5
+shader_parameter/wobble_speed = 1.8
+shader_parameter/blur_amount = 1.2
+shader_parameter/chroma_amount = 0.008
+shader_parameter/edge_darkness = 1.25
+shader_parameter/edge_close = 0.55
+shader_parameter/center_softness = 0.25
+shader_parameter/edge_warp = 1.15
+shader_parameter/center_radius = 0.2
+shader_parameter/panic_shock = 0.75
+
+[node name="AnxietyOverlay" type="CanvasLayer"]
+script = ExtResource("1_nvabl")
+
+[node name="FX" type="ColorRect" parent="."]
+z_index = 100
+material = SubResource("ShaderMaterial_4v2kb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

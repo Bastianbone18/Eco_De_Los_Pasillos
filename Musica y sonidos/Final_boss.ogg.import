@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d02ocwhq7qtil"
+path="res://.godot/imported/Final_boss.ogg-1d6beb47670ba81b07d741c7835dc07b.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Final_boss.ogg"
+dest_files=["res://.godot/imported/Final_boss.ogg-1d6beb47670ba81b07d741c7835dc07b.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

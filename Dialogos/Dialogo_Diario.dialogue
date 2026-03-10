@@ -1,0 +1,11 @@
+~ start
+"Tiene un símbolo extraño... [wave amp=10 freq=15][color=#999999]esto no es algo común[/color][/wave]."
+[font_size=12][i]«A veces creo que Elías ve mi alma como una [color=#8B0000]mancha en su fe[/color].»[/i][/font_size]
+"[shake rate=45 level=9]¿Quién escribiría algo así... y por qué dejarlo tirado aquí?[/shake]"
+=> END
+
+~ reaccion_risa
+"[shake rate=30 level=7][color=#8B0000]¿Qué... fue eso?[/color][/shake]"
+"[font_size=13][i]Sonó tan cerca... pero no hay nadie aquí.[/i][/font_size]"
+"[font_size=13][color=#AAAAAA]No estoy solo, lo sé. Algo me está mirando.[/color][/font_size]"
+=> END

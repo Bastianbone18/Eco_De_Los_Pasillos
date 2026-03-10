@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cjorxgpnl1ifj"
+path="res://.godot/imported/linterna_encontrada.dialogue-535c7dfac03b0dea0b5685e80fd3ba1b.tres"
+
+[deps]
+
+source_file="res://Dialogos/linterna_encontrada.dialogue"
+dest_files=["res://.godot/imported/linterna_encontrada.dialogue-535c7dfac03b0dea0b5685e80fd3ba1b.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,11 @@
+~ fuego_peligroso
+"[shake rate=30 level=7][color=#FF3300]Demasiado cerca…[/color][/shake]"
+"[font_size=14][i]El calor me golpea en la cara.[/i][/font_size]"
+"[font_size=14][color=#AAAAAA]No debería seguir mirando ahí… solo fuego… y restos.[/color][/font_size]"
+=> END
+
+
+~ nuevo_ingreso
+"[font_size=14][i]No. Ya estuve aquí.[/i][/font_size]"
+=> END
+

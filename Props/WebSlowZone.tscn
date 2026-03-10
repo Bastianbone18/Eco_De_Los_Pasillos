@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dma8p266083nh"]
+
+[ext_resource type="Script" path="res://Props/WebSlowZone.gd" id="1_mhh5i"]
+[ext_resource type="AudioStream" uid="uid://dukqyefg1b5ei" path="res://Musica y sonidos/Sonidos/TelarañaPisar.ogg" id="2_efwk5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgct3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mu58g"]
+load_path = "res://.godot/imported/Telaraña1.png-d5a7895034d0f7ad4d66f5b377853d0d.s3tc.ctex"
+
+[node name="WebSlowZone" type="Node3D"]
+script = ExtResource("1_mhh5i")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_jgct3")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture_filter = 2
+texture = SubResource("CompressedTexture2D_mu58g")
+
+[node name="StickySound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_efwk5")
+volume_db = 4.0
+unit_size = 1.0
+max_distance = 10.0
+bus = &"Atmosfera"

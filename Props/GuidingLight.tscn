@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqiyj45mxps0k"]
+
+[ext_resource type="Script" path="res://Props/GuidingLight.gd" id="1_pnah8"]
+[ext_resource type="Texture2D" uid="uid://c2xy00unke31c" path="res://Imagenes_pantallas/LuzProtectora.png" id="2_ksage"]
+[ext_resource type="AudioStream" uid="uid://dwirb1ev1o11q" path="res://Musica y sonidos/Sonidos/Bell.ogg" id="3_brfxs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b1bam"]
+radius = 1.2
+
+[node name="GuidingLight" type="Node3D"]
+script = ExtResource("1_pnah8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.847059, 0.721569, 0.415686, 1)
+light_energy = 1.6
+omni_range = 7.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+modulate = Color(0.953182, 0.880837, 0.710688, 1)
+pixel_size = 0.015
+billboard = 1
+texture_filter = 2
+texture = ExtResource("2_ksage")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_b1bam")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_brfxs")
+volume_db = -12.0
+unit_size = 6.0
+max_db = 6.0
+pitch_scale = 1.05
+bus = &"Atmosfera"

@@ -1,10 +1,164 @@
-[gd_scene load_steps=6 format=3 uid="uid://wrrowufp00ee"]
+[gd_scene load_steps=18 format=3 uid="uid://wrrowufp00ee"]
 
 [ext_resource type="Script" path="res://Pantallas/menu.gd" id="1_1nxsw"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="1_emqvn"]
 [ext_resource type="Texture2D" uid="uid://jui2qvi4j67y" path="res://Imagenes_pantallas/untitled.png" id="2_h7oey"]
-[ext_resource type="AudioStream" uid="uid://qynd60ea44wo" path="res://Musica y sonidos/Menu.ogg" id="4_jv32v"]
 [ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="5_7ger2"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_kev8l"]
+[ext_resource type="AudioStream" uid="uid://c80a0hlfccyya" path="res://Musica y sonidos/Sonidos/OFF.ogg" id="7_o4q3g"]
+[ext_resource type="AudioStream" uid="uid://dwanx1igpkoya" path="res://Musica y sonidos/Sonidos/On.ogg" id="7_r05nu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebgwx"]
+shader = ExtResource("6_kev8l")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
+
+[sub_resource type="Animation" id="Animation_qsr38"]
+resource_name = "FadeLoop"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1.53333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m04ko"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4d5n5"]
+_data = {
+"FadeLoop": SubResource("Animation_qsr38"),
+"RESET": SubResource("Animation_m04ko")
+}
+
+[sub_resource type="Animation" id="Animation_kyhdu"]
+resource_name = "Flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlashRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TV_On")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0279082,
+"start_offset": 0.337224,
+"stream": ExtResource("7_r05nu")
+}],
+"times": PackedFloat32Array(0.0108504)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_d0egy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlashRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kjk1e"]
+_data = {
+"Flash": SubResource("Animation_kyhdu"),
+"RESET": SubResource("Animation_d0egy")
+}
+
+[sub_resource type="Animation" id="Animation_v1pgb"]
+resource_name = "OFF"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TV_OFF")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_o4q3g")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_sovb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2oivr"]
+_data = {
+"OFF": SubResource("Animation_v1pgb"),
+"RESET": SubResource("Animation_sovb7")
+}
 
 [node name="Menu" type="Control"]
 process_mode = 3
@@ -16,14 +170,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1nxsw")
 
-[node name="TextureRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ebgwx")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.259294, 0.259294, 0.259294, 1)
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 1
@@ -50,45 +207,47 @@ theme_override_constants/separation = 5
 
 [node name="Play" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
 theme_override_fonts/font = ExtResource("1_emqvn")
 text = "JUGAR"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
 theme_override_fonts/font = ExtResource("1_emqvn")
 text = "OPCIONES"
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
+theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_fonts/font = ExtResource("1_emqvn")
 text = "SALIR"
 
-[node name="Label" type="Label" parent="."]
+[node name="Titulo" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
+offset_left = -119.0
+offset_right = 119.0
+offset_bottom = 34.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_emqvn")
 theme_override_font_sizes/font_size = 26
 text = "Echoes of the Forgotten"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_jv32v")
-autoplay = true
-bus = &"Menu"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Titulo"]
+libraries = {
+"": SubResource("AnimationLibrary_4d5n5")
+}
 
-[node name="AudioStreamSample" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_7ger2")
+bus = &"Menu"
 
 [node name="Volumen" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -96,18 +255,58 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
-offset_top = -41.0
-offset_right = 82.0
+offset_top = -47.0
+offset_right = 84.0
 offset_bottom = -1.0
 grow_vertical = 0
 
 [node name="Volumen" type="Label" parent="Volumen"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_emqvn")
+theme_override_font_sizes/font_size = 20
 text = "Volumen"
+horizontal_alignment = 1
 
 [node name="SliderMusicaMenu" type="HSlider" parent="Volumen"]
 layout_mode = 2
 step = 0.1
+
+[node name="FlashRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Flashani" type="AnimationPlayer" parent="FlashRect"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_kjk1e")
+}
+
+[node name="TV_On" type="AudioStreamPlayer" parent="."]
+
+[node name="Flash_off" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Flashapagar" type="AnimationPlayer" parent="Flash_off"]
+libraries = {
+"": SubResource("AnimationLibrary_2oivr")
+}
+
+[node name="TV_OFF" type="AudioStreamPlayer" parent="Flash_off"]
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=3 uid="uid://dq8rs2yep5m6x"]
+
+[ext_resource type="Script" path="res://Pantallas/pantalla_carga.gd" id="1_jlodq"]
+[ext_resource type="Texture2D" uid="uid://dpi7ngbha7tpr" path="res://Imagenes_pantallas/Carga.png" id="2_kvm1y"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="3_ce1un"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="4_rpy08"]
+
+[sub_resource type="Animation" id="Animation_r67kc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Cargando"]
+}
+
+[sub_resource type="Animation" id="Animation_5jqol"]
+resource_name = "carga"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.03333, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Cargando", "Cargando.", "Cargando..", "Cargando..."]
+}
+
+[sub_resource type="Animation" id="Animation_3iewx"]
+resource_name = "fade_in_out"
+length = 5.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1yjgh"]
+_data = {
+"RESET": SubResource("Animation_r67kc"),
+"carga": SubResource("Animation_5jqol"),
+"fade_in_out": SubResource("Animation_3iewx")
+}
+
+[sub_resource type="Animation" id="Animation_d0215"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5o23s"]
+resource_name = "fade_in"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jrxf"]
+_data = {
+"RESET": SubResource("Animation_d0215"),
+"fade_in": SubResource("Animation_5o23s")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nvao"]
+shader = ExtResource("4_rpy08")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 24.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_jlodq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kvm1y")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ce1un")
+theme_override_font_sizes/font_size = 14
+text = "Cargando"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1yjgh")
+}
+
+[node name="AnimationPlayerRect" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jrxf")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 9.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_0nvao")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout "]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

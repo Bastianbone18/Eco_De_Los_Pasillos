@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://csjysabyqqdy1"
+path="res://.godot/imported/llegada.dialogue-48114118e5642d9223f9884954cb89ab.tres"
+
+[deps]
+
+source_file="res://Dialogos/llegada.dialogue"
+dest_files=["res://.godot/imported/llegada.dialogue-48114118e5642d9223f9884954cb89ab.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://dpu6bgakb1gln"
+path="res://.godot/imported/Puerta_cerrada_2.dialogue-716d9b7c4a51a85d4ac190e6664bfaac.tres"
+
+[deps]
+
+source_file="res://Dialogos/Puerta_cerrada_2.dialogue"
+dest_files=["res://.godot/imported/Puerta_cerrada_2.dialogue-716d9b7c4a51a85d4ac190e6664bfaac.tres"]
+
+[params]
+
+defaults=true

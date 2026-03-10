@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dmjiosd0nge5s"
+path="res://.godot/imported/Guardar.ogg-a9e3d44eb74deb0c6b1bc98e6b2e97cc.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Guardar.ogg"
+dest_files=["res://.godot/imported/Guardar.ogg-a9e3d44eb74deb0c6b1bc98e6b2e97cc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

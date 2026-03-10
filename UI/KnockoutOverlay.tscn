@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgvx4xyc6va18"]
+
+[ext_resource type="AudioStream" uid="uid://465t3ehygikp" path="res://Musica y sonidos/Sonidos/Noqueo_Sangriento.ogg" id="1_6nyn6"]
+[ext_resource type="Script" path="res://UI/KnockoutOverlay.gd" id="1_mxtpn"]
+
+[sub_resource type="Animation" id="Animation_k3mqv"]
+resource_name = "knockout_hit"
+length = 1.38
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnockoutOverlay:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.233333, 1.36667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.582, 0.56, 0.113725), Color(0.95, 0.904717, 0.8265, 1), Color(0.0196078, 0.0156863, 0.027451, 0.901961), Color(0.75, 0.477, 0.165, 1), Color(0.16, 0.0272, 0.0692533, 1), Color(0.0196078, 0.0156863, 0.027451, 0.94902), Color(0.0196078, 0.0156863, 0.027451, 1), Color(0.0196078, 0.0156863, 0.027451, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("1_6nyn6")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_l2v7w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnockoutOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0196078, 0.0156863, 0.027451, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_td8ko"]
+_data = {
+"RESET": SubResource("Animation_l2v7w"),
+"knockout_hit": SubResource("Animation_k3mqv")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_mxtpn")
+
+[node name="KnockoutOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0156863, 0.027451, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_td8ko")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Atmosfera"

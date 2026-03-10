@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dwirb1ev1o11q"
+path="res://.godot/imported/Bell.ogg-5bfa071a02a5d678fb44ac7fd90d8910.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Bell.ogg"
+dest_files=["res://.godot/imported/Bell.ogg-5bfa071a02a5d678fb44ac7fd90d8910.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

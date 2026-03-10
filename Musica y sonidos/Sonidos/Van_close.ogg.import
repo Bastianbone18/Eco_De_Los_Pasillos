@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://31oqooeaow2w"
+path="res://.godot/imported/Van_close.ogg-6a3b6ac6eee1450b0a67ae77781d70ff.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/Van_close.ogg"
+dest_files=["res://.godot/imported/Van_close.ogg-6a3b6ac6eee1450b0a67ae77781d70ff.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

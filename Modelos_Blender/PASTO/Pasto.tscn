@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=4 uid="uid://bdg0mai3h8kby"]
+
+[ext_resource type="Shader" path="res://shaders/Pasto.gdshader" id="1_07qhk"]
+[ext_resource type="Texture2D" uid="uid://b6tvn6lytc0y4" path="res://Modelos_Blender/Foligae_Pasto.png" id="2_5pxvj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dey0x"]
+seed = 1
+frequency = 0.005
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_06ia7"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_dey0x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx6cj"]
+resource_name = "pasto"
+render_priority = 0
+shader = ExtResource("1_07qhk")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic_texture_channel = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_5pxvj")
+shader_parameter/wind_speed = 0.2
+shader_parameter/wind_strength = 0.05
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_06ia7")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_77ulu"]
+_surfaces = [{
+"aabb": AABB(-1, -0.0615904, -0.848677, 2, 2, 1.69736),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray("AAADAAEAAAACAAMABAAHAAUABAAGAAcACAALAAkACAAKAAsA"),
+"name": "pasto",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("TDwAAP7/AACywwAAAAAAAEw8///+/wAAssP//wAAAAAAAAAA/38AAP//AAD/fwAAAAD+//9/AAD///7//38AADLKAADk+gAAzDUAABoFAAAyyv7/5PoAAMw1/v8aBQAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5ivhw"]
+resource_name = "Foligae_Plane_003"
+_surfaces = [{
+"aabb": AABB(-1, -0.0615904, -0.848677, 2, 2, 1.69736),
+"attribute_data": PackedByteArray("AAD///////8AAAAA//8AAAAA////////AAAAAP//AAAAAP///////wAAAAD//wAA"),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AAADAAEAAAACAAMABAAHAAUABAAGAAcACAALAAkACAAKAAsA"),
+"material": SubResource("ShaderMaterial_cx6cj"),
+"name": "pasto",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("TDwAAP7/SqmywwAAAABKqUw8///+/0qpssP//wAASqkAAAAA/38AgP//AAD/fwCAAAD+//9/AID///7//38AgDLKAADk+jHZzDUAABoFMdkyyv7/5Pox2cw1/v8aBTHZ/38AAP9/AAD/fwAA/38AAP9/////f////3////9/////fwAA/38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_77ulu")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_5ivhw")

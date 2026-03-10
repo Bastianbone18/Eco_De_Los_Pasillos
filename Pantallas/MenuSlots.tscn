@@ -1,0 +1,201 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddbv8xvgc7o01"]
+
+[ext_resource type="Script" path="res://Pantallas/menu_slots.gd" id="1_6rrb5"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_gyr4r"]
+[ext_resource type="Texture2D" uid="uid://dkegh7axltivb" path="res://Imagenes_pantallas/Slots.png" id="2_xh31a"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="3_k4l3g"]
+[ext_resource type="Texture2D" uid="uid://bnrthipth7ghw" path="res://Imagenes_pantallas/SLOT1.1.png" id="4_d8g6j"]
+[ext_resource type="Texture2D" uid="uid://6gsud7kmtf36" path="res://Imagenes_pantallas/Slot2.2.png" id="6_t0k2g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmm4d"]
+shader = ExtResource("3_k4l3g")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6yfsn"]
+texture = ExtResource("4_d8g6j")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dghbw"]
+texture = ExtResource("6_t0k2g")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6rrb5")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.82606, 0.82606, 0.82606, 1)
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xh31a")
+expand_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_pmm4d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -100.0
+offset_right = 156.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(76, 100)
+theme_override_constants/separation = 8
+
+[node name="Slot1" type="Panel" parent="HBoxContainer"]
+texture_filter = 3
+custom_minimum_size = Vector2(152, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_6yfsn")
+
+[node name="BoxContainer" type="BoxContainer" parent="HBoxContainer/Slot1"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -136.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+vertical = true
+
+[node name="LabelOwner" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "OWNER: TEST"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+
+[node name="LabelTime" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "TIME: 00:00:00"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+
+[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot1/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
+theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "CREATE"
+
+[node name="Slot2" type="Panel" parent="HBoxContainer"]
+texture_filter = 3
+custom_minimum_size = Vector2(152, 200)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_dghbw")
+
+[node name="BoxContainer" type="BoxContainer" parent="HBoxContainer/Slot2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -136.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+vertical = true
+
+[node name="LabelOwner" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "OWNER: TEST"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+
+[node name="LabelTime" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "TIME: 00:00:00"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+
+[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot2/BoxContainer"]
+texture_filter = 3
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
+theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "CREATE"
+
+[node name="ButtonResetAll" type="Button" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -29.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "BORRAR TODO"

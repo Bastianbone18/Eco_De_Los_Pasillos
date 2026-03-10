@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bug4yudsob84w"
+path="res://.godot/imported/Buscar_linterna.dialogue-d086620dde12f8243a664fba209a72f2.tres"
+
+[deps]
+
+source_file="res://Dialogos/Buscar_linterna.dialogue"
+dest_files=["res://.godot/imported/Buscar_linterna.dialogue-d086620dde12f8243a664fba209a72f2.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://drc2ins7mamlj"
+path="res://.godot/imported/Int_fuego.dialogue-a1cb0da45fc4a23fd3d7979becfeb7a4.tres"
+
+[deps]
+
+source_file="res://Dialogos/Int_fuego.dialogue"
+dest_files=["res://.godot/imported/Int_fuego.dialogue-a1cb0da45fc4a23fd3d7979becfeb7a4.tres"]
+
+[params]
+
+defaults=true

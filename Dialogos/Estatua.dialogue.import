@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cu15teddf0bxo"
+path="res://.godot/imported/Estatua.dialogue-d7a04d8ef7c28456918d26579bfc3b6c.tres"
+
+[deps]
+
+source_file="res://Dialogos/Estatua.dialogue"
+dest_files=["res://.godot/imported/Estatua.dialogue-d7a04d8ef7c28456918d26579bfc3b6c.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://bq5h40v6phui4"]
+
+[ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="1_7xne7"]
+[ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_tt6fd"]
+[ext_resource type="PackedScene" uid="uid://cuo4xpdxa17q" path="res://Modelos_Blender/Iglesia/iglesia.tscn" id="2_8v3yb"]
+[ext_resource type="PackedScene" uid="uid://t0k8a0gscwmf" path="res://animaciones/Enemigo.tscn" id="4_e78l6"]
+[ext_resource type="AudioStream" uid="uid://dwmekfoceqobh" path="res://Musica y sonidos/Tema_Iglesia.ogg" id="5_coacx"]
+[ext_resource type="MeshLibrary" uid="uid://b35e0ruwqwgc2" path="res://COSAS_DECORATIVAS/Arboles.tres" id="6_cwrqe"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wcmom"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y85k5"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Pausa" parent="." instance=ExtResource("1_7xne7")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_wcmom")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_y85k5")
+
+[node name="Player" parent="." instance=ExtResource("1_tt6fd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("4_e78l6")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 15)
+
+[node name="Iglesia" parent="." instance=ExtResource("2_8v3yb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250002, -6)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_coacx")
+autoplay = true
+bus = &"Musica"
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("6_cwrqe")
+metadata/_editor_floor_ = Vector3(0, 0, 0)

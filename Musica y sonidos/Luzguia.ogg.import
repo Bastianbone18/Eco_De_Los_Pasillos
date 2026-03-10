@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://j8ynd560j320"
+path="res://.godot/imported/Luzguia.ogg-a7673f400794148e05b279ca9b30e42c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Luzguia.ogg"
+dest_files=["res://.godot/imported/Luzguia.ogg-a7673f400794148e05b279ca9b30e42c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

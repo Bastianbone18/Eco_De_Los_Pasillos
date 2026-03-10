@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://2atm6j12aom1"
+path="res://.godot/imported/Audio_estatua.dialogue-9508b4d43dba6d709f3d1f0f3201f942.tres"
+
+[deps]
+
+source_file="res://Dialogos/Audio_estatua.dialogue"
+dest_files=["res://.godot/imported/Audio_estatua.dialogue-9508b4d43dba6d709f3d1f0f3201f942.tres"]
+
+[params]
+
+defaults=true

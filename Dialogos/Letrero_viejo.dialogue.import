@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bi4p6ca5w5kib"
+path="res://.godot/imported/Letrero_viejo.dialogue-cb70f09d787d0ef1996879493513e282.tres"
+
+[deps]
+
+source_file="res://Dialogos/Letrero_viejo.dialogue"
+dest_files=["res://.godot/imported/Letrero_viejo.dialogue-cb70f09d787d0ef1996879493513e282.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg6una74sgmdd"]
+
+[ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/mundo_3.gd" id="1_55m2s"]
+[ext_resource type="Texture2D" uid="uid://qpp1cw0g4q6y" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_BaseColor.png" id="1_qx3nu"]
+[ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_wbihq"]
+[ext_resource type="Texture2D" uid="uid://01yormh7ewth" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Metallic.png" id="2_0lg2h"]
+[ext_resource type="Texture2D" uid="uid://clybrvvo671mm" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Normal.png" id="3_qeh8d"]
+[ext_resource type="Texture2D" uid="uid://6w6nxkefv84i" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Roughness.png" id="4_psyjc"]
+[ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="6_s787f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqfd1"]
+albedo_texture = ExtResource("1_qx3nu")
+metallic = 1.0
+metallic_texture = ExtResource("2_0lg2h")
+roughness_texture = ExtResource("4_psyjc")
+normal_enabled = true
+normal_texture = ExtResource("3_qeh8d")
+uv1_scale = Vector3(13, 13, 13)
+texture_filter = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ww20c"]
+material = SubResource("StandardMaterial3D_dqfd1")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i1xuj"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_55m2s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ww20c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_i1xuj")
+
+[node name="Player" parent="." instance=ExtResource("1_wbihq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 0)
+
+[node name="Pausa" parent="." instance=ExtResource("6_s787f")]

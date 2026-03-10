@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b4r7rdwqu668i"
+path="res://.godot/imported/Muñeco_viejo.dialogue-417b6a4610265b3708a17fb88848e3a5.tres"
+
+[deps]
+
+source_file="res://Dialogos/Muñeco_viejo.dialogue"
+dest_files=["res://.godot/imported/Muñeco_viejo.dialogue-417b6a4610265b3708a17fb88848e3a5.tres"]
+
+[params]
+
+defaults=true

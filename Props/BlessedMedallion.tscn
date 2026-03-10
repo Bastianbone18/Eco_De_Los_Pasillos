@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm2qls0g1nibi"]
+
+[ext_resource type="Texture2D" uid="uid://crqoamd7cvst" path="res://Imagenes_pantallas/Medallon.png" id="1_5mnrs"]
+[ext_resource type="Script" path="res://Props/blessed_medallion.gd" id="1_bhmb0"]
+[ext_resource type="Texture2D" uid="uid://bqdtrleclk2av" path="res://Imagenes_pantallas/Medallon_Dorado.png" id="3_j4th0"]
+[ext_resource type="AudioStream" uid="uid://r7qlpqomwkhp" path="res://Musica y sonidos/Sonidos/MedallonAgarre.ogg" id="4_skq2v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6x2qi"]
+radius = 1.2
+
+[node name="BlessedMedallion" type="Node3D"]
+script = ExtResource("1_bhmb0")
+slow_duration = 1.55
+stamina_restore = 40.0
+speed_buff_multiplier = 1.25
+speed_buff_duration = 1.265
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.847059, 0.721569, 0.415686, 1)
+light_energy = 0.0
+omni_range = 12.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.015
+billboard = 1
+texture_filter = 2
+texture = ExtResource("1_5mnrs")
+
+[node name="HaloSprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.015
+billboard = 1
+texture_filter = 2
+texture = ExtResource("3_j4th0")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_6x2qi")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_skq2v")
+volume_db = -15.0
+unit_size = 6.0
+max_db = 6.0
+pitch_scale = 1.1
+bus = &"Atmosfera"

@@ -1,13 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://ci14xp5axq51j"]
+[gd_scene load_steps=20 format=3 uid="uid://ci14xp5axq51j"]
 
 [ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_0x46t"]
+[ext_resource type="PackedScene" uid="uid://t0k8a0gscwmf" path="res://animaciones/Enemigo.tscn" id="1_7kxw7"]
+[ext_resource type="Script" path="res://Btas_y pruebas/TEMP.gd" id="1_pn7m3"]
 [ext_resource type="PackedScene" uid="uid://dkxrgur8ebjks" path="res://Pantallas/pausa.tscn" id="2_j76cs"]
 [ext_resource type="AudioStream" uid="uid://cmorg634ye26m" path="res://Musica y sonidos/The-Never-ending-Night.ogg" id="3_m0s73"]
 [ext_resource type="AudioStream" uid="uid://msht2dv2bnnr" path="res://Musica y sonidos/Atmosfera.ogg" id="4_7bsrc"]
 [ext_resource type="PackedScene" uid="uid://ccgfucnylljgk" path="res://Btas_y pruebas/door.tscn" id="5_0mkv5"]
+[ext_resource type="PackedScene" uid="uid://bewyf2lsjgevx" path="res://Modelos_Blender/Puertas_de_la_iglesia/Puertas_iglesia.tscn" id="5_uigpw"]
+[ext_resource type="MeshLibrary" uid="uid://c0ou81i05urlk" path="res://COSAS_DECORATIVAS/Pasto_mesh.tres" id="6_dgf1n"]
 [ext_resource type="PackedScene" uid="uid://ck3sxddxsgpc6" path="res://Btas_y pruebas/llave.tscn" id="6_ulk7h"]
-[ext_resource type="PackedScene" uid="uid://balx7s011p7bg" path="res://Enemy.tscn" id="7_5oi5b"]
-[ext_resource type="MeshLibrary" uid="uid://c0ou81i05urlk" path="res://COSAS_DECORATIVAS/Pasto_mesh.tres" id="8_8xsux"]
+[ext_resource type="PackedScene" uid="uid://cd1mei0ara4c2" path="res://DECORACIONES_ECSENAS/Puerta_de_entrada_pueblo.tscn" id="8_triqa"]
+[ext_resource type="MeshLibrary" uid="uid://cpnq83p5wtf26" path="res://COSAS_DECORATIVAS/prueba.tres" id="9_2plgv"]
+[ext_resource type="PackedScene" uid="uid://cuo4xpdxa17q" path="res://Modelos_Blender/Iglesia/iglesia.tscn" id="12_thpn2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4ae3x"]
 sky_top_color = Color(0.176471, 0.203922, 0.278431, 1)
@@ -20,6 +25,7 @@ sky_material = SubResource("ProceduralSkyMaterial_4ae3x")
 
 [sub_resource type="Environment" id="Environment_qi0o0"]
 background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_d7po5")
 tonemap_mode = 3
 glow_enabled = true
@@ -43,13 +49,13 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 
 [node name="Node3D" type="Node3D"]
 process_mode = 3
+script = ExtResource("1_pn7m3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qi0o0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-visible = false
+transform = Transform3D(-4.37114e-08, -0.5, 0.866025, 0, 0.866025, 0.5, -1, 2.18557e-08, -3.78552e-08, 0, 0, 5)
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -63,9 +69,6 @@ shape = SubResource("ConcavePolygonShape3D_21wb8")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="MeshInstance3D"]
 navigation_mesh = SubResource("NavigationMesh_gkxit")
-
-[node name="Player" parent="." instance=ExtResource("1_0x46t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 0)
 
 [node name="Pausa" parent="." instance=ExtResource("2_j76cs")]
 
@@ -82,23 +85,16 @@ autoplay = true
 bus = &"Atmosfera"
 
 [node name="Door" parent="." instance=ExtResource("5_0mkv5")]
-transform = Transform3D(1.3, 0, 0, 0, 1.144, 0, 0, 0, 1.3, 0, 0, -6.50058)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.50058)
 
 [node name="Door2" parent="." instance=ExtResource("5_0mkv5")]
-transform = Transform3D(1.3, 0, 0, 0, 1.144, 0, 0, 0, 1.3, 3.86463, 0, -6.50058)
-isLocked = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.86463, 0, -6.50058)
 
-[node name="Door3" parent="." node_paths=PackedStringArray("neededKey") instance=ExtResource("5_0mkv5")]
-transform = Transform3D(1.3, 0, 0, 0, 1.144, 0, 0, 0, 1.3, -4.76026, 0, -6.50058)
-isLocked = true
-needsKey = true
-neededKey = NodePath("Llave")
+[node name="Door3" parent="." instance=ExtResource("5_0mkv5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76026, 0, -6.50058)
 
 [node name="Llave" parent="Door3" instance=ExtResource("6_ulk7h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.512777, 0.5, 11.4735)
-
-[node name="Enemy" parent="." instance=ExtResource("7_5oi5b")]
-transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 1.09729, -17.2819)
 
 [node name="PatrolPoints" type="Node3D" parent="."]
 
@@ -115,10 +111,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3954, 1, -17.9527)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6046, 1, -17.9527)
 
 [node name="Pasto" type="GridMap" parent="."]
-mesh_library = ExtResource("8_8xsux")
+mesh_library = ExtResource("6_dgf1n")
 cell_size = Vector3(0.5, 2, 0.5)
+cell_octant_size = 7
 cell_center_y = false
 cell_scale = 0.5
 data = {
-"cells": PackedInt32Array(1, 7, 0, 65529, 65533, 0, 16, 2, 0, 15, 2, 0, 14, 1, 0, 65532, 65527, 0)
+"cells": PackedInt32Array(1, 7, 0, 65529, 65533, 0, 16, 2, 0, 15, 2, 0, 14, 1, 0, 65532, 65527, 0, 65530, 1, 0, 6, 0, 0, 0, 65529, 0, 65535, 65527, 0, 3, 65527, 0, 65521, 65525, 196608, 9, 65518, 1245184, 10, 65518, 1245184, 11, 65518, 1245184, 11, 65519, 1245184, 12, 65519, 1245184, 12, 65520, 1245184, 13, 65520, 1245184, 13, 65521, 1245184)
 }
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_0x46t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("8_triqa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76837e-08, -2)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("9_2plgv")
+cell_size = Vector3(0.5, 2, 0.5)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(2, 65535, 655368, 3, 65533, 10, 4, 65531, 10, 3, 65530, 10, 3, 65529, 10, 65535, 65512, 10, 4, 65534, 10, 65534, 65530, 196608, 65535, 65530, 196608, 65525, 65504, 196608, 65528, 65499, 196610, 65524, 65505, 196610, 65517, 65509, 196610, 65516, 65509, 196610, 65516, 65510, 196610, 65517, 65512, 196610, 65518, 65512, 196610, 65520, 65512, 196610, 65525, 65510, 196612, 65526, 65510, 196610, 65526, 65509, 196610, 65526, 65508, 196610, 65526, 65505, 196610, 65526, 65504, 196610, 65523, 65504, 196610, 65524, 65504, 196610, 65522, 65507, 196610, 65525, 65508, 196612, 65527, 65509, 196612, 65533, 65504, 196612, 65524, 65501, 196612, 65525, 65507, 196612, 65531, 65504, 196608, 65518, 65520, 1, 65521, 65519, 1, 65489, 65458, 1, 65520, 65533, 1, 65523, 65521, 0, 65519, 65520, 4, 65522, 65520, 5, 65520, 65523, 3, 65516, 65532, 0, 65513, 10, 0, 65519, 65522, 1, 65520, 65522, 1, 65509, 65530, 1, 65517, 65525, 1, 65517, 65526, 1)
+}
+metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="Node3D2" parent="." instance=ExtResource("1_7kxw7")]
+transform = Transform3D(0.425, 0, 0, 0, 0.425, 0, 0, 0, 0.425, 0, 0, -18)
+
+[node name="Puertas_iglesia" parent="." instance=ExtResource("5_uigpw")]
+transform = Transform3D(-5.24537e-08, 0, -1, 0, 1, 0, 1.2, 0, -4.37114e-08, 4, -7, 12)
+visible = false
+
+[node name="Iglesia" parent="." instance=ExtResource("12_thpn2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0.2, 14)

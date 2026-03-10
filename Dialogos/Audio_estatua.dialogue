@@ -1,0 +1,11 @@
+title: Audio_estatua
+
+~ audio_estatua
+"[font_size=14][shake rate=30 level=4]¡Hpta![/shake][/font_size]"
+"[font_size=14][i]¿Qué fue eso…?[/i][/font_size]"
+"[font_size=14][color=#9A9A9A]Se escuchó desde el fondo.[/color][/font_size]"
+"[font_size=14][wave amp=6 freq=14][color=#7A7A7A]No fue el viento.[/color][/wave][/font_size]"
+"[font_size=14][i]Sonó… demasiado familiar.[/i][/font_size]"
+"[font_size=14][shake rate=18 level=2][color=#B3B3B3]No debería voltear.[/color][/shake][/font_size]"
+"[font_size=14][wave amp=10 freq=20][color=#CFCFCF]Pero siento que algo me obliga a hacerlo.[/color][/wave][/font_size]"
+=> END

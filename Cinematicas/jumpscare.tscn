@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs7hrrnxnq5da"]
+
+[ext_resource type="Script" path="res://Cinematicas/jumpscare.gd" id="1_uul63"]
+[ext_resource type="VideoStream" path="res://Imagenes_pantallas/Jumpscare_final.ogv" id="2_ifw3d"]
+[ext_resource type="Shader" path="res://vhsVerdader.gdshader" id="2_wbvgo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0j3b"]
+shader = ExtResource("2_wbvgo")
+shader_parameter/wiggle = 0.04
+shader_parameter/wiggle_speed = 25.0
+shader_parameter/smear = 1.0
+shader_parameter/blur_samples = 15
+
+[node name="Jumpscare" type="CanvasLayer"]
+script = ExtResource("1_uul63")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stream = ExtResource("2_ifw3d")
+expand = true
+bus = &"Atmosfera"
+
+[node name="vHS" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_u0j3b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

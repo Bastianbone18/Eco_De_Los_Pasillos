@@ -1,0 +1,23 @@
+~ enemigo_tunel
+
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][shake rate=6 level=1][i]¿Hola…?[/i][/shake][/font_size]"
+
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][shake rate=10 level=2][color=#9A9A9A]No.[/color][/shake][/font_size]"
+
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][shake rate=14 level=3][color=#B3B3B3]No… no.[/color][/shake][/font_size]"
+
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][wave amp=3 freq=10][color=#8F8F8F]Aléjate.[/color][/wave][/font_size]"
+
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][shake rate=20 level=5][color=#CC0000]No te acerques.[/color][/shake][/font_size]"
+
+"[font_size=14][shake rate=26 level=7][color=#CC0000]No—[/color][/shake][/font_size]"

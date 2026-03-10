@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://r7qlpqomwkhp"
+path="res://.godot/imported/MedallonAgarre.ogg-a461474a01e1207a2b3253e3f84a1af0.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/MedallonAgarre.ogg"
+dest_files=["res://.godot/imported/MedallonAgarre.ogg-a461474a01e1207a2b3253e3f84a1af0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

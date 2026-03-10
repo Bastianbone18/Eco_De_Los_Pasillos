@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cbfw2bc67ok5e"
+path="res://.godot/imported/Enemigo_tunel.dialogue-ade094f7be6172608df865b39b827ccd.tres"
+
+[deps]
+
+source_file="res://Dialogos/Enemigo_tunel.dialogue"
+dest_files=["res://.godot/imported/Enemigo_tunel.dialogue-ade094f7be6172608df865b39b827ccd.tres"]
+
+[params]
+
+defaults=true

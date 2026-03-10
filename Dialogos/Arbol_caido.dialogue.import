@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cmmfif63oiv3y"
+path="res://.godot/imported/Arbol_caido.dialogue-3bbeaf2e15f41860840bab4931816a02.tres"
+
+[deps]
+
+source_file="res://Dialogos/Arbol_caido.dialogue"
+dest_files=["res://.godot/imported/Arbol_caido.dialogue-3bbeaf2e15f41860840bab4931816a02.tres"]
+
+[params]
+
+defaults=true

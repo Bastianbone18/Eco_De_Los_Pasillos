@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c80a0hlfccyya"
+path="res://.godot/imported/OFF.ogg-625bc987087fc0a82b35dac281dcf313.oggvorbisstr"
+
+[deps]
+
+source_file="res://Musica y sonidos/Sonidos/OFF.ogg"
+dest_files=["res://.godot/imported/OFF.ogg-625bc987087fc0a82b35dac281dcf313.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

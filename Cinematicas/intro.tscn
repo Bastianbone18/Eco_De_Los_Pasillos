@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4rojof3q5ywy"]
+
+[ext_resource type="Script" path="res://Cinematicas/intro.gd" id="1_e1dhu"]
+[ext_resource type="Shader" path="res://vhsVerdader.gdshader" id="2_jqvyr"]
+[ext_resource type="VideoStream" path="res://Imagenes_pantallas/iNTR0.ogv" id="2_yhrd2"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="3_spdlh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wg1b5"]
+shader = ExtResource("2_jqvyr")
+shader_parameter/wiggle = 0.04
+shader_parameter/wiggle_speed = 25.0
+shader_parameter/smear = 1.0
+shader_parameter/blur_samples = 15
+
+[node name="Intro" type="CanvasLayer"]
+script = ExtResource("1_e1dhu")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_yhrd2")
+autoplay = true
+expand = true
+bus = &"Menu"
+
+[node name="Skip" type="Button" parent="."]
+texture_filter = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -54.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_spdlh")
+theme_override_font_sizes/font_size = 19
+text = "Saltar"
+
+[node name="vHS" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wg1b5")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

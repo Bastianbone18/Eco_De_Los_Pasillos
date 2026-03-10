@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b460asi7allyq"
+path="res://.godot/imported/Llave_casa1.dialogue-1ac6b72047e5f630a65a21d159e57ce7.tres"
+
+[deps]
+
+source_file="res://Dialogos/Llave_casa1.dialogue"
+dest_files=["res://.godot/imported/Llave_casa1.dialogue-1ac6b72047e5f630a65a21d159e57ce7.tres"]
+
+[params]
+
+defaults=true
