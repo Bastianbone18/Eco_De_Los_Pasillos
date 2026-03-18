@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://c8n2vi2rhv1yq"
+path="res://.godot/imported/Campana_Misa.dialogue-ef22722279d2150787d8c67f26d1c08e.tres"
+
+[deps]
+
+source_file="res://Dialogos/Campana_Misa.dialogue"
+dest_files=["res://.godot/imported/Campana_Misa.dialogue-ef22722279d2150787d8c67f26d1c08e.tres"]
+
+[params]
+
+defaults=true

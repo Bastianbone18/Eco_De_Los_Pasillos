@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6jt7mt63yw4y"]
+[gd_scene load_steps=9 format=3 uid="uid://c6jt7mt63yw4y"]
 
 [ext_resource type="Script" path="res://Pantallas/creditos.gd" id="1_flsdi"]
 [ext_resource type="Texture2D" uid="uid://b5lmr34ew1cm0" path="res://Imagenes_pantallas/Editable.png" id="1_k6wxx"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="3_lkajn"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="4_43fot"]
 [ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="5_7oahe"]
+[ext_resource type="AudioStream" uid="uid://ciqic05rtfgx" path="res://Musica y sonidos/Sonidos/Click_linterna.ogg" id="7_2lbq1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p6iga"]
 shader = ExtResource("2_8na40")
@@ -49,50 +50,56 @@ grow_vertical = 2
 texture = ExtResource("1_k6wxx")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="TextureRect"]
+[node name="Label" type="Label" parent="TextureRect" groups=["botones"]]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -32.5
-offset_right = 32.5
-offset_bottom = 23.0
+offset_left = -32.0
+offset_top = 8.0
+offset_right = 33.0
+offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_lkajn")
 text = "Creditos"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="TextureRect"]
+[node name="Label2" type="Label" parent="TextureRect" groups=["botones"]]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -4.0
+offset_left = -6.0
 offset_top = -54.0
-offset_right = -4.0
+offset_right = -6.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_lkajn")
 theme_override_font_sizes/font_size = 14
-text = "Desarrollo Principal: BastianBone
-Programacion: Juan Prieto
+text = "Desarrollo principal: BastianBone
+Programación: Juan Prieto
 Diseño de juego: Juan Prieto
 Música: Suno (IA)
-Sonidos:freesound.org"
+Sonidos: Freesound.org"
 horizontal_alignment = 2
 autowrap_mode = 2
 
-[node name="Volver" type="Button" parent="TextureRect"]
+[node name="Volver" type="Button" parent="TextureRect" groups=["botones"]]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -38.0
-offset_top = -17.0
+offset_left = -53.0
+offset_top = -34.0
+offset_right = -4.0
+offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
@@ -106,32 +113,38 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -114.0
-offset_right = 69.0
+offset_left = 6.0
+offset_top = -121.0
+offset_right = 75.0
+offset_bottom = -7.0
 grow_vertical = 0
 theme_override_constants/separation = 2
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_lkajn")
 text = "Redes"
 horizontal_alignment = 1
 
-[node name="Tiktok" type="Button" parent="VBoxContainer"]
+[node name="Tiktok" type="Button" parent="VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Tiktok"
 
-[node name="IG" type="Button" parent="VBoxContainer"]
+[node name="IG" type="Button" parent="VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.756863)
 theme_override_fonts/font = ExtResource("4_43fot")
 text = "Instagram"
 
-[node name="Art" type="Button" parent="VBoxContainer"]
+[node name="Art" type="Button" parent="VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.768627)
@@ -140,6 +153,11 @@ text = "Artstation"
 
 [node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_7oahe")
+bus = &"Menu"
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2lbq1")
+bus = &"Menu"
 
 [connection signal="pressed" from="TextureRect/Volver" to="." method="_on_volver_pressed"]
 [connection signal="pressed" from="VBoxContainer/Tiktok" to="." method="_on_tiktok_pressed"]

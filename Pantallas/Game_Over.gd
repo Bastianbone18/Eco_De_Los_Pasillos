@@ -1,9 +1,9 @@
 extends Control
 
 var messages: Array[String] = [
-	"Tu historia termina aquí, valiente.",
-	"La oscuridad te ha consumido.",
-	"No todos los finales son felices."
+	"Tu historia termina aquí.",
+	"La oscuridad ya te alcanzó.",
+	"No todos logran salir de este lugar."
 ]
 
 @onready var exit_button: Button = $VBoxContainer2/ExitButton
@@ -58,6 +58,7 @@ func _ready() -> void:
 	menu_button.pressed.connect(_on_menu_pressed)
 
 	exit_button.text = "Reintentar"
+	menu_button.text = "Menú"
 
 	if message_label:
 		var random_message: String = messages[rng.randi_range(0, messages.size() - 1)]
@@ -103,10 +104,10 @@ func _update_survival_time_label() -> void:
 		if t > 0.0:
 			var minutos: int = int(t) / 60
 			var segundos: int = int(t) % 60
-			var texto: String = "Tiempo sobreviviendo: %02d:%02d" % [minutos, segundos]
+			var texto: String = "Tiempo sobrevivido: %02d:%02d" % [minutos, segundos]
 			await type_score(texto)
 		else:
-			await type_score("Tiempo no registrado")
+			await type_score("Sin registro de tiempo")
 
 func _on_retry_pressed() -> void:
 	if _transitioning: return
@@ -143,23 +144,22 @@ func _retry_load_slot() -> void:
 
 	var slot_id: int = int(GameData.current_slot_id)
 	if slot_id <= 0:
-		push_error("[GameOver] GameData.current_slot_id inválido: " + str(slot_id))
+		push_error("[GameOver] Slot inválido: " + str(slot_id))
 		_transitioning = false
 		_set_buttons_enabled(true)
 		return
 
 	var slot: Dictionary = sm.get_slot(slot_id)
 	if not slot.get("used", false):
-		push_error("[GameOver] Slot no usado: " + str(slot_id))
+		push_error("[GameOver] Slot vacío: " + str(slot_id))
 		_transitioning = false
 		_set_buttons_enabled(true)
 		return
 
-	# ✅ CARGA COMPLETA (universal -> gamedata; si no hay, legacy)
+	# ✅ CARGA COMPLETA
 	if sm.has_method("load_into_gamedata"):
 		sm.load_into_gamedata(slot_id, GameData)
 	else:
-		# fallback legacy
 		GameData.current_slot_id = slot_id
 		GameData.current_scene_path = str(slot.get("scene_path", ""))
 		GameData.current_checkpoint_id = str(slot.get("checkpoint_id", "start"))
@@ -170,23 +170,12 @@ func _retry_load_slot() -> void:
 		GameData.flashlight_on = bool(slot.get("flashlight_on", false))
 		GameData.hoja_encontrada_done = bool(slot.get("hoja_encontrada_done", false))
 
-	# ✅ FAILSAFE: si no tienes linterna, no puede estar encendida
 	if not bool(GameData.has_flashlight):
 		GameData.flashlight_on = false
 
-	# ✅ marca loading (para que Player/PantallaCarga no repitan intros/diálogos)
 	if "is_loading" in GameData:
 		GameData.is_loading = true
 
-	print("[GameOver] REINTENTAR -> slot:", slot_id,
-		"scene:", GameData.current_scene_path,
-		"cp:", GameData.current_checkpoint_id,
-		"has_flashlight:", GameData.has_flashlight,
-		"buscar_linterna_done:", GameData.buscar_linterna_done,
-		"flash_on:", GameData.flashlight_on
-	)
-
-	# ✅ key por ruta exacta (igual que lo tenías)
 	var scene_path := str(GameData.current_scene_path)
 	var key := "retry"
 	if scene_path == SCENE_MUNDO1:

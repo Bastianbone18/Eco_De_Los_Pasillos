@@ -1,7 +1,7 @@
 extends Node
 
-
-const BUS_NAME: String = "Musica"
+const BUS_NAME: String = "Musica"          # Bus para la música del juego (mundos, puzzles)
+const MENU_BUS: String = "Menu"            # Bus para la música del menú
 
 # =========================
 # STREAMS (ASIGNAR EN EDITOR)
@@ -9,6 +9,7 @@ const BUS_NAME: String = "Musica"
 @export var menu_stream: AudioStream = preload("res://Musica y sonidos/Menu.ogg")
 @export var world1_stream: AudioStream
 @export var world1_puzzle_stream: AudioStream
+@export var world3_stream: AudioStream = preload("res://Musica y sonidos/Mundo3.ogg")
 
 # =========================
 # VOLUMENES BASE
@@ -16,6 +17,7 @@ const BUS_NAME: String = "Musica"
 @export var menu_db: float = -6.0
 @export var world1_db: float = -12.0
 @export var world1_puzzle_db: float = -14.0
+@export var world3_db: float = -8.0
 
 # =========================
 # PRESIÓN DEL PUZZLE (Mundo1)
@@ -56,7 +58,6 @@ var _wobble_speed: float = 0.0
 var _wobble_jitter_amp: float = 0.0
 var _wobble_enabled: bool = false
 
-
 # ==================================================
 # READY
 # ==================================================
@@ -65,6 +66,7 @@ func _ready() -> void:
 
 	_player = AudioStreamPlayer.new()
 	add_child(_player)
+	# El bus se asignará dinámicamente según el stream; por defecto lo dejamos en "Musica"
 	_player.bus = BUS_NAME
 	_player.autoplay = false
 
@@ -73,7 +75,6 @@ func _ready() -> void:
 
 	_cache_world2_fx()
 	reset_world2_fx(true)
-
 
 func _process(delta: float) -> void:
 	# ✅ SOLO WORLD2: wobble orgánico (no toca World1)
@@ -91,29 +92,41 @@ func _process(delta: float) -> void:
 
 	_player.pitch_scale = _wobble_base_pitch + drift + jitter + asym
 
+# ==================================================
+# SELECCIÓN DE BUS SEGÚN EL STREAM
+# ==================================================
+func _set_bus_for_stream(stream: AudioStream) -> void:
+	if stream == menu_stream:
+		_player.bus = MENU_BUS
+		print("[MusicManager] Cambiando a bus: ", MENU_BUS)
+	else:
+		_player.bus = BUS_NAME
+		print("[MusicManager] Cambiando a bus: ", BUS_NAME)
 
 # ==================================================
 # PLAYERS (MENU / WORLD1 / PUZZLE)
 # ==================================================
 func play_menu(fade: float = 0.5) -> void:
+	_set_bus_for_stream(menu_stream)
 	_switch_stream(menu_stream)
 	await fade_to(menu_db, fade)
-
 
 func play_world1(fade: float = 1.5) -> void:
 	if world1_stream == null:
 		push_warning("MusicManager: world1_stream no asignado")
 		return
 
+	_set_bus_for_stream(world1_stream)
 	_switch_stream(world1_stream)
 	_reset_pressure_to_world1()
 	await fade_to(world1_db, fade)
-
 
 func play_world1_puzzle(fade: float = 0.3) -> void:
 	if world1_puzzle_stream == null:
 		push_warning("MusicManager: world1_puzzle_stream no asignado")
 		return
+
+	_set_bus_for_stream(world1_puzzle_stream)
 
 	if _player.stream == world1_puzzle_stream and _player.playing:
 		set_puzzle_pressure(0.0)
@@ -124,12 +137,21 @@ func play_world1_puzzle(fade: float = 0.3) -> void:
 	set_puzzle_pressure(0.0)
 	await fade_to(world1_puzzle_db, fade)
 
+func play_world3(fade: float = 1.5) -> void:
+	if world3_stream == null:
+		push_warning("MusicManager: world3_stream no asignado")
+		return
+
+	_set_bus_for_stream(world3_stream)
+	_switch_stream(world3_stream)
+	await fade_to(world3_db, fade)
 
 func play_stream(stream: AudioStream, fade: float = 1.0, restart: bool = true, target_db: float = -12.0) -> void:
 	if stream == null:
 		push_warning("MusicManager: play_stream recibió stream null")
 		return
 
+	_set_bus_for_stream(stream)
 	_kill_fade()
 
 	var changed: bool = false
@@ -150,7 +172,6 @@ func play_stream(stream: AudioStream, fade: float = 1.0, restart: bool = true, t
 	_fade_tween.tween_property(_player, "volume_db", target_db, max(0.01, fade))
 	await _fade_tween.finished
 
-
 func stop(immediate: bool = true) -> void:
 	if immediate:
 		_kill_fade()
@@ -160,7 +181,6 @@ func stop(immediate: bool = true) -> void:
 		await fade_to(-60.0, 0.5)
 		if _player:
 			_player.stop()
-
 
 # ==================================================
 # FADES
@@ -174,7 +194,6 @@ func fade_to(target_db: float, duration: float = 0.5) -> void:
 	_fade_tween = create_tween()
 	_fade_tween.tween_property(_player, "volume_db", target_db, max(0.01, duration))
 	await _fade_tween.finished
-
 
 func fade_in(duration: float = 0.5) -> void:
 	var target_db: float = -10.0
@@ -191,16 +210,12 @@ func fade_in(duration: float = 0.5) -> void:
 
 	await fade_to(target_db, duration)
 
-
 func fade_out(duration: float = 0.5) -> void:
 	await fade_to(-60.0, duration)
 
-
-# ✅ Helper por si quieres “apagar música” desde cualquier script
 func fade_out_and_stop(fade_time: float = 0.7) -> void:
 	await fade_out(fade_time)
 	stop(true)
-
 
 # ==================================================
 # INTERNALS
@@ -210,16 +225,13 @@ func _kill_fade() -> void:
 		_fade_tween.kill()
 	_fade_tween = null
 
-
 func _switch_stream(stream: AudioStream) -> void:
 	if _player.stream != stream:
 		_player.stream = stream
 		_player.pitch_scale = 1.0
 
-
 func _reset_pressure_to_world1() -> void:
 	_player.pitch_scale = 1.0
-
 
 # ==================================================
 # PUZZLE PRESSURE (Mundo1)
@@ -232,7 +244,6 @@ func set_puzzle_pressure(danger_ratio: float) -> void:
 	_player.pitch_scale = lerp(puzzle_base_pitch, puzzle_danger_pitch, danger_ratio)
 	_player.volume_db = lerp(puzzle_base_volume_db, puzzle_danger_volume_db, danger_ratio)
 
-
 func reset_puzzle_pressure() -> void:
 	if _player.stream != world1_puzzle_stream:
 		return
@@ -240,14 +251,13 @@ func reset_puzzle_pressure() -> void:
 	_player.pitch_scale = puzzle_base_pitch
 	_player.volume_db = puzzle_base_volume_db
 
-
 # ==================================================
 # MUNDO 2 – FX CACHE (TIPADO FUERTE)
 # ==================================================
 func _cache_world2_fx() -> void:
 	_bus_idx = AudioServer.get_bus_index(BUS_NAME)
 	if _bus_idx < 0:
-		push_warning("MusicManager: bus 'Musica' no existe")
+		push_warning("MusicManager: bus '", BUS_NAME, "' no existe")
 		return
 
 	_fx_lowpass = null
@@ -274,24 +284,21 @@ func _cache_world2_fx() -> void:
 			continue
 
 	if _fx_lowpass == null:
-		push_warning("MusicManager: No encontré LowPassFilter en el bus Musica")
+		push_warning("MusicManager: No encontré LowPassFilter en el bus ", BUS_NAME)
 	if _fx_dist == null:
-		push_warning("MusicManager: No encontré Distortion en el bus Musica")
+		push_warning("MusicManager: No encontré Distortion en el bus ", BUS_NAME)
 	if _fx_chorus == null:
-		push_warning("MusicManager: No encontré Chorus en el bus Musica")
-
+		push_warning("MusicManager: No encontré Chorus en el bus ", BUS_NAME)
 
 func _kill_fx_tween() -> void:
 	if _fx_tween != null and _fx_tween.is_running():
 		_fx_tween.kill()
 	_fx_tween = null
 
-
 func _kill_dialogue_ramp() -> void:
 	if _dialogue_ramp_tween != null and _dialogue_ramp_tween.is_running():
 		_dialogue_ramp_tween.kill()
 	_dialogue_ramp_tween = null
-
 
 # ==================================================
 # MUNDO 2 – API
@@ -309,7 +316,6 @@ func reset_world2_fx(immediate: bool = false) -> void:
 
 	_apply_world2_fx(0.0, immediate, 0.35)
 	print("[MusicManager] reset_world2_fx -> intensity=0")
-
 
 func set_world2_stage(stage: int, smooth: float = 0.45) -> void:
 	var new_stage: int = clamp(stage, 0, 3)
@@ -329,13 +335,11 @@ func set_world2_stage(stage: int, smooth: float = 0.45) -> void:
 	print("[MusicManager] WORLD2 STAGE -> ", world2_stage, " (intensity=", target_intensity, ")")
 	set_world2_intensity(target_intensity, smooth)
 
-
 func set_world2_intensity(intensity: float, smooth: float = 0.6) -> void:
 	var clamped_intensity: float = clamp(intensity, 0.0, 10.0)
 	world2_intensity = clamped_intensity
 	print("[MusicManager] set_world2_intensity -> ", world2_intensity)
 	_apply_world2_fx(world2_intensity, false, smooth)
-
 
 # ==================================================
 # MUNDO 2 – RAMP DURANTE DIÁLOGO
@@ -364,7 +368,6 @@ func on_world2_dialogue_start(stage: int, ramp_time: float = 0.7) -> void:
 	if stage >= 2:
 		_start_pitch_wobble(stage)
 
-
 func on_world2_dialogue_end(hold_time: float = 2.2, settle_time: float = 1.2) -> void:
 	print("[MusicManager] DIALOGUE END -> hold=", hold_time, " settle=", settle_time)
 
@@ -389,21 +392,17 @@ func on_world2_dialogue_end(hold_time: float = 2.2, settle_time: float = 1.2) ->
 
 	_stop_pitch_wobble()
 
-
 # ==================================================
-# MUNDO 2 – “APAGÓN” TIPO CINTA / VHS (NUEVO)
+# MUNDO 2 – “APAGÓN” TIPO CINTA / VHS
 # ==================================================
 func world2_kill_music_like_tape(fade_time: float = 1.2) -> void:
-	# Sube “terror” un instante (por FX), luego mata la música y limpia.
 	if _player == null:
 		return
 
-	# Si vienes de World1, esto no daña nada: solo afecta el bus y el player actual.
 	set_world2_intensity(10.0, 0.12)
 	await fade_out(max(0.01, fade_time))
 	stop(true)
 	reset_world2_fx(true)
-
 
 # ==================================================
 # MUNDO 2 – APLICAR FX (MÁS PESADO / TÉTRICO / LENTO)
@@ -469,7 +468,6 @@ func _apply_world2_fx(intensity: float, immediate: bool = false, smooth: float =
 	_fx_tween.tween_property(_fx_dist, "drive", drive, smooth)
 	_fx_tween.tween_property(_fx_chorus, "wet", chorus_wet, smooth)
 
-
 # ==================================================
 # Pitch wobble (WORLD2) – orgánico, lento, pesado
 # ==================================================
@@ -495,7 +493,6 @@ func _start_pitch_wobble(stage: int) -> void:
 			_wobble_amp = 0.004
 			_wobble_speed = 0.22
 			_wobble_jitter_amp = 0.0012
-
 
 func _stop_pitch_wobble() -> void:
 	_wobble_enabled = false

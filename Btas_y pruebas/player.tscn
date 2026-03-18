@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c728ra6cs3vud"]
+[gd_scene load_steps=19 format=3 uid="uid://c728ra6cs3vud"]
 
 [ext_resource type="Script" path="res://Btas_y pruebas/Player.gd" id="1_tgstb"]
 [ext_resource type="Shader" path="res://vhsVerdader.gdshader" id="2_lte5y"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://boyq0jb54rtib" path="res://Musica y sonidos/Sonidos/Respiracion_agitada.ogg" id="3_2thru"]
 [ext_resource type="Texture2D" uid="uid://clixyehhmwfvh" path="res://Imagenes_pantallas/Puntero2.png" id="4_832h7"]
 [ext_resource type="Script" path="res://Btas_y pruebas/Reticula.gd" id="5_qw81b"]
+[ext_resource type="Texture2D" uid="uid://dbiyvyclwj3qv" path="res://Imagenes_pantallas/Ojo_guiño.png" id="6_eco5q"]
 [ext_resource type="Script" path="res://Btas_y pruebas/FearOverlay.gd.gd" id="6_fwjqv"]
 [ext_resource type="AudioStream" uid="uid://ciqic05rtfgx" path="res://Musica y sonidos/Sonidos/Click_linterna.ogg" id="7_cot2t"]
 [ext_resource type="Shader" path="res://Pantallas/fear_overlay.gdshader" id="8_cpoen"]
@@ -41,6 +42,11 @@ shader_parameter/breath_amount = 0.32
 shader_parameter/jitter_amount = 0.16
 shader_parameter/sick_tint = 0.35
 shader_parameter/black_crush = 0.18
+shader_parameter/distortion_amount = 1.15
+shader_parameter/distortion_wobble_speed = 2.25
+shader_parameter/distortion_swirl = 1.05
+shader_parameter/blur_amount = 1.65
+shader_parameter/chroma_amount = 0.009
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2twjb"]
 
@@ -79,11 +85,16 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 script = ExtResource("5_qw81b")
+ojo_abierto = ExtResource("4_832h7")
+ojo_guino = ExtResource("6_eco5q")
+tiempo_para_guino = 2.5
+duracion_guino = 0.12
+pulso_velocidad = 1.2
+pulso_intensidad = 0.004
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer2/CenterContainer"]
 texture_filter = 3
 layout_mode = 2
-texture = ExtResource("4_832h7")
 
 [node name="vHS" type="ColorRect" parent="CanvasLayer2"]
 material = SubResource("ShaderMaterial_g8r3w")

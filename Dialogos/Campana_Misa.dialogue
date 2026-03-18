@@ -1,0 +1,25 @@
+~ campana_iglesia
+"[font_size=14][i]…una campana.[/i][/font_size]"
+
+"[font_size=14][color=#7A7A7A]Es pesada.[/color][/font_size]"
+"[font_size=14][i]Demasiado pesada para una sola mano.[/i][/font_size]"
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][color=#9A9A9A]El metal está gastado.[/color][/font_size]"
+"[font_size=14][i]Como si hubiera sonado muchas veces.[/i][/font_size]"
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][wave amp=4 freq=12][color=#8F8F8F]Las campanas llaman a la gente.[/color][/wave][/font_size]"
+"[font_size=14][i]Para rezar.[/i][/font_size]"
+"[font_size=14][i]Para reunirse.[/i][/font_size]"
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][color=#8A8A8A]Pero esta…[/color][/font_size]"
+"[font_size=14][i]no se siente así.[/i][/font_size]"
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][wave amp=6 freq=16][color=#9A9A9A]Se siente más como una advertencia.[/color][/wave][/font_size]"
+"[font_size=14]…[/font_size]"
+
+"[font_size=14][shake rate=16 level=3][color=#CC0000]Debería seguir.[/color][/shake][/font_size]"
+=> END

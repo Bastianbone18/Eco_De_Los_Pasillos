@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://di3ebxeubopff"]
+[gd_scene load_steps=17 format=3 uid="uid://di3ebxeubopff"]
 
 [ext_resource type="Script" path="res://Cinematicas/mundo_3_intro.gd" id="1_m4cj1"]
 [ext_resource type="Texture2D" uid="uid://bt1vpuanwuvjr" path="res://Imagenes_pantallas/Foto_iglesia.png" id="2_sgxck"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dkh1ob7bhwnfu" path="res://Imagenes_pantallas/Padre.png" id="7_36n2c"]
 [ext_resource type="Texture2D" uid="uid://nvscdxpr3nxh" path="res://Imagenes_pantallas/dIBUJO.png" id="8_60w38"]
 [ext_resource type="Texture2D" uid="uid://c5gl5486sppk3" path="res://Imagenes_pantallas/Entidad.png" id="9_rtd1o"]
+[ext_resource type="AudioStream" uid="uid://c6ns1503c4cvo" path="res://Musica y sonidos/Sonidos/Ruido_blanco.ogg" id="11_88ay2"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="11_b6rxm"]
 
 [sub_resource type="Animation" id="Animation_03j2f"]
@@ -49,7 +50,7 @@ tracks/0/path = NodePath("Fondo:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 3.5, 5.8),
+"times": PackedFloat32Array(0, 2, 3.5, 6.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0.160784, 0.0196078, 0.0196078, 1), Color(0.819608, 0.780392, 0.721569, 1), Color(0, 0, 0, 1)]
@@ -157,6 +158,21 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(0.721569, 0.721569, 0.721569, 0), Color(0.721569, 0.721569, 0.721569, 1), Color(0.858824, 0.858824, 0.858824, 1), Color(0.0313726, 0.0313726, 0.0313726, 1), Color(0.0313726, 0.0313726, 0.0313726, 0)]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_88ay2")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_paa8q"]
 _data = {
@@ -243,3 +259,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Atmosfera"

@@ -3,6 +3,23 @@ extends Node
 @export var first_checkpoint_id: String = "world3_start"
 
 func _ready() -> void:
+	MusicManager.play_world3(2.0)
+	
+	
+	print("=== LISTA DE NODOS EN MUNDO3 ===")
+
+	for child in get_children():
+		print(child.name)
+
+	print("===============================")
+	
+	var pedestal = find_child("Mano_pedestal", true, true)
+
+	if pedestal:
+		print("PEDESTAL ENCONTRADO ✅ ", pedestal.get_path())
+	else:
+		print("PEDESTAL NO ENCONTRADO ❌")
+
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	var scene_path: String = get_tree().current_scene.scene_file_path

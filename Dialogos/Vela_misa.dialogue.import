@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cfjlcux4yim4k"
+path="res://.godot/imported/Vela_misa.dialogue-f5e3f1f27eaf0d613bc07486adee9022.tres"
+
+[deps]
+
+source_file="res://Dialogos/Vela_misa.dialogue"
+dest_files=["res://.godot/imported/Vela_misa.dialogue-f5e3f1f27eaf0d613bc07486adee9022.tres"]
+
+[params]
+
+defaults=true

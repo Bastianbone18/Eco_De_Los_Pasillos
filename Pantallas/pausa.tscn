@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkxrgur8ebjks"]
+[gd_scene load_steps=10 format=3 uid="uid://dkxrgur8ebjks"]
 
 [ext_resource type="Script" path="res://Pantallas/pausa.gd" id="1_s6fb4"]
 [ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_dsmbo"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d3oaydtsl0osh" path="res://Imagenes_pantallas/Musica.png" id="4_w5ybi"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="5_p2kwd"]
 [ext_resource type="Texture2D" uid="uid://bd6hqg8y3x3rn" path="res://Imagenes_pantallas/Global.png" id="5_v2dtt"]
+[ext_resource type="AudioStream" uid="uid://ciqic05rtfgx" path="res://Musica y sonidos/Sonidos/Click_linterna.ogg" id="8_jvifg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8koj0"]
 shader = ExtResource("5_p2kwd")
@@ -57,10 +58,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label2" type="Label" parent="ColorRect/VBoxContainer"]
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_obnmk")
 theme_override_font_sizes/font_size = 20
-text = "SONIDO"
+text = "PAUSA"
 horizontal_alignment = 1
 
 [node name="HBoxMusica" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
@@ -96,29 +98,37 @@ size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
 
-[node name="BotonCreditos" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="BotonCreditos" type="Button" parent="ColorRect/VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.784314)
 theme_override_fonts/font = ExtResource("2_dsmbo")
-text = "Creditos"
+text = "Créditos"
 
-[node name="PantallaCompleta" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="PantallaCompleta" type="Button" parent="ColorRect/VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.760784)
 theme_override_fonts/font = ExtResource("3_obnmk")
 text = "Vetana"
 
-[node name="BotonMenu" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="BotonMenu" type="Button" parent="ColorRect/VBoxContainer" groups=["botones"]]
+texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.745098)
 theme_override_fonts/font = ExtResource("2_dsmbo")
-text = "Salir al Menu"
+text = "Abandonar"
 
 [node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_mk4v5")
+bus = &"Menu"
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_jvifg")
+bus = &"Menu"
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/BotonCreditos" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="ColorRect/VBoxContainer/BotonMenu" to="." method="_on_button_3_pressed"]

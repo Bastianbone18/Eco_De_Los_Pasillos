@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bwydx67cmag2a"
+path="res://.godot/imported/Vel.dialogue-acf24c51a26e58b022b68449b2402f5b.tres"
+
+[deps]
+
+source_file="res://Dialogos/Vel.dialogue"
+dest_files=["res://.godot/imported/Vel.dialogue-acf24c51a26e58b022b68449b2402f5b.tres"]
+
+[params]
+
+defaults=true

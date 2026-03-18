@@ -38,6 +38,7 @@ texture = ExtResource("2_y8r3t")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -53,7 +54,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_3unfx")
 theme_override_font_sizes/font_size = 16
-text = "Ingresa Nomre de la victima"
+text = "Que tu nombre sea conocido"
 horizontal_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="."]
@@ -73,7 +74,8 @@ theme_override_fonts/font = ExtResource("3_smuqr")
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." groups=["botones"]]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -85,6 +87,7 @@ theme_override_fonts/font = ExtResource("3_smuqr")
 text = "Continuar"
 
 [node name="LabelError" type="Label" parent="."]
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -99,6 +102,10 @@ horizontal_alignment = 1
 
 [node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_4nwn7")
+
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4nwn7")
+bus = &"Menu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

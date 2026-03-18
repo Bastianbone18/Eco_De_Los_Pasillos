@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddbv8xvgc7o01"]
+[gd_scene load_steps=12 format=3 uid="uid://ddbv8xvgc7o01"]
 
 [ext_resource type="Script" path="res://Pantallas/menu_slots.gd" id="1_6rrb5"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_gyr4r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="3_k4l3g"]
 [ext_resource type="Texture2D" uid="uid://bnrthipth7ghw" path="res://Imagenes_pantallas/SLOT1.1.png" id="4_d8g6j"]
 [ext_resource type="Texture2D" uid="uid://6gsud7kmtf36" path="res://Imagenes_pantallas/Slot2.2.png" id="6_t0k2g"]
+[ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="7_hfeuj"]
+[ext_resource type="AudioStream" uid="uid://ciqic05rtfgx" path="res://Musica y sonidos/Sonidos/Click_linterna.ogg" id="8_gesuk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmm4d"]
 shader = ExtResource("3_k4l3g")
@@ -105,7 +107,7 @@ vertical = true
 texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "OWNER: TEST"
+text = "Nombre: —"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
@@ -116,21 +118,21 @@ theme_override_font_sizes/font_size = 3
 texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "TIME: 00:00:00"
+text = "Tiempo: 00:00:00"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 
-[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot1/BoxContainer"]
+[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot1/BoxContainer" groups=["botones"]]
 texture_filter = 3
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
 theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "CREATE"
+text = "Crear"
 
 [node name="Slot2" type="Panel" parent="HBoxContainer"]
 texture_filter = 3
@@ -158,7 +160,7 @@ vertical = true
 texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "OWNER: TEST"
+text = "Nombre: —"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
@@ -169,22 +171,22 @@ theme_override_font_sizes/font_size = 3
 texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "TIME: 00:00:00"
+text = "Tiempo: 00:00:00"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 
-[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot2/BoxContainer"]
+[node name="ButtonAction" type="Button" parent="HBoxContainer/Slot2/BoxContainer" groups=["botones"]]
 texture_filter = 3
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
 theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "CREATE"
+text = "Crear"
 
-[node name="ButtonResetAll" type="Button" parent="."]
+[node name="ButtonResetAll" type="Button" parent="." groups=["botones"]]
 texture_filter = 3
 layout_mode = 1
 anchors_preset = 7
@@ -198,4 +200,12 @@ offset_right = 58.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "BORRAR TODO"
+text = "Borrar todo"
+
+[node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hfeuj")
+bus = &"Menu"
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gesuk")
+bus = &"Menu"

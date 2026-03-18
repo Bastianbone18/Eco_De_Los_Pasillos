@@ -213,6 +213,7 @@ expand_mode = 1
 
 [node name="GAME OVER" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
+texture_filter = 3
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -263,10 +264,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LabelMessage" type="Label" parent="VBoxContainer"]
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_rkuoy")
 
 [node name="LabelScore" type="Label" parent="VBoxContainer"]
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_rkuoy")
 
@@ -285,12 +288,14 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ExitButton" type="Button" parent="VBoxContainer2"]
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_llihh")
 text = "Reintentar"
 
 [node name="MenuButton" type="Button" parent="VBoxContainer2"]
 process_mode = 3
+texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_llihh")
 text = "Volver al Menu"
