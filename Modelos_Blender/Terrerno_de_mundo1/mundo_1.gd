@@ -1,5 +1,7 @@
 extends Node3D
 
+const CONTROLS_SCENE: PackedScene = preload("res://Pantallas/Controles.tscn")
+
 @export var checkpoints_path: NodePath = NodePath("Checkpoints")
 @export var player_path: NodePath = NodePath("Player")
 
@@ -17,6 +19,7 @@ var _primer_dialogo_started: bool = false
 @onready var checkpoints: Node3D = get_node_or_null(checkpoints_path)
 @onready var player: Node3D = get_node_or_null(player_path)
 @onready var crash_fx: CrashFX = get_node_or_null(crash_fx_path) as CrashFX
+
 
 # =====================================================
 # READY
@@ -39,7 +42,8 @@ func _ready() -> void:
 		" has_flashlight:", GameData.has_flashlight,
 		" buscar_linterna_done:", GameData.buscar_linterna_done,
 		" flashlight_on:", GameData.flashlight_on,
-		" hoja_done:", GameData.hoja_encontrada_done
+		" hoja_done:", GameData.hoja_encontrada_done,
+		" world1_controls_shown:", GameData.world1_controls_shown
 	)
 
 	_apply_loaded_state(cp)
@@ -50,16 +54,53 @@ func _ready() -> void:
 	if cp == "start" and !GameData.intro_done and !_intro_sequence_started:
 		_intro_sequence_started = true
 
-		# 🔒 Bloqueo fuerte para que ningún otro trigger vuelva a disparar intro
+		# Bloqueo para que no repita intro
 		GameData.intro_done = true
 
-		# 1) CrashFX (anim 3.05 -> FX -> extra_delay)
+		# 1) CrashFX
 		if crash_fx != null:
 			crash_fx.play_crash()
 			await crash_fx.crash_finished
 
-		# 2) Diálogo EXACTO al terminar todo
+		# 2) Pantalla de controles
+		await _show_controls_screen()
+
+		# 3) Primer diálogo
 		_start_primer_dialogo()
+
+
+# =====================================================
+# CONTROLES
+# =====================================================
+
+func _show_controls_screen() -> void:
+	if GameData.world1_controls_shown:
+		return
+
+	GameData.world1_controls_shown = true
+
+	var controls := CONTROLS_SCENE.instantiate()
+	if controls == null:
+		push_warning("[Mundo1] No pude instanciar la escena de controles.")
+		return
+
+	add_child(controls)
+
+	if controls is Node:
+		(controls as Node).process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
+	get_tree().paused = true
+
+	if controls.has_method("play_controls"):
+		controls.call("play_controls")
+		await controls.controls_finished
+	else:
+		push_warning("[Mundo1] La escena de controles no tiene play_controls().")
+		await get_tree().create_timer(3.0, true, false, true).timeout
+		if is_instance_valid(controls):
+			controls.queue_free()
+
+	get_tree().paused = false
 
 
 # =====================================================
@@ -95,13 +136,13 @@ func _apply_loaded_state(cp: String) -> void:
 		GameData.has_flashlight
 	)
 
-	# 1) Desactivar intro si ya pasó
+	# Desactivar intro si ya pasó
 	if GameData.intro_done:
 		_disable_node(intro_manager_path, "IntroManager")
 		_disable_node(intro_dialog_triggers_path, "IntroDialogTriggers")
 		_disable_node(truck_flashlight_spawn_path, "TruckFlashlightSpawn")
 
-	# 2) Mantener linterna
+	# Mantener linterna
 	if GameData.has_flashlight:
 		_enable_flashlight()
 
@@ -147,13 +188,11 @@ func _enable_flashlight() -> void:
 # =====================================================
 
 func _start_primer_dialogo() -> void:
-	# 🔒 Anti-duplicado: si algo intenta llamarlo 2 veces, se cancela
 	if _primer_dialogo_started:
 		print("[Mundo1] Primer_Dialogo ya fue iniciado. Ignorando llamada duplicada.")
 		return
 	_primer_dialogo_started = true
 
-	# Si existe un singleton "DialogueManager", úsalo
 	if Engine.has_singleton("DialogueManager"):
 		var dm = Engine.get_singleton("DialogueManager")
 		if dm != null and dm.has_method("show_dialogue_balloon"):
@@ -164,7 +203,6 @@ func _start_primer_dialogo() -> void:
 			)
 			return
 
-	# Si tu IntroManager lo maneja
 	var intro := get_node_or_null(intro_manager_path)
 	if intro != null:
 		if intro.has_method("start_primer_dialogo"):

@@ -77,6 +77,7 @@ background_mode = 2
 background_energy_multiplier = 0.5
 sky = SubResource("Sky_0rran")
 tonemap_mode = 3
+tonemap_exposure = 1.2
 glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.345619, 0.390941, 0.443805, 1)
@@ -1182,6 +1183,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="IntroAnim" type="AnimationPlayer" parent="CanvasLayer"]
 libraries = {

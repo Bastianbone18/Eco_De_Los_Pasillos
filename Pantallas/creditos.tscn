@@ -62,7 +62,7 @@ offset_right = 33.0
 offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_lkajn")
-text = "Creditos"
+text = "Créditos"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="TextureRect" groups=["botones"]]

@@ -13,6 +13,9 @@ var current_checkpoint_id: String = ""
 var intro_done: bool = false
 var has_flashlight: bool = false
 
+# Mundo 1 controles
+var world1_controls_shown: bool = false
+
 # Mundo 2 intro
 var intro_mundo2_done: bool = false
 
@@ -46,6 +49,9 @@ var letrero_viejo_done: bool = false
 # atmósfera mundo 2
 var world2_atmos_stage: int = 0
 
+# foto familiar
+var foto_familiar_done: bool = false
+
 # ==================================================
 # TIMER
 # ==================================================
@@ -54,8 +60,10 @@ var survival_time := 0.0
 var _start_ticks := 0
 var _running := false
 
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
 
 # ==================================================
 # CHECKPOINTS
@@ -65,9 +73,11 @@ func set_checkpoint(scene_path: String, checkpoint_id: String) -> void:
 	current_scene_path = scene_path
 	current_checkpoint_id = checkpoint_id
 
+
 func clear_checkpoint() -> void:
 	current_scene_path = ""
 	current_checkpoint_id = ""
+
 
 # ==================================================
 # TIMER CONTROL
@@ -79,6 +89,7 @@ func start_survival_timer() -> void:
 	_start_ticks = Time.get_ticks_msec()
 	_running = true
 
+
 func stop_survival_timer() -> void:
 	if _running and _start_ticks > 0:
 		var elapsed_ms := Time.get_ticks_msec() - _start_ticks
@@ -86,15 +97,18 @@ func stop_survival_timer() -> void:
 	_running = false
 	_start_ticks = 0
 
+
 func reset_survival_time() -> void:
 	survival_time = 0.0
 	_start_ticks = 0
 	_running = false
 
+
 func set_survival_time(seconds: float) -> void:
 	survival_time = max(seconds, 0.0)
 	_running = false
 	_start_ticks = 0
+
 
 func get_total_survival_time() -> float:
 	if _running and _start_ticks > 0:
@@ -102,13 +116,13 @@ func get_total_survival_time() -> float:
 		return survival_time + float(elapsed_ms) / 1000.0
 	return survival_time
 
+
 # ==================================================
 # SAVE
 # ==================================================
 
 func to_save_dict() -> Dictionary:
 	return {
-
 		# escena
 		"scene_path": current_scene_path,
 		"checkpoint_id": current_checkpoint_id,
@@ -116,6 +130,7 @@ func to_save_dict() -> Dictionary:
 		# progreso
 		"intro_done": intro_done,
 		"has_flashlight": has_flashlight,
+		"world1_controls_shown": world1_controls_shown,
 
 		"intro_mundo2_done": intro_mundo2_done,
 		"intro_mundo3_done": intro_mundo3_done,
@@ -126,9 +141,10 @@ func to_save_dict() -> Dictionary:
 		"angel_statua_done": angel_statua_done,
 		"letrero_viejo_done": letrero_viejo_done,
 
-		# objetos
+		# objetos / eventos específicos
 		"flashlight_on": flashlight_on,
 		"hoja_encontrada_done": hoja_encontrada_done,
+		"foto_familiar_done": foto_familiar_done,
 
 		# eventos mundo
 		"roca_accidente_done": roca_accidente_done,
@@ -145,18 +161,19 @@ func to_save_dict() -> Dictionary:
 		"play_time": get_total_survival_time()
 	}
 
+
 # ==================================================
 # LOAD
 # ==================================================
 
 func apply_save_dict(d: Dictionary) -> void:
-
 	current_scene_path = d.get("scene_path", current_scene_path)
 	current_checkpoint_id = d.get("checkpoint_id", current_checkpoint_id)
 
 	# progreso
 	intro_done = bool(d.get("intro_done", intro_done))
 	has_flashlight = bool(d.get("has_flashlight", has_flashlight))
+	world1_controls_shown = bool(d.get("world1_controls_shown", world1_controls_shown))
 
 	intro_mundo2_done = bool(d.get("intro_mundo2_done", intro_mundo2_done))
 	intro_mundo3_done = bool(d.get("intro_mundo3_done", intro_mundo3_done))
@@ -167,9 +184,10 @@ func apply_save_dict(d: Dictionary) -> void:
 	angel_statua_done = bool(d.get("angel_statua_done", angel_statua_done))
 	letrero_viejo_done = bool(d.get("letrero_viejo_done", letrero_viejo_done))
 
-	# objetos
+	# objetos / eventos específicos
 	flashlight_on = bool(d.get("flashlight_on", flashlight_on))
 	hoja_encontrada_done = bool(d.get("hoja_encontrada_done", hoja_encontrada_done))
+	foto_familiar_done = bool(d.get("foto_familiar_done", foto_familiar_done))
 
 	# eventos
 	roca_accidente_done = bool(d.get("roca_accidente_done", roca_accidente_done))

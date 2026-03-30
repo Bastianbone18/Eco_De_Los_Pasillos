@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dg6una74sgmdd"]
+[gd_scene load_steps=60 format=3 uid="uid://dg6una74sgmdd"]
 
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/mundo_3.gd" id="1_55m2s"]
 [ext_resource type="Texture2D" uid="uid://qpp1cw0g4q6y" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_BaseColor.png" id="1_qx3nu"]
@@ -21,25 +21,66 @@
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/area_3d_demonica.gd" id="18_iow8r"]
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/SueloCorruptoController.gd" id="19_ie0ma"]
 [ext_resource type="PackedScene" uid="uid://b4cvuoljlahlw" path="res://Pantallas/Mensaje_Final.tscn" id="19_jl4tx"]
+[ext_resource type="PackedScene" uid="uid://dvlhq83603pk4" path="res://Props/PadreEntity .tscn" id="22_x445b"]
+[ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/MentalAlert.gd" id="23_hgcjr"]
+[ext_resource type="Shader" path="res://shaders/AlertaShader.gdshader" id="23_vnfh6"]
+[ext_resource type="PackedScene" uid="uid://c4ab0vmf62htn" path="res://Modelos_Blender/Foto/cuadro_marco_foto.tscn" id="25_5qu3o"]
+[ext_resource type="Texture2D" uid="uid://m4l381cfp0gv" path="res://Imagenes_pantallas/Dust2.png" id="27_1unts"]
+[ext_resource type="AudioStream" uid="uid://boyq0jb54rtib" path="res://Musica y sonidos/Sonidos/Respiracion_agitada.ogg" id="28_r8te0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_prrtq"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.0705882, 0.0745098, 0.0823529, 1)
+sky_horizon_color = Color(0.384314, 0.392157, 0.419608, 1)
+sky_curve = 0.35
+sky_energy_multiplier = 0.9
+sky_cover_modulate = Color(0.478431, 0.454902, 0.415686, 1)
+ground_bottom_color = Color(0.243137, 0.227451, 0.223529, 1)
+ground_horizon_color = Color(0.368627, 0.364706, 0.380392, 1)
+ground_curve = 0.25
+sun_angle_max = 20.0
+sun_curve = 0.25
 
 [sub_resource type="Sky" id="Sky_386nu"]
 sky_material = SubResource("ProceduralSkyMaterial_prrtq")
 
 [sub_resource type="Environment" id="Environment_4bevn"]
 background_mode = 2
-background_energy_multiplier = 0.1
+background_energy_multiplier = 0.15
 sky = SubResource("Sky_386nu")
-tonemap_mode = 2
+tonemap_mode = 3
 glow_enabled = true
+glow_intensity = 0.65
+glow_strength = 0.85
+glow_bloom = 0.05
+glow_hdr_threshold = 1.2
+glow_hdr_scale = 1.6
+glow_hdr_luminance_cap = 10.0
+glow_map_strength = 0.5
+fog_enabled = true
+fog_light_color = Color(0.335419, 0.3028, 0.246978, 1)
+fog_light_energy = 0.35
+fog_sun_scatter = 0.04
+fog_density = 0.02
+fog_aerial_perspective = 0.12
+fog_sky_affect = 0.35
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.012
+volumetric_fog_albedo = Color(0.368627, 0.376471, 0.4, 1)
+volumetric_fog_gi_inject = 0.6
+volumetric_fog_anisotropy = 0.05
+volumetric_fog_length = 48.0
+volumetric_fog_detail_spread = 1.2
+volumetric_fog_ambient_inject = 0.2
+volumetric_fog_sky_affect = 0.8
+adjustment_enabled = true
+adjustment_brightness = 0.92
+adjustment_contrast = 1.02
+adjustment_saturation = 0.85
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a2kgi"]
 render_priority = 0
 shader = ExtResource("2_2wqyl")
-shader_parameter/uv_scale = 17.0
+shader_parameter/uv_scale = 18.0
 shader_parameter/grunge_scale_a = 12.0
 shader_parameter/grunge_scale_b = 6.0
 shader_parameter/corruption = 0.0
@@ -216,6 +257,130 @@ shader_parameter/pentagram_tex = ExtResource("13_3ae10")
 material = SubResource("ShaderMaterial_6oriv")
 size = Vector2(10, 10)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ickh1"]
+shader = ExtResource("23_vnfh6")
+shader_parameter/strength = 0.0
+shader_parameter/pulse_speed = 3.2
+shader_parameter/wobble_speed = 2.1
+shader_parameter/blur_amount = 1.8
+shader_parameter/chroma_amount = 0.01
+shader_parameter/warp_strength = 1.25
+shader_parameter/noise_strength = 0.32
+shader_parameter/dirt_strength = 0.42
+shader_parameter/line_strength = 0.18
+shader_parameter/ghost_strength = 0.25
+shader_parameter/strobe_strength = 0.35
+shader_parameter/smear_strength = 0.3
+shader_parameter/sick_tint = Vector3(0.92, 0.98, 1.06)
+shader_parameter/rot_tint = Vector3(0.95, 1.04, 0.93)
+shader_parameter/dark_tint = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="Gradient" id="Gradient_nok2i"]
+offsets = PackedFloat32Array(0, 0.2, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.372549, 0.388235, 0.407843, 0.4, 0.415686, 0.423529, 0.439216, 0.666667, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u68xn"]
+gradient = SubResource("Gradient_nok2i")
+
+[sub_resource type="Curve" id="Curve_fj4sr"]
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(0.2, 0.6), 0.0, 0.0, 0, 0, Vector2(0.45, 1), 0.0, 0.0, 0, 0, Vector2(0.7, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_uf8b8"]
+curve = SubResource("Curve_fj4sr")
+
+[sub_resource type="Curve" id="Curve_unpj5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.15, 0.8), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_y1ve7"]
+curve = SubResource("Curve_unpj5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nammw"]
+emission_shape_offset = Vector3(0, 1.8, 0)
+emission_shape = 3
+emission_box_extents = Vector3(160, 5, 160)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 0.65
+initial_velocity_min = 0.03
+initial_velocity_max = 0.12
+gravity = Vector3(0, -0.2, 0)
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_y1ve7")
+color = Color(0.447679, 0.420186, 0.36949, 1)
+color_ramp = SubResource("GradientTexture1D_u68xn")
+emission_curve = SubResource("CurveTexture_uf8b8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3b0u"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("27_1unts")
+texture_filter = 2
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_apcg1"]
+material = SubResource("StandardMaterial3D_t3b0u")
+
+[sub_resource type="Animation" id="Animation_4ntdq"]
+resource_name = "DespertarSusto"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2.1, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.0431373, 0.0313726, 0.0156863, 1), Color(0.0431373, 0.0313726, 0.0156863, 0.313726), Color(0.0431373, 0.0313726, 0.0156863, 0.956863), Color(0.0431373, 0.0313726, 0.0156863, 0.313726), Color(0.0431373, 0.0313726, 0.0156863, 0.788235), Color(0.0431373, 0.0313726, 0.0156863, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("28_r8te0")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_lnpmk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y142g"]
+_data = {
+"DespertarSusto": SubResource("Animation_4ntdq"),
+"RESET": SubResource("Animation_lnpmk")
+}
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_55m2s")
 
@@ -224,8 +389,17 @@ environment = SubResource("Environment_4bevn")
 
 [node name="SUN" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-light_energy = 0.05
+light_color = Color(0.788235, 0.74902, 0.682353, 1)
+light_energy = 0.17
+light_indirect_energy = 0.6
+light_volumetric_fog_energy = 0.4
+light_angular_distance = 1.2
 shadow_enabled = true
+shadow_bias = 0.08
+shadow_normal_bias = 1.2
+shadow_transmittance_bias = 0.02
+shadow_opacity = 0.75
+shadow_blur = 1.5
 
 [node name="Suelo" type="MeshInstance3D" parent="."]
 transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 0, 0)
@@ -237,9 +411,10 @@ mesh = SubResource("PlaneMesh_ww20c")
 shape = SubResource("ConvexPolygonShape3D_i1xuj")
 
 [node name="Player" parent="." instance=ExtResource("1_wbihq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 19.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 29.5)
 
 [node name="Pausa" parent="." instance=ExtResource("6_s787f")]
+visible = false
 
 [node name="anillo_pedestal" parent="." instance=ExtResource("8_hcbqy")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -36, 0, 17)
@@ -342,3 +517,52 @@ draw_pass_1 = SubResource("QuadMesh_7mn2i")
 [node name="SueloCorruptoController" type="Node" parent="." node_paths=PackedStringArray("suelo_mesh")]
 script = ExtResource("19_ie0ma")
 suelo_mesh = NodePath("../Suelo")
+
+[node name="PadreEntity" parent="." instance=ExtResource("22_x445b")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -6.4, 0.02, 19.5)
+tiempo_para_mirar = 2.0
+fade_speed_in = 5.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AlertRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ickh1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("23_hgcjr")
+
+[node name="Cuadro_marco_foto" parent="." instance=ExtResource("25_5qu3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684312, 12)
+proximity_radius = 50.0
+max_db = 5.0
+
+[node name="FakeContainer" type="Node3D" parent="."]
+
+[node name="SueñoParticulas" type="GPUParticles3D" parent="."]
+amount = 600
+process_material = SubResource("ParticleProcessMaterial_nammw")
+draw_pass_1 = SubResource("QuadMesh_apcg1")
+
+[node name="DespiertaAnim" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="DespiertaAnim"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DespiertaAnim"]
+bus = &"Atmosfera"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DespiertaAnim"]
+libraries = {
+"": SubResource("AnimationLibrary_y142g")
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddbv8xvgc7o01"]
+[gd_scene load_steps=14 format=3 uid="uid://ddbv8xvgc7o01"]
 
 [ext_resource type="Script" path="res://Pantallas/menu_slots.gd" id="1_6rrb5"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_gyr4r"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://6gsud7kmtf36" path="res://Imagenes_pantallas/Slot2.2.png" id="6_t0k2g"]
 [ext_resource type="AudioStream" uid="uid://bf7qt44y8f136" path="res://Musica y sonidos/Sonidos/Clicks.ogg" id="7_hfeuj"]
 [ext_resource type="AudioStream" uid="uid://ciqic05rtfgx" path="res://Musica y sonidos/Sonidos/Click_linterna.ogg" id="8_gesuk"]
+[ext_resource type="Script" path="res://Pantallas/ConfirmDeleteUI.gd" id="9_f6ftg"]
+[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="10_usjhv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pmm4d"]
 shader = ExtResource("3_k4l3g")
@@ -96,8 +98,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -57.0
-offset_top = -136.0
+offset_top = -153.0
 offset_right = 58.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6
@@ -121,10 +124,6 @@ theme_override_fonts/font = ExtResource("2_gyr4r")
 text = "Tiempo: 00:00:00"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Slot1/BoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 5
-
 [node name="ButtonAction" type="Button" parent="HBoxContainer/Slot1/BoxContainer" groups=["botones"]]
 texture_filter = 3
 layout_mode = 2
@@ -133,6 +132,15 @@ theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
 theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
 theme_override_fonts/font = ExtResource("2_gyr4r")
 text = "Crear"
+
+[node name="ButtonDelete" type="Button" parent="HBoxContainer/Slot1/BoxContainer" groups=["botones"]]
+texture_filter = 3
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
+theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
+theme_override_fonts/font = ExtResource("2_gyr4r")
+text = "Borrar"
 
 [node name="Slot2" type="Panel" parent="HBoxContainer"]
 texture_filter = 3
@@ -149,8 +157,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -57.0
-offset_top = -136.0
+offset_top = -153.0
 offset_right = 58.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 6
@@ -174,10 +183,6 @@ theme_override_fonts/font = ExtResource("2_gyr4r")
 text = "Tiempo: 00:00:00"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Slot2/BoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 5
-
 [node name="ButtonAction" type="Button" parent="HBoxContainer/Slot2/BoxContainer" groups=["botones"]]
 texture_filter = 3
 layout_mode = 2
@@ -186,21 +191,13 @@ theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0
 theme_override_fonts/font = ExtResource("2_gyr4r")
 text = "Crear"
 
-[node name="ButtonResetAll" type="Button" parent="." groups=["botones"]]
+[node name="ButtonDelete" type="Button" parent="HBoxContainer/Slot2/BoxContainer" groups=["botones"]]
 texture_filter = 3
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = -29.0
-offset_right = 58.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.352941, 0.117647, 0.117647, 1)
+theme_override_colors/font_pressed_color = Color(0.352941, 0.117647, 0.117647, 0.741176)
 theme_override_fonts/font = ExtResource("2_gyr4r")
-text = "Borrar todo"
+text = "Borrar"
 
 [node name="AudioStreamPlayerBoton" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_hfeuj")
@@ -209,3 +206,82 @@ bus = &"Menu"
 [node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_gesuk")
 bus = &"Menu"
+
+[node name="ConfirmDeleteUI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_f6ftg")
+
+[node name="ColorRect" type="ColorRect" parent="ConfirmDeleteUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.592157)
+
+[node name="Panel" type="Panel" parent="ConfirmDeleteUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="texto" type="Label" parent="ConfirmDeleteUI/Panel"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -44.0
+offset_right = 104.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_gyr4r")
+theme_override_font_sizes/font_size = 15
+text = "¿Seguro que deseas borrar este slot?
+Esta acción no se puede deshacer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmDeleteUI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = 3.0
+offset_right = 84.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Confirmar" type="Button" parent="ConfirmDeleteUI/Panel/HBoxContainer" groups=["botones"]]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_usjhv")
+theme_override_font_sizes/font_size = 15
+text = "Confirmar"
+
+[node name="Control" type="Control" parent="ConfirmDeleteUI/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Cancelar" type="Button" parent="ConfirmDeleteUI/Panel/HBoxContainer" groups=["botones"]]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_usjhv")
+theme_override_font_sizes/font_size = 15
+text = "Cancelar"

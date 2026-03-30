@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=4 uid="uid://c4ab0vmf62htn"]
+
+[ext_resource type="PackedScene" uid="uid://eg4fx330rtia" path="res://Modelos_Blender/Foto/Cuadro_marco_foto.fbx" id="1_hb4di"]
+[ext_resource type="Script" path="res://Modelos_Blender/Foto/FotoFamiliar.gd" id="2_0041x"]
+[ext_resource type="Shader" path="res://Movimiento.gdshader" id="2_cih75"]
+[ext_resource type="Texture2D" uid="uid://cntnr6o7audlq" path="res://Modelos_Blender/Foto/Cuadro_marco_foto_DefaultMaterial_BaseColor.png" id="3_wvfvo"]
+[ext_resource type="Texture2D" uid="uid://d30cufjrrx7b3" path="res://Modelos_Blender/Foto/Cuadro_marco_foto_DefaultMaterial_Emissive.png" id="4_4mdg4"]
+[ext_resource type="Texture2D" uid="uid://d0pw4agl6t0i1" path="res://Modelos_Blender/Foto/Cuadro_marco_foto_DefaultMaterial_Metallic.png" id="5_kpq07"]
+[ext_resource type="Texture2D" uid="uid://cdts4mvh0ow24" path="res://Modelos_Blender/Foto/Cuadro_marco_foto_DefaultMaterial_Normal.png" id="6_ve7b1"]
+[ext_resource type="Texture2D" uid="uid://bwx5v1tnucmrs" path="res://Modelos_Blender/Foto/Cuadro_marco_foto_DefaultMaterial_Roughness.png" id="7_cdv0r"]
+[ext_resource type="AudioStream" uid="uid://dce3xq7pm2fxr" path="res://Musica y sonidos/Sonidos/Susurros_foto.ogg" id="9_rkudy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65hmq"]
+render_priority = 0
+shader = ExtResource("2_cih75")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.6
+shader_parameter/resolution = Vector2i(320, 180)
+shader_parameter/normal_scale = 1.0
+shader_parameter/emission_energy = 1.0
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/albedo = ExtResource("3_wvfvo")
+shader_parameter/metallic_map = ExtResource("5_kpq07")
+shader_parameter/roughness_map = ExtResource("7_cdv0r")
+shader_parameter/normal_map = ExtResource("6_ve7b1")
+shader_parameter/emission_map = ExtResource("4_4mdg4")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rv17o"]
+_surfaces = [{
+"aabb": AABB(-0.00885283, -0.000591509, -0.00620476, 0.0177057, 0.00192827, 0.0140958),
+"format": 34359742465,
+"index_count": 120,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAQAEAAUABQACAAEABgAHAAUABQAEAAYAAAADAAcABwAGAAAABwADAAIAAgAFAAcAAAAGAAQABAABAAAACAAJAAoACgALAAgADAANAAoACgAJAAwACAAOAAwADAAJAAgADQAPAAsACwAKAA0ACwAPAA4ADgAIAAsAEAARAA4ADgAPABAAEgATAA0ADQAMABIADgARABIAEgAMAA4AEwAQAA8ADwANABMAFAAQABMAEwAVABQAFQATABIAEgAWABUAFwAWABIAEgARABcAFwARABAAEAAUABcAFQAWABcAFwAUABUA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("2IyEutQhqDlRIjM72IyEulxFdDdRIjM7GMMTu0oWhzqIE8i7GMMTuzM2rzqIE8i71oyEOlxFdDdRIjM7FsMTO0oWhzqIE8i71oyEOtQhqDlRIjM7FsMTOzM2rzqIE8i7yaz2O50InLlYAuA7yaz2O5MInLkswai7xaz2u5MInLkswai7xaz2u50InLlYAuA7G4EBPHoPG7rbkrK7G4EBvHoPG7rbkrK7G4EBPIEPG7oI1Ok7G4EBvIEPG7oI1Ok7egsRvAh/KblESQE8egsRPAh/KblESQE8egsRPO1+KblWUcu7egsRvO1+KblWUcu7egsRvB1tyjhESQE8egsRvFNtyjhWUcu7egsRPFNtyjhWUcu7egsRPB1tyjhESQE8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_icmx6"]
+resource_name = "Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.00885283, -0.000591509, -0.00620476, 0.0177057, 0.00192827, 0.0140958),
+"attribute_data": PackedByteArray("bJ0QP0TUHD6jRRM/kJ4bPqNFEz90xeo+bJ0QP1Bg6z6U+kE/qCc6PrilUz+oJzo+YYJeP06H+D7sHTc/Tof4PgESFj9A1Bw+ARIWP05g6z7KaRM/csXqPsppEz+Mnhs++87kPdAfuz0j2h0+bjvKPtWakDluO8o+v+suPcgfuz28ah4+cDvKPr1qHj4M5XY+Kh0pPgzldj4qHSk+cDvKPjRgND4o5aY+NGA0Pm47yj7HrSk+bjvKPsetKT4o5aY+6+1/P+ztfz+ZOBc/7O1/P5s4Fz+az/g+7e1/P5zP+D79mg8/7O1/P/2aDz+cqOs+pEUTPx488j6jRRM/LaR8P8/NMj+IgYc9xPk2PwAhZT3E+TY/TIf4Ps/NMj8IS/M+sn0uP0yH+D6yfS4/ACFlPaipMj+QgYc9p6kyPwhL8z7LaRM/HDzyPnIUFz+cqOs+chQXP+ztfz/LaRM/LKR8P5Ky9j7t7X8/kbL2Pr6Dyj558AI/LBbbPnnwAj+0pHc/0KsKP76Dyj7Rqwo/7e1/P6EUAz+1pHc/oBQDPzAW2z6ldSA/wCr3PIiOKT8ATZA7h44pP06H+D6kdSA/2FXrPpk4Fz9Qh/g+mjgXP4BMkDt9USA/wCr3PHxRID/aVes+MBgsPwBNkDuLWS4/AE2QO4tZLj9Oh/g+MBgsP06H+D5TEQ0/7e1/P/jPCj/t7X8/+M8KP7yDyj5TEQ0/vIPKPgr0Kz+ATJA7CfQrP06H+D6vsik/Tof4Pq+yKT+ATJA7ejUNP76Dyj7Vdg8/voPKPtV2Dz/t7X8/ezUNP+3tfz9EavY+vIPKPkNq9j7t7X8/fpqQOe3tfz8JnpA5vIPKPg=="),
+"format": 34359742487,
+"index_count": 120,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwA"),
+"material": SubResource("ShaderMaterial_65hmq"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 80,
+"vertex_data": PackedByteArray("2IyEutQhqDlRIjM72IyEulxFdDdRIjM7GMMTu0oWhzqIE8i7GMMTuzM2rzqIE8i72IyEulxFdDdRIjM71oyEOlxFdDdRIjM7FsMTO0oWhzqIE8i7GMMTu0oWhzqIE8i71oyEOtQhqDlRIjM7FsMTOzM2rzqIE8i7FsMTO0oWhzqIE8i71oyEOlxFdDdRIjM72IyEutQhqDlRIjM7GMMTuzM2rzqIE8i7FsMTOzM2rzqIE8i71oyEOtQhqDlRIjM7FsMTOzM2rzqIE8i7GMMTuzM2rzqIE8i7GMMTu0oWhzqIE8i7FsMTO0oWhzqIE8i72IyEutQhqDlRIjM71oyEOtQhqDlRIjM71oyEOlxFdDdRIjM72IyEulxFdDdRIjM7yaz2O50InLlYAuA7yaz2O5MInLkswai7xaz2u5MInLkswai7xaz2u50InLlYAuA7G4EBPHoPG7rbkrK7G4EBvHoPG7rbkrK7xaz2u5MInLkswai7yaz2O5MInLkswai7yaz2O50InLlYAuA7G4EBPIEPG7oI1Ok7G4EBPHoPG7rbkrK7yaz2O5MInLkswai7G4EBvHoPG7rbkrK7G4EBvIEPG7oI1Ok7xaz2u50InLlYAuA7xaz2u5MInLkswai7xaz2u50InLlYAuA7G4EBvIEPG7oI1Ok7G4EBPIEPG7oI1Ok7yaz2O50InLlYAuA7egsRvAh/KblESQE8egsRPAh/KblESQE8G4EBPIEPG7oI1Ok7G4EBvIEPG7oI1Ok7egsRPO1+KblWUcu7egsRvO1+KblWUcu7G4EBvHoPG7rbkrK7G4EBPHoPG7rbkrK7G4EBPIEPG7oI1Ok7egsRPAh/KblESQE8egsRPO1+KblWUcu7G4EBPHoPG7rbkrK7egsRvO1+KblWUcu7egsRvAh/KblESQE8G4EBvIEPG7oI1Ok7G4EBvHoPG7rbkrK7egsRvB1tyjhESQE8egsRvAh/KblESQE8egsRvO1+KblWUcu7egsRvFNtyjhWUcu7egsRvFNtyjhWUcu7egsRvO1+KblWUcu7egsRPO1+KblWUcu7egsRPFNtyjhWUcu7egsRPB1tyjhESQE8egsRPFNtyjhWUcu7egsRPO1+KblWUcu7egsRPAh/KblESQE8egsRPB1tyjhESQE8egsRPAh/KblESQE8egsRvAh/KblESQE8egsRvB1tyjhESQE8egsRvFNtyjhWUcu7egsRPFNtyjhWUcu7egsRPB1tyjhESQE8egsRvB1tyjhESQE8yA//f2px5YDID/9/anHlgMgP/39qceWAyA//f2px5YAxjQAA////vzGNAAD///+/MY0AAP///78xjQAA////vzbw/38zfrT4NvD/fzN+tPg28P9/M360+Dbw/38zfrT4/3/M8gAA/7//f8zyAAD/v/9/zPIAAP+//3/M8gAA/7///////38AgP//////fwCA//////9/AID//////38AgP9//3//f////3//f/9/////f/9//3////9//3//f////38AAP9//7//fwAA/3//v/9/AAD/f/+//38AAP9//7//f2A//3+v3/9/YD//f6/f/39gP/9/r9//f2A//3+v3+BHHzjfx++j4EcfON/H76PgRx8438fvo+BHHzjfx++jHrgfON/HDtweuB8438cO3B64Hzjfxw7cHrgfON/HDtxgvwAA/39OoGC/AAD/f06gYL8AAP9/TqBgvwAA/39OoP9/bi5uLgCA/39uLm4uAID/f24ubi4AgP9/bi5uLgCAbq4AAG4u/v9urgAAkNH//26uAABuLv//bq4AAG4u/v/qp+onFNj00+qn6icU2PTT6qfqJxTY9NPqp+onFNj00xRY6icU2AmsFFjqJxTYCawUWOonFNgJrBRY6icU2AmsAAD/f/9/AIAAAP9//38AgAAA/3//fwCAAAD/f/9/AID//////3//////////f/////////9//////////3///////3//f///////f/9///////9//3///////3//f////3//f/9/AID/f/9//38AgP9//3//fwCA/3//f/9/AID/f/////////9//////////3//////////f////////w==")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_rv17o")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7121y"]
+size = Vector3(0.02, 0.005, 0.012)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8rvjy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ihmdm"]
+radius = 10.0
+
+[node name="Cuadro_marco_foto" instance=ExtResource("1_hb4di")]
+script = ExtResource("2_0041x")
+mesh_to_hide_path = NodePath("Cuadro_de_fotos")
+
+[node name="Cuadro_de_fotos" parent="." index="0"]
+mesh = SubResource("ArrayMesh_icmx6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cuadro_de_fotos" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cuadro_de_fotos/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 2.84217e-14, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_7121y")
+
+[node name="Area3D" type="Area3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_8rvjy")
+
+[node name="ProximityArea3D" type="Area3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProximityArea3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CylinderShape3D_ihmdm")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 1)
+light_color = Color(0.658824, 0.545098, 0.384314, 1)
+light_energy = 0.35
+omni_range = 7.5
+omni_attenuation = 0.7
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="4"]
+stream = ExtResource("9_rkudy")
+volume_db = 6.0
+unit_size = 6.0
+max_db = 6.0
+bus = &"Atmosfera"

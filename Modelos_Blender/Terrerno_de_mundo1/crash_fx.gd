@@ -36,7 +36,7 @@ signal crash_finished
 # NODOS
 # =====================================================
 
-@onready var hit_rect: ColorRect = get_node_or_null("ColorRect") as ColorRect
+@onready var hit_rect: ColorRect = get_node_or_null("HitColor") as ColorRect
 @onready var fx_rect: ColorRect = get_node_or_null("FX") as ColorRect
 @onready var anim: AnimationPlayer = get_node_or_null("AnimationPlayer") as AnimationPlayer
 @onready var audio: AudioStreamPlayer = get_node_or_null("AudioStreamPlayer") as AudioStreamPlayer
@@ -58,7 +58,7 @@ func _ready() -> void:
 	visible = false
 
 	if hit_rect == null:
-		push_error("[CrashFX] Falta hijo 'ColorRect' (HitColor).")
+		push_error("[CrashFX] Falta hijo 'HitColor'.")
 	else:
 		hit_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 

@@ -12,6 +12,10 @@ var shake_strength := 0.0
 var base_pos := Vector2.ZERO
 var shaking := false
 
+var _preload_started := false
+var _scene_ready := false
+var _loaded_packed_scene: PackedScene = null
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = true
@@ -36,19 +40,61 @@ func _ready() -> void:
 	if imagen_lore:
 		imagen_lore.visible = false
 
+	# ✅ Empezar a precargar la escena real en segundo plano
+	_start_preload()
+
 	if anim.has_animation("intro"):
 		anim.play("intro")
 	else:
 		push_error("[Mundo3Intro] No existe la animación 'intro'.")
 
 func _process(_delta: float) -> void:
-	if not shaking:
+	# Shake del texto
+	if shaking:
+		texto.position = base_pos + Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+
+	# Revisar estado de la precarga
+	_poll_preload()
+
+func _start_preload() -> void:
+	if _preload_started:
 		return
 
-	texto.position = base_pos + Vector2(
-		randf_range(-shake_strength, shake_strength),
-		randf_range(-shake_strength, shake_strength)
-	)
+	var err := ResourceLoader.load_threaded_request(next_scene_path)
+	if err != OK:
+		push_error("[Mundo3Intro] Error iniciando precarga de: %s | Código: %s" % [next_scene_path, str(err)])
+		return
+
+	_preload_started = true
+	print("[Mundo3Intro] Precarga iniciada: ", next_scene_path)
+
+func _poll_preload() -> void:
+	if not _preload_started or _scene_ready:
+		return
+
+	var status := ResourceLoader.load_threaded_get_status(next_scene_path)
+
+	match status:
+		ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+			push_error("[Mundo3Intro] Recurso inválido al precargar: %s" % next_scene_path)
+
+		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			pass
+
+		ResourceLoader.THREAD_LOAD_FAILED:
+			push_error("[Mundo3Intro] Falló la precarga de: %s" % next_scene_path)
+
+		ResourceLoader.THREAD_LOAD_LOADED:
+			var res := ResourceLoader.load_threaded_get(next_scene_path)
+			if res is PackedScene:
+				_loaded_packed_scene = res
+				_scene_ready = true
+				print("[Mundo3Intro] Escena precargada correctamente.")
+			else:
+				push_error("[Mundo3Intro] El recurso cargado no es PackedScene: %s" % next_scene_path)
 
 func set_shaking(active: bool) -> void:
 	shaking = active
@@ -73,5 +119,13 @@ func hide_lore_image() -> void:
 
 func finish_intro() -> void:
 	get_tree().paused = false
-	print("[Mundo3Intro] fin intro -> cargando Mundo3 real: ", next_scene_path)
+
+	# ✅ Si ya terminó de precargar, cambio instantáneo
+	if _scene_ready and _loaded_packed_scene:
+		print("[Mundo3Intro] fin intro -> entrando a Mundo3 precargado.")
+		get_tree().change_scene_to_packed(_loaded_packed_scene)
+		return
+
+	# ✅ Fallback: si aún no terminó, intenta carga normal
+	print("[Mundo3Intro] fin intro -> la precarga aún no termina, cargando normal: ", next_scene_path)
 	get_tree().change_scene_to_file(next_scene_path)

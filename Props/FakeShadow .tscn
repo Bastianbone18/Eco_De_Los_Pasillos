@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bms4dykbgd4hj"]
+
+[ext_resource type="Script" path="res://Props/fake_shadow_.gd" id="1_oohan"]
+[ext_resource type="Shader" path="res://shaders/PadreEntity .gdshader" id="1_w71t1"]
+[ext_resource type="Texture2D" uid="uid://b5eit81ucvmg8" path="res://Imagenes_pantallas/FantasmaSombra.png" id="2_xbgbo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12nre"]
+render_priority = 0
+shader = ExtResource("1_w71t1")
+shader_parameter/intensity = 1.15
+shader_parameter/pixelation_res = 173.0
+shader_parameter/glitch_strength = 0.609
+shader_parameter/flicker_strength = 0.28
+shader_parameter/ghost_strength = 0.55
+shader_parameter/noise_strength = 0.3
+shader_parameter/dissolve_strength = 0.22
+shader_parameter/warp_strength = 0.24
+shader_parameter/chroma_shift = 0.006
+shader_parameter/tear_strength = 0.18
+shader_parameter/block_strength = 0.12
+shader_parameter/scanline_strength = 0.12
+shader_parameter/dither_strength = 0.55
+shader_parameter/tint = Color(0.705113, 0.767351, 0.867029, 1)
+shader_parameter/old_photo_mix = 0.45
+shader_parameter/fixed_y_billboard = 1.0
+shader_parameter/albedo_tex = ExtResource("2_xbgbo")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_osgop"]
+load_path = "res://.godot/imported/Abadon.png-e974e91212c634cd868cc19822b6362e.s3tc.ctex"
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_oohan")
+tint = Color(1, 1, 1, 0.45)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+material_override = SubResource("ShaderMaterial_12nre")
+billboard = 2
+texture_filter = 2
+texture = SubResource("CompressedTexture2D_osgop")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="FadeTweenHolder" type="Node" parent="."]

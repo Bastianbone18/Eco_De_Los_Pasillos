@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvlhq83603pk4"]
+
+[ext_resource type="Script" path="res://Props/PadreEntity.gd" id="1_aepj7"]
+[ext_resource type="Shader" path="res://shaders/PadreEntity .gdshader" id="2_c55un"]
+[ext_resource type="Texture2D" uid="uid://clshi12motoub" path="res://Imagenes_pantallas/Abadon.png" id="2_ibihe"]
+[ext_resource type="AudioStream" uid="uid://rc5ublu5273u" path="res://Musica y sonidos/Sonidos/Bell_padre.ogg" id="4_tbluf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bdxvo"]
+render_priority = 0
+shader = ExtResource("2_c55un")
+shader_parameter/intensity = 1.206
+shader_parameter/pixelation_res = 173.0
+shader_parameter/glitch_strength = 0.35
+shader_parameter/flicker_strength = 0.22
+shader_parameter/ghost_strength = 0.24
+shader_parameter/noise_strength = 0.18
+shader_parameter/dissolve_strength = 0.0
+shader_parameter/warp_strength = 0.16
+shader_parameter/chroma_shift = 0.007
+shader_parameter/tear_strength = 0.18
+shader_parameter/block_strength = 0.12
+shader_parameter/scanline_strength = 0.14
+shader_parameter/dither_strength = 0.65
+shader_parameter/tint = Color(0.95, 0.95, 0.95, 1)
+shader_parameter/old_photo_mix = 0.75
+shader_parameter/fixed_y_billboard = 1.0
+shader_parameter/albedo_tex = ExtResource("2_ibihe")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3cfpa"]
+load_path = "res://.godot/imported/Abadon.png-e974e91212c634cd868cc19822b6362e.s3tc.ctex"
+
+[node name="PadreEntity" type="Node3D"]
+script = ExtResource("1_aepj7")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+material_override = SubResource("ShaderMaterial_bdxvo")
+billboard = 2
+texture_filter = 2
+texture = SubResource("CompressedTexture2D_3cfpa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tbluf")
+bus = &"Atmosfera"

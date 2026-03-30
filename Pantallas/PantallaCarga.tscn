@@ -146,6 +146,19 @@ libraries = {
 wait_time = 9.0
 one_shot = true
 
+[node name="Texto_de_inmersion" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -26.0
+offset_right = 177.0
+offset_bottom = 43.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ce1un")
+theme_override_font_sizes/font_size = 15
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]

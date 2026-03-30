@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://di3ebxeubopff"]
+[gd_scene load_steps=18 format=3 uid="uid://di3ebxeubopff"]
 
 [ext_resource type="Script" path="res://Cinematicas/mundo_3_intro.gd" id="1_m4cj1"]
 [ext_resource type="Texture2D" uid="uid://bt1vpuanwuvjr" path="res://Imagenes_pantallas/Foto_iglesia.png" id="2_sgxck"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c5gl5486sppk3" path="res://Imagenes_pantallas/Entidad.png" id="9_rtd1o"]
 [ext_resource type="AudioStream" uid="uid://c6ns1503c4cvo" path="res://Musica y sonidos/Sonidos/Ruido_blanco.ogg" id="11_88ay2"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="11_b6rxm"]
+[ext_resource type="AudioStream" uid="uid://cajs10ih6bgxe" path="res://Musica y sonidos/Sonidos/Despiertavoice.ogg" id="12_dpsvf"]
 
 [sub_resource type="Animation" id="Animation_03j2f"]
 length = 0.001
@@ -173,6 +174,21 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/4/use_blend = true
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AdiosVoice")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_dpsvf")
+}],
+"times": PackedFloat32Array(2.03333)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_paa8q"]
 _data = {
@@ -262,3 +278,5 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Atmosfera"
+
+[node name="AdiosVoice" type="AudioStreamPlayer" parent="."]

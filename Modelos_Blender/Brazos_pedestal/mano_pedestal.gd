@@ -13,6 +13,9 @@ var player_inside: bool = false
 var used: bool = false
 var busy: bool = false
 
+signal pedestal_started(pentagram_id: String)
+signal pedestal_completed(pentagram_id: String)
+
 var item_revealed: bool = false
 var float_time: float = 0.0
 
@@ -40,6 +43,7 @@ var balloon_instance: Node = null
 
 @export var pentagram_manager_path: NodePath
 @export_enum("anillo", "campana", "vela") var pentagram_id: String = "anillo"
+
 
 func _ready() -> void:
 	add_to_group("pedestal_item")
@@ -136,6 +140,8 @@ func _interactuar() -> void:
 
 	busy = true
 	used = true
+	
+	emit_signal("pedestal_started", pentagram_id)
 
 	_disable_interaction()
 
@@ -243,6 +249,8 @@ func _on_dialogo_item_terminado() -> void:
 	_activar_mi_pentagrama()
 	_activar_corrupcion_suelo()
 	_after_dialogue_cleanup()
+	
+	emit_signal("pedestal_completed", pentagram_id)
 
 func _after_dialogue_cleanup() -> void:
 	call_deferred("_after_dialogue_cleanup_deferred")

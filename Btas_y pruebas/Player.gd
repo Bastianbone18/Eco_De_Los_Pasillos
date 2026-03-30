@@ -149,7 +149,6 @@ const PITCH_MAX := deg_to_rad(60)
 @onready var flashlight_click_sound: AudioStreamPlayer = $FlashlightClickSound
 
 @onready var stamina_exhaust_audio = $StaminaExhaustAudio
-@onready var interact_sound = $InteractSound
 @onready var post_fx_material := $CanvasLayer2/vHS.material as ShaderMaterial
 
 @onready var puntero_ui := get_tree().current_scene.find_child("CenterContainer", true, false)
@@ -683,15 +682,13 @@ func process_raycast() -> void:
 	var collider = raycast.get_collider()
 
 	if collider and collider.has_method("action_use"):
-		if interact_sound:
-			interact_sound.play()
 		collider.action_use()
 	elif collider and collider.has_meta("interactable_owner"):
 		var owner = collider.get_meta("interactable_owner")
 		if owner and owner.has_method("action_use"):
-			if interact_sound:
-				interact_sound.play()
 			owner.action_use()
+
+	
 
 func update_stamina_bars() -> void:
 	if left_stamina_bar:

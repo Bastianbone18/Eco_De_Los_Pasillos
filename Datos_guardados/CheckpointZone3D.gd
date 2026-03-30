@@ -50,16 +50,18 @@ func _on_body_entered(body: Node) -> void:
 
 func _disable_checkpoint_visual_and_collision() -> void:
 	visible = false
-	monitoring = false
-	monitorable = false
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
+
 	for c in get_children():
 		if c is CollisionShape3D:
-			(c as CollisionShape3D).disabled = true
+			c.set_deferred("disabled", true)
 
 func _enable_checkpoint_visual_and_collision() -> void:
 	visible = true
-	monitoring = true
-	monitorable = true
+	set_deferred("monitoring", true)
+	set_deferred("monitorable", true)
+
 	for c in get_children():
 		if c is CollisionShape3D:
-			(c as CollisionShape3D).disabled = false
+			c.set_deferred("disabled", false)

@@ -42,7 +42,6 @@ func _default_slot() -> Dictionary:
 	}
 
 func load_all() -> Dictionary:
-	# Si no existe, crea archivo con default
 	if not FileAccess.file_exists(SAVE_PATH):
 		var d: Dictionary = _default_data()
 		_write(d, false)
@@ -72,7 +71,6 @@ func load_all() -> Dictionary:
 
 	var data: Dictionary = raw as Dictionary
 
-	# Asegurar estructura
 	if not data.has("slots"):
 		data["slots"] = {}
 
@@ -92,13 +90,11 @@ func _ensure_slot_keys(slot: Dictionary, def_slot: Dictionary) -> void:
 		if not slot.has(k):
 			slot[k] = def_slot[k]
 
-	# tipos básicos
 	slot["used"] = bool(slot.get("used", false))
 	slot["owner_name"] = str(slot.get("owner_name", ""))
 	slot["play_time"] = float(slot.get("play_time", 0.0))
 	slot["last_played"] = int(slot.get("last_played", 0))
 
-	# gamedata dict
 	var gdv_raw: Variant = slot.get("gamedata", {})
 	var gdv: Dictionary = {}
 	if typeof(gdv_raw) == TYPE_DICTIONARY:
@@ -111,7 +107,6 @@ func get_slot(slot_id: int) -> Dictionary:
 	return slots[str(slot_id)] as Dictionary
 
 func save_slot(slot_id: int, owner_name: String, play_time: float) -> void:
-	# Guardado de MENU (NO mostrar indicador)
 	var data: Dictionary = load_all()
 	var id: String = str(slot_id)
 
@@ -129,8 +124,26 @@ func save_slot(slot_id: int, owner_name: String, play_time: float) -> void:
 	_write(data, false)
 
 # -------------------------------------------------------
-# ✅ Guardar dict universal EN saves.json
+# ✅ NUEVO: BORRAR SLOT (para MenuSlots)
 # -------------------------------------------------------
+func delete_slot(slot_id: int) -> void:
+	clear_slot(slot_id)
+	print("[SaveManager] Slot borrado:", slot_id)
+
+# -------------------------------------------------------
+# YA EXISTÍA (NO SE TOCA)
+# -------------------------------------------------------
+func clear_slot(slot_id: int) -> void:
+	var data: Dictionary = load_all()
+	var slots: Dictionary = data["slots"] as Dictionary
+	slots[str(slot_id)] = _default_slot()
+	data["slots"] = slots
+	_write(data, false)
+
+# -------------------------------------------------------
+# RESTO DEL SISTEMA (SIN CAMBIOS)
+# -------------------------------------------------------
+
 func save_dict(slot_id: int, player_name: String, gd_dict: Dictionary, notify: bool = true) -> void:
 	var data: Dictionary = load_all()
 	var id: String = str(slot_id)
@@ -148,7 +161,6 @@ func save_dict(slot_id: int, player_name: String, gd_dict: Dictionary, notify: b
 
 	slot["gamedata"] = gd_dict
 
-	# actualizar legacy para menú
 	slot["scene_path"] = str(gd_dict.get("scene_path", slot.get("scene_path", "")))
 	slot["checkpoint_id"] = str(gd_dict.get("checkpoint_id", slot.get("checkpoint_id", "")))
 	slot["play_time"] = float(gd_dict.get("play_time", slot.get("play_time", 0.0)))
@@ -157,19 +169,8 @@ func save_dict(slot_id: int, player_name: String, gd_dict: Dictionary, notify: b
 	data["slots"] = slots
 
 	_write(data, notify)
-	print("[SaveManager] Guardado (dict en saves.json): slot=", slot_id, " cp=", slot["checkpoint_id"])
+	print("[SaveManager] Guardado (dict en saves.json): slot=", slot_id)
 
-func clear_slot(slot_id: int) -> void:
-	# Borrar slot desde MENU (NO mostrar indicador)
-	var data: Dictionary = load_all()
-	var slots: Dictionary = data["slots"] as Dictionary
-	slots[str(slot_id)] = _default_slot()
-	data["slots"] = slots
-	_write(data, false)
-
-# -------------------------------------------------------
-# Guardar checkpoint SOLO (AUTOSAVE en mundo) -> SI muestra indicador
-# -------------------------------------------------------
 func save_checkpoint(slot_id: int, scene_path: String, checkpoint_id: String) -> void:
 	var data: Dictionary = load_all()
 	var id: String = str(slot_id)
@@ -189,9 +190,6 @@ func save_checkpoint(slot_id: int, scene_path: String, checkpoint_id: String) ->
 
 	_write(data, true)
 
-# -------------------------------------------------------
-# Guardado COMPLETO (legacy) -> SI muestra indicador
-# -------------------------------------------------------
 func save_progress(
 	slot_id: int,
 	owner_name: String,
@@ -238,9 +236,6 @@ func get_checkpoint(slot_id: int) -> Dictionary:
 		"checkpoint_id": str(s.get("checkpoint_id", ""))
 	}
 
-# -------------------------------------------------------
-# ✅ Guardar directo desde GameData (AUTOSAVE)
-# -------------------------------------------------------
 func save_from_gamedata(gd: Node) -> void:
 	var slot_id: int = int(gd.current_slot_id)
 	var owner_name: String = str(gd.player_name)
@@ -270,16 +265,12 @@ func save_from_gamedata(gd: Node) -> void:
 
 	gd.start_survival_timer()
 
-# -------------------------------------------------------
-# ✅ Cargar slot y aplicarlo a GameData
-# -------------------------------------------------------
 func load_into_gamedata(slot_id: int, gd: Node) -> void:
 	var s: Dictionary = get_slot(slot_id)
 
 	gd.current_slot_id = slot_id
 	gd.player_name = str(s.get("owner_name", gd.player_name))
 
-	# 1) Universal dict
 	var gdd_raw: Variant = s.get("gamedata", {})
 	if typeof(gdd_raw) == TYPE_DICTIONARY:
 		var gdd: Dictionary = gdd_raw as Dictionary
@@ -289,7 +280,6 @@ func load_into_gamedata(slot_id: int, gd: Node) -> void:
 			gd.player_name = str(s.get("owner_name", gd.player_name))
 			return
 
-	# 2) Legacy fallback
 	gd.current_scene_path = str(s.get("scene_path", ""))
 	gd.current_checkpoint_id = str(s.get("checkpoint_id", ""))
 
@@ -305,9 +295,6 @@ func load_into_gamedata(slot_id: int, gd: Node) -> void:
 	if s.has("play_time"):
 		gd.set_survival_time(float(s.get("play_time", 0.0)))
 
-# -------------------------------------------------------
-# Escritura al disco con notify opcional
-# -------------------------------------------------------
 func _write(data: Dictionary, notify: bool = false) -> void:
 	if notify:
 		emit_signal("save_started")
@@ -315,7 +302,7 @@ func _write(data: Dictionary, notify: bool = false) -> void:
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f == null:
 		if notify:
-			emit_signal("save_failed", "FileAccess.open() devolvió null")
+			emit_signal("save_failed", "Error al guardar")
 			emit_signal("save_finished")
 		return
 

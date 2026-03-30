@@ -1,0 +1,324 @@
+[gd_scene load_steps=74 format=3 uid="uid://bgnl37ju4g105"]
+
+[ext_resource type="Script" path="res://PNG_OBJETOS/Marco_de_fotos/foto_animacion.gd" id="1_4asgb"]
+[ext_resource type="Shader" path="res://shaders/SueñoShader.gdshader" id="1_r765y"]
+[ext_resource type="Texture2D" uid="uid://dh38ufbb8t74x" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0001.png" id="1_yqdtl"]
+[ext_resource type="Texture2D" uid="uid://dlf21cgendsym" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0002.png" id="2_ubkan"]
+[ext_resource type="Texture2D" uid="uid://biq1afesg0xvj" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0003.png" id="3_75g8r"]
+[ext_resource type="Texture2D" uid="uid://1thvruihw0bo" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0004.png" id="4_akraw"]
+[ext_resource type="Texture2D" uid="uid://wdukp1ydq3gq" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0005.png" id="5_w3ur4"]
+[ext_resource type="Texture2D" uid="uid://n8am6yn8lqqy" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0006.png" id="6_bc4mf"]
+[ext_resource type="Texture2D" uid="uid://b53608p1xspox" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0007.png" id="7_lknu1"]
+[ext_resource type="Texture2D" uid="uid://dk1u35weblv5x" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0008.png" id="8_aawl4"]
+[ext_resource type="Texture2D" uid="uid://b70ween4avvct" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0009.png" id="9_ifrf0"]
+[ext_resource type="Texture2D" uid="uid://cys8vbwad3of2" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0010.png" id="10_lwf3h"]
+[ext_resource type="Texture2D" uid="uid://6mymx026pq81" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0011.png" id="11_vdfpo"]
+[ext_resource type="Texture2D" uid="uid://78vlvtaghstw" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0012.png" id="12_gh22l"]
+[ext_resource type="Texture2D" uid="uid://do8f2fyfumils" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0013.png" id="13_eipu4"]
+[ext_resource type="Texture2D" uid="uid://bah6hpmu6q8ql" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0014.png" id="14_jv35r"]
+[ext_resource type="Texture2D" uid="uid://ds58hw10x8j3v" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0015.png" id="15_ssxeh"]
+[ext_resource type="Texture2D" uid="uid://jsu1ytjfpodh" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0016.png" id="16_cvxhx"]
+[ext_resource type="Texture2D" uid="uid://r8cedorp2bok" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0017.png" id="17_swqwi"]
+[ext_resource type="Texture2D" uid="uid://jahg4ambedsh" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0018.png" id="18_niemy"]
+[ext_resource type="Texture2D" uid="uid://b4iobaf1oalcw" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0019.png" id="19_21hai"]
+[ext_resource type="Texture2D" uid="uid://d1tyvusihk8p2" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0020.png" id="20_hitk6"]
+[ext_resource type="Texture2D" uid="uid://cx0icm14xccjr" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0021.png" id="21_7o80i"]
+[ext_resource type="Texture2D" uid="uid://dwlujpq1wkf2g" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0022.png" id="22_y160d"]
+[ext_resource type="Texture2D" uid="uid://bc0qn5iicv6xh" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0023.png" id="23_wqk20"]
+[ext_resource type="Texture2D" uid="uid://bdakp178mclc4" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0024.png" id="24_eh3fj"]
+[ext_resource type="Texture2D" uid="uid://d2lcxro5f20om" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0025.png" id="25_vkugl"]
+[ext_resource type="Texture2D" uid="uid://dh0ortxgqfpmu" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0026.png" id="26_pw0gj"]
+[ext_resource type="Texture2D" uid="uid://xc5ap6qdi6o1" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0027.png" id="27_xpcoq"]
+[ext_resource type="Texture2D" uid="uid://cqh27namycu7f" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0028.png" id="28_53dyd"]
+[ext_resource type="Texture2D" uid="uid://duxh00xmd61q" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0029.png" id="29_6vioy"]
+[ext_resource type="Texture2D" uid="uid://b5wtgcbggbjrw" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0030.png" id="30_tbq35"]
+[ext_resource type="Texture2D" uid="uid://bne11jy5pewf7" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0031.png" id="31_5fvmn"]
+[ext_resource type="Texture2D" uid="uid://d0iuguxbk78bq" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0032.png" id="32_xetms"]
+[ext_resource type="Texture2D" uid="uid://j76613t11nj6" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0033.png" id="33_0hxi1"]
+[ext_resource type="Texture2D" uid="uid://de3tnbr5cxlpq" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0034.png" id="34_ordtn"]
+[ext_resource type="Texture2D" uid="uid://cnboba8jvfq0t" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0035.png" id="35_58kq2"]
+[ext_resource type="Texture2D" uid="uid://xqcoub68pnuq" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0036.png" id="36_xv5vo"]
+[ext_resource type="Texture2D" uid="uid://c24xiwab03j1p" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0037.png" id="37_fqsmi"]
+[ext_resource type="Texture2D" uid="uid://cjqfqcphu5otq" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0038.png" id="38_l4di7"]
+[ext_resource type="Texture2D" uid="uid://170jf7jb4i51" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0039.png" id="39_jyi1q"]
+[ext_resource type="Texture2D" uid="uid://475s8t32n55x" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0040.png" id="40_5gypi"]
+[ext_resource type="Texture2D" uid="uid://biw3mmxuruqco" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0041.png" id="41_qpyl4"]
+[ext_resource type="Texture2D" uid="uid://o0x44rspa7q3" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0042.png" id="42_nl8yw"]
+[ext_resource type="Texture2D" uid="uid://b4xugq5a8fpyf" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0043.png" id="43_lrpj7"]
+[ext_resource type="Texture2D" uid="uid://duo7nxt2soeqm" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0044.png" id="44_hug26"]
+[ext_resource type="Texture2D" uid="uid://d1eku375lcf51" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0045.png" id="45_u5tjr"]
+[ext_resource type="Texture2D" uid="uid://0x15a6kaitqi" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0046.png" id="46_ol7bi"]
+[ext_resource type="Texture2D" uid="uid://c0ci82m6j0asn" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0047.png" id="47_om0mf"]
+[ext_resource type="Texture2D" uid="uid://djprs5r8qrwh7" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0048.png" id="48_nq2pg"]
+[ext_resource type="Texture2D" uid="uid://5snt02kgy2no" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0049.png" id="49_8ibt7"]
+[ext_resource type="Texture2D" uid="uid://cpf54kfmvlhca" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0050.png" id="50_qylmq"]
+[ext_resource type="Texture2D" uid="uid://c7hlaq67ocy84" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0051.png" id="51_qva3a"]
+[ext_resource type="Texture2D" uid="uid://dr5u76n684fn" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0052.png" id="52_v158h"]
+[ext_resource type="Texture2D" uid="uid://cr2aujpw6psof" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0053.png" id="53_5td6h"]
+[ext_resource type="Texture2D" uid="uid://clrw8l3phd77b" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0054.png" id="54_sw5c7"]
+[ext_resource type="Texture2D" uid="uid://cks8jljw75qxk" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0055.png" id="55_3k8oa"]
+[ext_resource type="Texture2D" uid="uid://bfxqer0x8xod2" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0056.png" id="56_xpvfu"]
+[ext_resource type="Texture2D" uid="uid://b1uvvpmiukre6" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0057.png" id="57_lhjud"]
+[ext_resource type="Texture2D" uid="uid://dscm86opn1y0c" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0058.png" id="58_aoyt4"]
+[ext_resource type="Texture2D" uid="uid://1frktdgj8kvo" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0059.png" id="59_qy1im"]
+[ext_resource type="Texture2D" uid="uid://drcivpecwqt13" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0060.png" id="60_vk820"]
+[ext_resource type="Texture2D" uid="uid://du4kyg3u0ijgi" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0061.png" id="61_kkw7y"]
+[ext_resource type="Texture2D" uid="uid://pabjaf0vo2lx" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0062.png" id="62_c63l0"]
+[ext_resource type="Texture2D" uid="uid://dqotb7bbmwnx" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0063.png" id="63_7bg25"]
+[ext_resource type="Texture2D" uid="uid://b626p1ysmx5rf" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0064.png" id="64_s0iw2"]
+[ext_resource type="Texture2D" uid="uid://d0p3jd1ibmnxn" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0065.png" id="65_4gv07"]
+[ext_resource type="Texture2D" uid="uid://bca0osruv10xf" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0066.png" id="66_ifs0t"]
+[ext_resource type="Texture2D" uid="uid://dvi5ehhksksgd" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0067.png" id="67_bjw5f"]
+[ext_resource type="Texture2D" uid="uid://du8wiyrni0cva" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0068.png" id="68_jw1qy"]
+[ext_resource type="Texture2D" uid="uid://ncjk7xfyk1rx" path="res://PNG_OBJETOS/Marco_de_fotos/Maro_foto0069.png" id="69_m4pa6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_remgw"]
+shader = ExtResource("1_r765y")
+shader_parameter/progress = 0.0
+shader_parameter/breathe_strength = 0.012
+shader_parameter/breathe_speed = 0.65
+shader_parameter/pull_strength = 0.035
+shader_parameter/center_falloff = 2.0
+shader_parameter/twist_strength = 0.008
+shader_parameter/chroma_strength = 0.0015
+shader_parameter/pixel_shift_strength = 1.2
+shader_parameter/base_resolution = 256.0
+shader_parameter/jitter_strength = 0.004
+shader_parameter/jitter_speed = 1.4
+shader_parameter/ghost_strength = 0.035
+shader_parameter/flicker_strength = 0.045
+shader_parameter/desaturate_strength = 0.38
+shader_parameter/darken_strength = 0.1
+shader_parameter/shadow_strength = 0.035
+shader_parameter/shadow_drift = 0.018
+shader_parameter/vignette_strength = 0.25
+shader_parameter/center_depth_strength = 0.14
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gl8qg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yqdtl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ubkan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_75g8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_akraw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w3ur4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bc4mf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lknu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_aawl4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ifrf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lwf3h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vdfpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gh22l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_eipu4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jv35r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ssxeh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_cvxhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_swqwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_niemy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_21hai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_hitk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_7o80i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_y160d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_wqk20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_eh3fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_vkugl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_pw0gj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_xpcoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_53dyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_6vioy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_tbq35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_5fvmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_xetms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_0hxi1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_ordtn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_58kq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_xv5vo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_fqsmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_l4di7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_jyi1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_5gypi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_qpyl4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_nl8yw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_lrpj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_hug26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_u5tjr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_ol7bi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_om0mf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_nq2pg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_8ibt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_qylmq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_qva3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_v158h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_5td6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_sw5c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_3k8oa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_xpvfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_lhjud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_aoyt4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_qy1im")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_vk820")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_kkw7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_c63l0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_7bg25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_s0iw2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_4gv07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_ifs0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_bjw5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_jw1qy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_m4pa6")
+}],
+"loop": true,
+"name": &"Mostrar",
+"speed": 24.0
+}]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_4asgb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+material = SubResource("ShaderMaterial_remgw")
+position = Vector2(208, 96)
+scale = Vector2(0.17, 0.19)
+sprite_frames = SubResource("SpriteFrames_gl8qg")
+animation = &"Mostrar"
+frame = 28
+frame_progress = 0.852767
+speed_scale = 0.8

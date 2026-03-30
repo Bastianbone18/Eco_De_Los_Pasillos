@@ -1,0 +1,300 @@
+[gd_scene load_steps=12 format=3 uid="uid://b575vpvbume1w"]
+
+[ext_resource type="Script" path="res://Pantallas/Controles.gd" id="1_nim0r"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="1_pbq28"]
+[ext_resource type="Texture2D" uid="uid://cugl5k3qpcbjo" path="res://Imagenes_pantallas/Teclas/TeclaW.png" id="2_ifgh8"]
+[ext_resource type="Texture2D" uid="uid://ug2pydwoxx12" path="res://Imagenes_pantallas/Teclas/TeclaA.png" id="3_0e5ow"]
+[ext_resource type="Texture2D" uid="uid://b6adr62g6vemt" path="res://Imagenes_pantallas/Teclas/TeclaS.png" id="4_ic33k"]
+[ext_resource type="Texture2D" uid="uid://bfnu3ks4todl2" path="res://Imagenes_pantallas/Teclas/TeclaD.png" id="5_ogl0b"]
+[ext_resource type="Texture2D" uid="uid://ecr4a4w7x4jp" path="res://Imagenes_pantallas/Teclas/TeclaE.png" id="6_8ypwi"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_w0vff"]
+[ext_resource type="Texture2D" uid="uid://cm5im7pshy7b1" path="res://Imagenes_pantallas/Teclas/TeclaShift.png" id="7_qvjb2"]
+[ext_resource type="Texture2D" uid="uid://yvr0h82pp3cd" path="res://Imagenes_pantallas/Teclas/TeclaSpace.png" id="8_hn4n5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8v8i8"]
+shader = ExtResource("6_w0vff")
+shader_parameter/crt_curve = 0.01
+shader_parameter/crt_scan_line_color = 0.0
+shader_parameter/aperture_grille_rate = 0.4
+shader_parameter/rf_switch_esque_blur = 0.0
+shader_parameter/white_noise_rate = 0.068
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 24.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_nim0r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.196078, 0.196078, 0.196078, 0)
+
+[node name="Titulo" type="Label" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_top = 11.0
+offset_right = 38.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_pbq28")
+theme_override_font_sizes/font_size = 18
+text = "Controles"
+horizontal_alignment = 1
+
+[node name="Contenido" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Interactuar E" type="Control" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 40.0
+offset_right = -58.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeyE" type="TextureRect" parent="Contenido/Interactuar E"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -43.0
+offset_right = 16.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8ypwi")
+
+[node name="Label" type="Label" parent="Contenido/Interactuar E"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -13.0
+offset_right = 35.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_pbq28")
+theme_override_font_sizes/font_size = 18
+text = "Interactuar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Correr" type="Control" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 56.0
+offset_top = 40.0
+offset_right = 134.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shift" type="TextureRect" parent="Contenido/Correr"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -58.0
+offset_right = 56.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.65)
+texture = ExtResource("7_qvjb2")
+
+[node name="Label" type="Label" parent="Contenido/Correr"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -13.0
+offset_right = 35.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_pbq28")
+theme_override_font_sizes/font_size = 18
+text = "Correr"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 40.0
+offset_right = 38.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Space" type="TextureRect" parent="Contenido/Space"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -59.0
+offset_right = 98.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.65)
+texture = ExtResource("8_hn4n5")
+
+[node name="Label" type="Label" parent="Contenido/Space"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -12.0
+offset_right = 38.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_pbq28")
+theme_override_font_sizes/font_size = 18
+text = "Linterna"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="W,A,S,D" type="Control" parent="Contenido"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -76.0
+offset_right = 48.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeyW" type="TextureRect" parent="Contenido/W,A,S,D"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 32.0
+offset_top = -3.0
+offset_right = 64.0
+offset_bottom = 29.0
+texture = ExtResource("2_ifgh8")
+
+[node name="KeyA" type="TextureRect" parent="Contenido/W,A,S,D"]
+texture_filter = 3
+layout_mode = 0
+offset_top = 27.0
+offset_right = 32.0
+offset_bottom = 59.0
+texture = ExtResource("3_0e5ow")
+
+[node name="KeyS" type="TextureRect" parent="Contenido/W,A,S,D"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 32.0
+offset_top = 27.0
+offset_right = 64.0
+offset_bottom = 59.0
+texture = ExtResource("4_ic33k")
+
+[node name="KeyD" type="TextureRect" parent="Contenido/W,A,S,D"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 65.0
+offset_top = 27.0
+offset_right = 97.0
+offset_bottom = 59.0
+texture = ExtResource("5_ogl0b")
+
+[node name="Label" type="Label" parent="Contenido/W,A,S,D"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.5
+offset_top = 4.5
+offset_right = 35.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_pbq28")
+theme_override_font_sizes/font_size = 18
+text = "Moverse"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+process_mode = 2
+material = SubResource("ShaderMaterial_8v8i8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

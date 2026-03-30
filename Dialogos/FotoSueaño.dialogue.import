@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://cplwosyqm4lqt"
+path="res://.godot/imported/FotoSueaño.dialogue-b54ce4aa0d95b5ae11cc8d937e2bec83.tres"
+
+[deps]
+
+source_file="res://Dialogos/FotoSueaño.dialogue"
+dest_files=["res://.godot/imported/FotoSueaño.dialogue-b54ce4aa0d95b5ae11cc8d937e2bec83.tres"]
+
+[params]
+
+defaults=true

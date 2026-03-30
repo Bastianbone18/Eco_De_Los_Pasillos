@@ -58,7 +58,7 @@ layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.454902, 0.101961, 0.168627, 1)
 theme_override_colors/font_pressed_color = Color(0.454902, 0.101961, 0.168627, 0.776471)
 theme_override_fonts/font = ExtResource("3_7vulr")
-text = "CREDITOS"
+text = "CRÉDITOS"
 
 [node name="Back" type="Button" parent="VBoxContainer" groups=["botones"]]
 texture_filter = 3
