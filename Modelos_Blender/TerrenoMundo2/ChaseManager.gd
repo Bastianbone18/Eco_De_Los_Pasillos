@@ -29,15 +29,15 @@ class_name ChaseManager
 @export var enemy_spawn_path: NodePath
 @export var enemy_path: NodePath
 
-@export var danger_far_distance: float = 12.0   # lejos (0)
-@export var danger_near_distance: float = 3.2   # pegado (1)
-@export var danger_update_hz: float = 12.0      # 12 veces/seg (barato)
+@export var danger_far_distance: float = 12.0
+@export var danger_near_distance: float = 3.2
+@export var danger_update_hz: float = 12.0
 
 # ===== CHASE MUSIC =====
 @export var chase_music_stream: AudioStream = preload("res://Musica y sonidos/PersecucionTunel.ogg")
 @export var chase_music_fade_in: float = 0.35
-@export var chase_music_fade_out: float = 0.70 # (para apagón tipo cinta)
-@export var chase_music_volume_db: float = -10.0 # recomendado para persecución
+@export var chase_music_fade_out: float = 0.70
+@export var chase_music_volume_db: float = -10.0
 
 # ===== AUDIO =====
 @export var whisper_stream: AudioStream = preload("res://Musica y sonidos/Sonidos/susurro.ogg")
@@ -53,8 +53,8 @@ class_name ChaseManager
 @export var forced_look_speed: float = 10.0
 
 # 🔥 Separado por modo:
-@export var capture_freeze_time_death: float = 0.0      # jumpscare inmediato
-@export var capture_freeze_time_knockout: float = 0.6   # freeze para noqueo
+@export var capture_freeze_time_death: float = 0.0
+@export var capture_freeze_time_knockout: float = 0.6
 
 # ===== Retry settings =====
 @export var retry_checkpoint_id: String = "before_mission2"
@@ -62,13 +62,12 @@ class_name ChaseManager
 
 # ===== DEATH flow: jumpscare + game over =====
 @export var jumpscare_scene: PackedScene = preload("res://Cinematicas/jumpscare.tscn")
-@export var jumpscare_fallback_duration: float = 1.6 # si no hay señal/método en la escena
+@export var jumpscare_fallback_duration: float = 1.6
 @export var gameover_scene_path: String = "res://Pantallas/Game_Over.tscn"
 @export var knockout_overlay_scene: PackedScene = preload("res://UI/KnockoutOverlay.tscn")
 
 # ✅ Pantalla de carga (nuevo flujo knockout -> carga -> mundo 3)
 @export var loading_screen_scene_path: String = "res://Pantallas/PantallaCarga.tscn"
-
 @export var world3_intro_scene_path: String = "res://Cinematicas/Mundo3Intro.tscn"
 
 # Debug opcional
@@ -87,7 +86,6 @@ var _captured: bool = false
 
 
 func _ready() -> void:
-
 	# ==================================================
 	# Obtener referencias principales
 	# ==================================================
@@ -141,26 +139,6 @@ func _ready() -> void:
 	if not _trigger.body_entered.is_connected(_on_trigger_body_entered):
 		_trigger.body_entered.connect(_on_trigger_body_entered)
 
-	_enemy = get_node_or_null(enemy_path)
-	if _enemy == null:
-		_enemy = get_parent().get_node_or_null("Enemigo")
-
-	print("[ChaseManager] READY ✅ node=", get_path())
-	print("[ChaseManager] trigger=", _trigger, " enemy=", _enemy, " enemy_spawn=", _enemy_spawn)
-
-	if _enemy == null:
-		push_error("[ChaseManager] Enemigo no encontrado (enemy_path o nombre 'Enemigo').")
-		return
-
-	# Ocultar enemigo al inicio
-	if "visible" in _enemy:
-		_enemy.visible = false
-	if _enemy.has_method("stop_all"):
-		_enemy.call("stop_all")
-
-	if not _trigger.body_entered.is_connected(_on_trigger_body_entered):
-		_trigger.body_entered.connect(_on_trigger_body_entered)
-
 
 func _on_trigger_body_entered(body: Node) -> void:
 	if _active:
@@ -177,7 +155,7 @@ func _on_trigger_body_entered(body: Node) -> void:
 		return
 
 	_active = true
-	_trigger.monitoring = false
+	_trigger.set_deferred("monitoring", false)
 
 	await _start_sequence()
 
@@ -267,9 +245,9 @@ func _play_whisper_at(pos: Vector3) -> void:
 	p.unit_size = 6.0
 	p.max_distance = 28.0
 	p.attenuation_filter_cutoff_hz = 8000.0
-	p.global_position = pos
 
 	get_tree().current_scene.add_child(p)
+	p.global_position = pos
 	p.play()
 
 	await p.finished
@@ -290,7 +268,6 @@ func _on_enemy_captured(_p: Node) -> void:
 	if _captured:
 		return
 	_captured = true
-	print("[ChaseManager] ENEMY CAPTURE SIGNAL ✅")
 	call_deferred("_capture_and_resolve")
 
 
@@ -298,8 +275,6 @@ func _on_enemy_captured(_p: Node) -> void:
 # ✅ RESOLVER CAPTURA (SIN DUPLICADOS)
 # ==================================================
 func _capture_and_resolve() -> void:
-
-	# leer modo y checkpoint desde GameData
 	var mode: String = str(GameData.chase_capture_mode)
 	if mode == "":
 		mode = "knockout"
@@ -312,11 +287,9 @@ func _capture_and_resolve() -> void:
 
 	_hide_mission_hud()
 
-	# parar enemigo
 	if _enemy and _enemy.has_method("stop_all"):
 		_enemy.call("stop_all")
 
-	# freeze player
 	if _player and _player.has_method("lock_camera_control"):
 		_player.call("lock_camera_control", true)
 	if _player and _player.has_method("set_movement_locked"):
@@ -326,7 +299,6 @@ func _capture_and_resolve() -> void:
 	# A) DEATH -> JUMPSCARE -> GAME OVER
 	# ==================================================
 	if mode == "death":
-
 		_stop_chase_music_now(0.0)
 
 		if capture_freeze_time_death > 0.0:
@@ -345,11 +317,9 @@ func _capture_and_resolve() -> void:
 		get_tree().call_deferred("change_scene_to_file", gameover_scene_path)
 		return
 
-
 	# ==================================================
 	# B) KNOCKOUT -> MUNDO 3
 	# ==================================================
-
 	_stop_chase_music_now(chase_music_fade_out)
 
 	if knockout_overlay_scene:
@@ -365,7 +335,6 @@ func _capture_and_resolve() -> void:
 			ko.queue_free()
 
 	if world3_scene:
-
 		var world3_path: String = world3_scene.resource_path
 
 		if world3_path == "":
@@ -374,7 +343,6 @@ func _capture_and_resolve() -> void:
 
 		GameData.clear_checkpoint()
 
-		# decidir si mostrar intro o no
 		if GameData.intro_mundo3_done:
 			GameData.current_scene_path = world3_path
 			print("[ChaseManager] Mundo3 directo")
@@ -383,7 +351,6 @@ func _capture_and_resolve() -> void:
 			print("[ChaseManager] Mundo3Intro primero")
 
 		get_tree().call_deferred("change_scene_to_file", loading_screen_scene_path)
-
 	else:
 		push_error("[ChaseManager] world3_scene no asignado")
 
@@ -484,11 +451,15 @@ func _process(delta: float) -> void:
 		return
 	_danger_accum = 0.0
 
-	var ep := (_enemy as Node3D).global_position
-	var pp := (_player as Node3D).global_position
+	var ep: Vector3 = (_enemy as Node3D).global_position
+	var pp: Vector3 = (_player as Node3D).global_position
 	var dist: float = ep.distance_to(pp)
 
-	var t: float = clamp((danger_far_distance - dist) / max(0.001, (danger_far_distance - danger_near_distance)), 0.0, 1.0)
+	var t: float = clamp(
+		(danger_far_distance - dist) / max(0.001, (danger_far_distance - danger_near_distance)),
+		0.0,
+		1.0
+	)
 
 	t = pow(t, 1.10)
 

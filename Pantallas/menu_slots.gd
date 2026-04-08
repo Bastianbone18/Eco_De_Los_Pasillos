@@ -28,7 +28,10 @@ const BUS_NAME: String = "Menu"
 # READY
 # ----------------------
 func _ready() -> void:
-	get_node("/root/SaveIndicator").set_enabled(false)
+	var save_indicator := get_node_or_null("/root/SaveIndicator")
+	if save_indicator and save_indicator.has_method("set_enabled"):
+		save_indicator.set_enabled(false)
+
 	print("[MenuSlots] READY. player_name =", GameData.player_name)
 
 	MusicManager.play_menu()
@@ -57,8 +60,9 @@ func _ready() -> void:
 func _connect_hover_to_buttons() -> void:
 	var botones = get_tree().get_nodes_in_group("botones")
 	for button in botones:
-		if not button.is_connected("mouse_entered", Callable(self, "_on_button_hover")):
-			button.mouse_entered.connect(_on_button_hover)
+		if button is BaseButton:
+			if not button.mouse_entered.is_connected(_on_button_hover):
+				button.mouse_entered.connect(_on_button_hover)
 
 func _on_button_hover() -> void:
 	if hover_player:
@@ -120,7 +124,7 @@ func _refresh_slot(panel: Panel, slot_id: int) -> void:
 
 	var data: Dictionary = SaveManager.get_slot(slot_id)
 
-	if data.get("used", false):
+	if bool(data.get("used", false)):
 		if owner_label:
 			owner_label.text = "Nombre: " + str(data.get("owner_name", ""))
 		if time_label:
@@ -150,15 +154,14 @@ func _on_slot_button_pressed() -> void:
 	await get_tree().create_timer(0.05).timeout
 
 	var btn := get_viewport().gui_get_focus_owner() as Button
-
 	if btn == null or not btn.has_meta("slot_id"):
 		push_error("[MenuSlots] No se pudo detectar slot.")
 		return
 
 	var slot_id: int = int(btn.get_meta("slot_id"))
-	var data := SaveManager.get_slot(slot_id)
+	var data: Dictionary = SaveManager.get_slot(slot_id)
 
-	if data.get("used", false):
+	if bool(data.get("used", false)):
 		_load_slot(slot_id)
 	else:
 		_create_slot(slot_id)
@@ -174,7 +177,6 @@ func _on_delete_slot_pressed() -> void:
 	await get_tree().create_timer(0.05).timeout
 
 	var btn := get_viewport().gui_get_focus_owner() as Button
-
 	if btn == null or not btn.has_meta("slot_id"):
 		push_error("[MenuSlots] No se pudo detectar slot a borrar.")
 		return
@@ -195,9 +197,11 @@ func _on_confirm_delete(slot_id: int) -> void:
 
 	SaveManager.delete_slot(slot_id)
 
+	# Si borramos el slot actualmente cargado, limpiamos la memoria runtime
 	if GameData.current_slot_id == slot_id:
-		GameData.current_slot_id = 0
-		GameData.reset_survival_time()
+		var preserved_name: String = GameData.player_name
+		GameData.reset_all_progress()
+		GameData.player_name = preserved_name
 
 	refresh_all()
 
@@ -205,20 +209,26 @@ func _on_confirm_delete(slot_id: int) -> void:
 # CREATE
 # ----------------------
 func _create_slot(slot_id: int) -> void:
-	if GameData.player_name.strip_edges() == "":
-		push_error("Nombre vacío.")
+	var preserved_name: String = GameData.player_name.strip_edges()
+
+	if preserved_name == "":
+		push_error("[MenuSlots] Nombre vacío.")
 		return
 
+	# IMPORTANTÍSIMO:
+	# limpiar TODO el estado anterior antes de arrancar una nueva partida
+	GameData.reset_all_progress()
+
+	# restaurar datos base de la nueva partida
+	GameData.player_name = preserved_name
 	GameData.current_slot_id = slot_id
-
-	GameData.intro_done = false
-	GameData.has_flashlight = false
-	GameData.flashlight_on = false
-
 	GameData.current_scene_path = default_world_path
 	GameData.current_checkpoint_id = default_checkpoint_id
+	GameData.flashlight_on = false
+	GameData.has_flashlight = false
 
-	GameData.reset_survival_time()
+	print("[MenuSlots] NEW GAME slot=", slot_id, " name=", GameData.player_name)
+	print("[MenuSlots] NEW GAME reset completo OK")
 
 	SaveManager.save_slot(slot_id, GameData.player_name, 0.0)
 	SaveManager.save_from_gamedata(GameData)
@@ -232,13 +242,24 @@ func _create_slot(slot_id: int) -> void:
 # LOAD
 # ----------------------
 func _load_slot(slot_id: int) -> void:
-	SaveManager.load_into_gamedata(slot_id, GameData)
+	print("[MenuSlots] LOAD slot=", slot_id)
+
+	var ok: bool = SaveManager.load_into_gamedata(slot_id, GameData)
+	if not ok:
+		push_error("[MenuSlots] No se pudo cargar el slot %d" % slot_id)
+		return
+
 	GameData.start_survival_timer()
 	_go_to_loading()
 
+# ----------------------
+# SCENE CHANGE
+# ----------------------
 func _go_to_loading() -> void:
 	if ResourceLoader.exists(loading_scene_path):
 		get_tree().change_scene_to_file(loading_scene_path)
+	else:
+		push_error("[MenuSlots] No existe loading_scene_path: " + loading_scene_path)
 
 # ----------------------
 # TIME FORMAT

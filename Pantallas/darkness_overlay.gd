@@ -13,6 +13,15 @@ signal game_over_requested
 @export var hands_fps: int = 24
 @export var hands_source_size: Vector2 = Vector2(1920, 1080)
 
+# Audio de presión
+@export_file("*.ogg", "*.wav", "*.mp3") var pressure_sound_path: String = "res://Musica y sonidos/Sonidos/ManosSonido.ogg"
+@export var pressure_volume_start_db: float = -28.0
+@export var pressure_volume_mid_db: float = -16.0
+@export var pressure_volume_end_db: float = -6.0
+@export var pressure_pitch_start: float = 0.82
+@export var pressure_pitch_mid: float = 0.96
+@export var pressure_pitch_end: float = 1.08
+
 # Frames (0..179)
 const SAFE_START: int = 0
 const SAFE_END: int = 107
@@ -28,8 +37,8 @@ const RED_FAST_START: int = 168
 	else get_node_or_null("Hands") as AnimatedSprite2D
 )
 
-# 🔊 AudioStreamPlayer llamado EXACTO: "NeckSnap"
 @onready var neck_snap: AudioStreamPlayer = get_node_or_null("NeckSnap") as AudioStreamPlayer
+@onready var pressure_loop: AudioStreamPlayer = get_node_or_null("PressureLoop") as AudioStreamPlayer
 
 var _active: bool = false
 var _ready_ok: bool = false
@@ -66,18 +75,38 @@ func _ready() -> void:
 	_relayout()
 	get_viewport().size_changed.connect(_on_viewport_resized)
 
-	# 🔊 Asegura que el audio suene incluso si el juego se pausa
+	# NeckSnap
 	if neck_snap != null:
 		neck_snap.process_mode = Node.PROCESS_MODE_ALWAYS
-		# Debug útil:
 		if neck_snap.stream == null:
 			push_error("[DarknessOverlay] NeckSnap existe pero NO tiene Stream asignado.")
-		else:
-			print("[DarknessOverlay] NeckSnap OK ->", neck_snap.stream)
+
+	# PressureLoop
+	_setup_pressure_loop()
 
 	_active = false
 	_is_killing = false
 	visible = false
+
+func _setup_pressure_loop() -> void:
+	if pressure_loop == null:
+		push_warning("[DarknessOverlay] No existe 'PressureLoop'. Créalo como hijo de DarknessOverlay.")
+		return
+
+	pressure_loop.process_mode = Node.PROCESS_MODE_ALWAYS
+	pressure_loop.bus = "Master"
+
+	if pressure_loop.stream == null:
+		var loaded_stream: Resource = load(pressure_sound_path)
+		if loaded_stream is AudioStream:
+			pressure_loop.stream = loaded_stream as AudioStream
+		else:
+			push_error("[DarknessOverlay] No se pudo cargar el sonido de presión: %s" % pressure_sound_path)
+			return
+
+	pressure_loop.volume_db = pressure_volume_start_db
+	pressure_loop.pitch_scale = pressure_pitch_start
+	pressure_loop.stop()
 
 func _on_viewport_resized() -> void:
 	_relayout()
@@ -85,11 +114,14 @@ func _on_viewport_resized() -> void:
 func _relayout() -> void:
 	if not _ready_ok:
 		return
+
 	var vp: Vector2 = get_viewport().get_visible_rect().size
 	hands.position = vp * 0.5
+
 	var sx: float = vp.x / hands_source_size.x
 	var sy: float = vp.y / hands_source_size.y
 	var s: float = max(sx, sy)
+
 	hands.scale = Vector2(s, s)
 
 # -------------------------
@@ -110,9 +142,12 @@ func set_active(v: bool) -> void:
 
 	if not _active:
 		hands.frame = SAFE_START
+		_stop_pressure_loop()
 		return
 
 	hands.frame = SAFE_START
+	_start_pressure_loop()
+	_apply_pressure_from_progress(0.0)
 	_relayout()
 
 func play_intro_hint(_duration: float = 1.2) -> void:
@@ -125,15 +160,19 @@ func set_time_left(time_left: float) -> void:
 	time_left = clamp(time_left, 0.0, time_per_light)
 
 	var warning_time: float = time_per_light * warning_threshold
-	var danger_time: float  = time_per_light * danger_threshold
+	var danger_time: float = time_per_light * danger_threshold
+
+	# progreso global 0 -> 1
+	var global_progress: float = 1.0 - (time_left / max(time_per_light, 0.0001))
+	_apply_pressure_from_progress(global_progress)
 
 	# SAFE
 	if time_left > warning_time:
 		_stop_kill_sequence()
 		hands.pause()
 
-		var elapsed: float = (time_per_light - time_left)
-		var denom: float = max(0.0001, (time_per_light - warning_time))
+		var elapsed: float = time_per_light - time_left
+		var denom: float = max(0.0001, time_per_light - warning_time)
 		var t: float = clamp(elapsed / denom, 0.0, 1.0)
 
 		hands.frame = int(lerp(float(SAFE_START), float(SAFE_END), t))
@@ -144,8 +183,8 @@ func set_time_left(time_left: float) -> void:
 		_stop_kill_sequence()
 		hands.pause()
 
-		var elapsed2: float = (warning_time - time_left)
-		var denom2: float = max(0.0001, (warning_time - danger_time))
+		var elapsed2: float = warning_time - time_left
+		var denom2: float = max(0.0001, warning_time - danger_time)
 		var t2: float = clamp(elapsed2 / denom2, 0.0, 1.0)
 
 		hands.frame = int(lerp(float(ORANGE_START), float(ORANGE_END), t2))
@@ -164,30 +203,74 @@ func _stop_kill_sequence() -> void:
 		_is_killing = false
 		_kill_token += 1
 
+func _start_pressure_loop() -> void:
+	if pressure_loop == null:
+		return
+	if pressure_loop.stream == null:
+		return
+
+	pressure_loop.volume_db = pressure_volume_start_db
+	pressure_loop.pitch_scale = pressure_pitch_start
+
+	if not pressure_loop.playing:
+		pressure_loop.play()
+
+func _stop_pressure_loop() -> void:
+	if pressure_loop == null:
+		return
+
+	pressure_loop.stop()
+	pressure_loop.volume_db = pressure_volume_start_db
+	pressure_loop.pitch_scale = pressure_pitch_start
+
+func _apply_pressure_from_progress(progress: float) -> void:
+	if pressure_loop == null:
+		return
+	if pressure_loop.stream == null:
+		return
+
+	progress = clamp(progress, 0.0, 1.0)
+
+	if not pressure_loop.playing:
+		pressure_loop.play()
+
+	# 0.0 - 0.6 = empieza lento
+	# 0.6 - 1.0 = aprieta más fuerte
+	if progress <= 0.6:
+		var t: float = progress / 0.6
+		pressure_loop.volume_db = lerp(pressure_volume_start_db, pressure_volume_mid_db, t)
+		pressure_loop.pitch_scale = lerp(pressure_pitch_start, pressure_pitch_mid, t)
+	else:
+		var t2: float = (progress - 0.6) / 0.4
+		pressure_loop.volume_db = lerp(pressure_volume_mid_db, pressure_volume_end_db, t2)
+		pressure_loop.pitch_scale = lerp(pressure_pitch_mid, pressure_pitch_end, t2)
+
 func _play_neck_snap() -> void:
+	_stop_pressure_loop()
+
 	if neck_snap == null:
 		push_error("[DarknessOverlay] No existe el nodo NeckSnap.")
 		return
+
 	if neck_snap.stream == null:
 		push_error("[DarknessOverlay] NeckSnap no tiene Stream asignado.")
 		return
 
 	neck_snap.stop()
 	neck_snap.play()
-	print("[DarknessOverlay] NeckSnap PLAY")
 
 func _run_red_close_step(token: int) -> void:
 	if not _active or not _ready_ok:
 		return
+
 	if token != _kill_token:
 		return
 
+	_apply_pressure_from_progress(1.0)
+
 	if hands.frame >= RED_END:
 		hands.pause()
-
-		# 🔊 Reproduce en deferred para que NO lo mate el fail/pause inmediato
 		call_deferred("_play_neck_snap")
-
 		emit_signal("game_over_requested")
 		return
 
@@ -198,6 +281,7 @@ func _run_red_close_step(token: int) -> void:
 		delay *= 1.15
 
 	hands.frame += 1
+
 	get_tree().create_timer(delay).timeout.connect(func() -> void:
 		_run_red_close_step(token)
 	)

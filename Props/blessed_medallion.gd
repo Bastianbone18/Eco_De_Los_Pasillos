@@ -94,7 +94,8 @@ func _ready() -> void:
 	_base_sprite_scale = sprite.scale
 	_base_halo_scale = halo.scale
 
-	area.body_entered.connect(_on_body_entered)
+	if not area.body_entered.is_connected(_on_body_entered):
+		area.body_entered.connect(_on_body_entered)
 
 func _process(delta: float) -> void:
 	if _used:
@@ -152,8 +153,8 @@ func _on_body_entered(body: Node) -> void:
 		body.call("play_sacred_feedback", 0.55)
 
 	_used = true
-	area.monitoring = false
-	area.monitorable = false
+	area.set_deferred("monitoring", false)
+	area.set_deferred("monitorable", false)
 
 	# Aplicar slow al enemigo (solo una vez)
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("ChaseEnemy")

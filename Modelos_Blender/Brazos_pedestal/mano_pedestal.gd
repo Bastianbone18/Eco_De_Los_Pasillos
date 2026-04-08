@@ -5,8 +5,13 @@ class_name PedestalItemInteract
 @onready var collision: CollisionShape3D = $Area3D/CollisionShape3D
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var item_holder: Node3D = $ItemHolder
+@onready var fuego: Node3D = $Cilindrodefuego
+@onready var luz_fuego: Light3D = $LuzFuego
+
 @export var suelo_corrupto_controller_path: NodePath
 @export var corruption_amount: float = 0.33
+@export var mission_hud_path: NodePath
+@export var lluvia_controller_path: NodePath
 
 var puntero_ui: Node = null
 var player_inside: bool = false
@@ -21,6 +26,7 @@ var float_time: float = 0.0
 
 var _item_base_position: Vector3
 var _item_base_scale: Vector3
+var _fuego_activado: bool = false
 
 var item_popup_instance: Node = null
 var balloon_instance: Node = null
@@ -43,6 +49,13 @@ var balloon_instance: Node = null
 
 @export var pentagram_manager_path: NodePath
 @export_enum("anillo", "campana", "vela") var pentagram_id: String = "anillo"
+
+@export var fuego_light_energy_inicial: float = 4.5
+@export var fuego_light_energy_completado: float = 20.0
+@export var fuego_spawn_scale: Vector3 = Vector3(0.8, 0.8, 0.8)
+@export var fuego_final_scale: Vector3 = Vector3(1.0, 1.0, 1.0)
+@export var fuego_activate_tween_time: float = 0.35
+@export var fuego_light_boost_time: float = 0.45
 
 
 func _ready() -> void:
@@ -75,12 +88,20 @@ func _ready() -> void:
 		flash_light.visible = false
 		flash_light.light_energy = 0.0
 
+	_desactivar_fuego_inicial()
+
 	if anim.has_animation("loop_idle"):
 		anim.play("loop_idle")
 	else:
 		push_warning("[Pedestal] No existe la animación 'loop_idle'")
 
+	if _foto_familiar_ya_fue_usada():
+		_activar_fuego(false)
+
+
 func _process(delta: float) -> void:
+	_actualizar_estado_fuego_global()
+
 	if item_revealed and is_instance_valid(item_holder) and item_holder.visible:
 		float_time += delta
 		item_holder.rotation_degrees.y += rotate_speed * delta
@@ -96,6 +117,7 @@ func _process(delta: float) -> void:
 		if _is_closest_pedestal_to_player():
 			_interactuar()
 
+
 func _on_area_entered(body: Node) -> void:
 	if used or busy:
 		return
@@ -105,11 +127,13 @@ func _on_area_entered(body: Node) -> void:
 		if puntero_ui and puntero_ui.has_method("mostrar_puntero"):
 			puntero_ui.mostrar_puntero()
 
+
 func _on_area_exited(body: Node) -> void:
 	if body.is_in_group("Player"):
 		player_inside = false
 		if puntero_ui and puntero_ui.has_method("ocultar_puntero"):
 			puntero_ui.ocultar_puntero()
+
 
 func _is_closest_pedestal_to_player() -> bool:
 	var player := get_tree().get_first_node_in_group("Player") as Node3D
@@ -134,13 +158,14 @@ func _is_closest_pedestal_to_player() -> bool:
 
 	return closest == self
 
+
 func _interactuar() -> void:
 	if used or busy:
 		return
 
 	busy = true
 	used = true
-	
+
 	emit_signal("pedestal_started", pentagram_id)
 
 	_disable_interaction()
@@ -158,8 +183,10 @@ func _interactuar() -> void:
 
 	await get_tree().create_timer(0.15).timeout
 
+	_set_mission_hud_dialogue_mode(true)
 	_mostrar_animacion_item()
 	_iniciar_dialogo()
+
 
 func _reveal_item() -> void:
 	if not is_instance_valid(item_holder):
@@ -181,6 +208,7 @@ func _reveal_item() -> void:
 	item_revealed = true
 	float_time = 0.0
 
+
 func _mostrar_animacion_item() -> void:
 	if not item_popup_scene:
 		push_error("❌ item_popup_scene es null")
@@ -201,6 +229,7 @@ func _mostrar_animacion_item() -> void:
 				anim2d.play(names[0])
 			else:
 				anim2d.play()
+
 
 func _iniciar_dialogo() -> void:
 	if dialogue_path == "" or not ResourceLoader.exists(dialogue_path):
@@ -237,6 +266,7 @@ func _iniciar_dialogo() -> void:
 		push_error("❌ balloon_instance no tiene método start()")
 		_on_dialogo_item_terminado()
 
+
 func _on_dialogo_item_terminado() -> void:
 	if item_popup_instance and item_popup_instance.is_inside_tree():
 		item_popup_instance.queue_free()
@@ -246,19 +276,27 @@ func _on_dialogo_item_terminado() -> void:
 		balloon_instance.queue_free()
 		balloon_instance = null
 
+	_set_mission_hud_dialogue_mode(false)
+
+	_subir_luz_fuego_de_este_pedestal()
 	_activar_mi_pentagrama()
 	_activar_corrupcion_suelo()
+	_subir_fase_lluvia()
+	_notify_mission_hud_pedestal_completed()
 	_after_dialogue_cleanup()
-	
+
 	emit_signal("pedestal_completed", pentagram_id)
+
 
 func _after_dialogue_cleanup() -> void:
 	call_deferred("_after_dialogue_cleanup_deferred")
+
 
 func _after_dialogue_cleanup_deferred() -> void:
 	await get_tree().create_timer(remove_item_delay).timeout
 	await _flash_and_hide_item()
 	busy = false
+
 
 func _flash_and_hide_item() -> void:
 	item_revealed = false
@@ -277,6 +315,7 @@ func _flash_and_hide_item() -> void:
 
 	if is_instance_valid(item_holder):
 		item_holder.visible = false
+
 
 func _activar_mi_pentagrama() -> void:
 	print("=== INTENTANDO ACTIVAR PENTAGRAMA ===")
@@ -298,12 +337,15 @@ func _activar_mi_pentagrama() -> void:
 	else:
 		push_warning("[Pedestal] El manager no tiene método activar_pentagrama")
 
+
 func _disable_interaction() -> void:
 	area.monitoring = false
 	area.monitorable = false
 
 	if collision:
 		collision.disabled = true
+
+
 func _activar_corrupcion_suelo() -> void:
 	var controller := get_node_or_null(suelo_corrupto_controller_path)
 	if controller == null:
@@ -314,3 +356,111 @@ func _activar_corrupcion_suelo() -> void:
 		controller.add_corruption_step(corruption_amount)
 	else:
 		push_warning("[Pedestal] El controller no tiene método add_corruption_step")
+
+
+func _set_mission_hud_dialogue_mode(active: bool) -> void:
+	if mission_hud_path == NodePath():
+		return
+
+	var hud := get_node_or_null(mission_hud_path)
+	if hud == null:
+		return
+
+	if hud.has_method("set_dialogue_overlay_active"):
+		hud.call("set_dialogue_overlay_active", active)
+
+
+func _notify_mission_hud_pedestal_completed() -> void:
+	if mission_hud_path == NodePath():
+		return
+
+	var hud := get_node_or_null(mission_hud_path)
+	if hud == null:
+		return
+
+	if hud.has_method("register_pedestal_completed"):
+		hud.call("register_pedestal_completed", pentagram_id)
+
+
+func _foto_familiar_ya_fue_usada() -> bool:
+	if not ("foto_familiar_done" in GameData):
+		return false
+	return GameData.foto_familiar_done
+
+
+func _actualizar_estado_fuego_global() -> void:
+	if _fuego_activado:
+		return
+
+	if _foto_familiar_ya_fue_usada():
+		_activar_fuego(true)
+
+
+func _desactivar_fuego_inicial() -> void:
+	_fuego_activado = false
+
+	if fuego:
+		if fuego is GeometryInstance3D:
+			fuego.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		fuego.visible = false
+		fuego.scale = fuego_final_scale
+
+	if luz_fuego:
+		luz_fuego.visible = false
+		luz_fuego.light_energy = 0.0
+		luz_fuego.shadow_enabled = false
+
+
+func _activar_fuego(con_animacion: bool = true) -> void:
+	if _fuego_activado:
+		return
+
+	_fuego_activado = true
+
+	if fuego:
+		if fuego is GeometryInstance3D:
+			fuego.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		fuego.visible = true
+
+		if con_animacion:
+			fuego.scale = fuego_spawn_scale
+			var tween_fuego := create_tween()
+			tween_fuego.tween_property(fuego, "scale", fuego_final_scale, fuego_activate_tween_time)
+		else:
+			fuego.scale = fuego_final_scale
+
+	if luz_fuego:
+		luz_fuego.visible = true
+		luz_fuego.shadow_enabled = false
+
+		if con_animacion:
+			luz_fuego.light_energy = 0.0
+			var tween_luz := create_tween()
+			tween_luz.tween_property(luz_fuego, "light_energy", fuego_light_energy_inicial, fuego_activate_tween_time)
+		else:
+			luz_fuego.light_energy = fuego_light_energy_inicial
+
+
+func _subir_luz_fuego_de_este_pedestal() -> void:
+	if luz_fuego == null:
+		return
+
+	luz_fuego.visible = true
+	luz_fuego.shadow_enabled = false
+
+	var tween := create_tween()
+	tween.tween_property(luz_fuego, "light_energy", fuego_light_energy_completado, fuego_light_boost_time)
+	
+func _subir_fase_lluvia() -> void:
+	if lluvia_controller_path == NodePath():
+		return
+
+	var lluvia_controller := get_node_or_null(lluvia_controller_path)
+	if lluvia_controller == null:
+		push_warning("[Pedestal] No se encontró lluvia_controller_path")
+		return
+
+	if lluvia_controller.has_method("increase_rain_stage"):
+		lluvia_controller.call("increase_rain_stage")
+	else:
+		push_warning("[Pedestal] El lluvia_controller no tiene método increase_rain_stage")

@@ -3,7 +3,7 @@ class_name Mundo2IntroController
 
 @onready var black_rect: ColorRect = $CanvasLayer/ColorRect
 @onready var anim: AnimationPlayer = $CanvasLayer/IntroAnim
-@onready var breath_audio: AudioStreamPlayer = $BreathAudio
+
 
 @export var fade_anim_name: String = "FadeTrans"
 
@@ -24,7 +24,7 @@ func _ready() -> void:
 	# DEBUG: confirma que los nodos existen
 	print("[Mundo2Intro] black_rect =", black_rect)
 	print("[Mundo2Intro] anim =", anim, " has FadeTrans? ->", (anim != null and anim.has_animation(fade_anim_name)))
-	print("[Mundo2Intro] breath_audio =", breath_audio)
+	
 
 	# ✅ Overlay off por defecto (para loads/retries)
 	_force_overlay_off()
@@ -74,12 +74,7 @@ func _run_intro_once() -> void:
 	# 0) Negro al inicio
 	_force_overlay_on()
 
-	# 1) Respiración
-	if breath_audio:
-		print("[Mundo2Intro] breath_audio.play()")
-		breath_audio.play()
-	else:
-		print("[Mundo2Intro] ⚠️ No breath_audio")
+
 
 	# 2) Anim Fade
 	if anim == null:

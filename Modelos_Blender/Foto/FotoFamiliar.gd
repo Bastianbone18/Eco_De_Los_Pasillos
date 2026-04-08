@@ -22,6 +22,10 @@ extends Node3D
 @export var dialogue_path: String = "res://Dialogos/FotoSueaño.dialogue"
 @export var balloon_scene: PackedScene = preload("res://Pantallas/Dialogos_ecenas/balloon.tscn")
 
+# HUD de misión
+@export var mission_hud_path: NodePath
+@export var mission_start_delay: float = 0.15
+
 # Nodo del mundo al que avisaremos que ya puede iniciar el padre
 @export var mundo3_path: NodePath
 
@@ -191,7 +195,6 @@ func _update_proximity_effect(delta: float) -> void:
 
 	if audio_player:
 		audio_player.volume_db = lerpf(audio_player.volume_db, target_volume, delta * 6.5)
-		
 		audio_player.pitch_scale = lerpf(audio_player.pitch_scale, target_pitch + pulse * 0.04, delta * 3.0)
 
 		if not player_near and audio_player.playing and audio_player.volume_db <= (min_db + 0.5):
@@ -319,10 +322,28 @@ func _on_dialogo_foto_terminado() -> void:
 	if omni_light:
 		omni_light.light_energy = min_light_energy
 
+	await get_tree().create_timer(mission_start_delay).timeout
+	_mostrar_hud_mision()
+
 	await get_tree().create_timer(padre_start_delay).timeout
 	_activar_padre_en_mundo3()
 
 	queue_free()
+
+func _mostrar_hud_mision() -> void:
+	if mission_hud_path == NodePath():
+		push_warning("⚠️ mission_hud_path no fue asignado")
+		return
+
+	var mission_hud: Node = get_node_or_null(mission_hud_path)
+	if mission_hud == null:
+		push_warning("⚠️ No se encontró el HUD de misión")
+		return
+
+	if mission_hud.has_method("start_mission"):
+		mission_hud.call("start_mission")
+	else:
+		push_warning("⚠️ El HUD de misión no tiene método start_mission()")
 
 func _activar_padre_en_mundo3() -> void:
 	var mundo3: Node = null

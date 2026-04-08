@@ -19,7 +19,7 @@ extends Node
 # INTRO MUNDO 3
 # =========================
 @export var intro_anim_name: String = "DespertarSusto"
-@export var intro_dialogue_path: String = "res://Dialogos/Intro_Mundo3.dialogue"
+@export var intro_dialogue_path: String = "res://Dialogos/Intro_mundo3.dialogue"
 @export var intro_dialogue_key: String = "intro_mundo3"
 
 # Presión por pedestal
@@ -53,6 +53,7 @@ extends Node
 @onready var player: Node3D = $Player
 @onready var player_camera: Camera3D = $Player/Head/Camera3D
 @onready var fake_container: Node3D = $FakeContainer
+
 @onready var despertar_anim_player: AnimationPlayer = $DespiertaAnim/AnimationPlayer
 @onready var despierta_anim_root: CanvasLayer = $DespiertaAnim
 
@@ -73,7 +74,7 @@ var pedestales_completados: int = 0
 var pedestales_completados_ids: Dictionary = {}
 
 var _debug_printed_keys: Dictionary = {}
-var _intro_running: bool = false
+var _running: bool = false
 
 
 func _dbg(message: String) -> void:
@@ -120,9 +121,9 @@ func _ready() -> void:
 	if GameData.current_scene_path != scene_path or GameData.current_checkpoint_id == "":
 		GameData.set_checkpoint(scene_path, first_checkpoint_id)
 
-		var sm: Node = get_node_or_null("/root/SaveManager")
-		if sm and sm.has_method("save_from_gamedata"):
-			sm.save_from_gamedata(GameData)
+		var sm_save: Node = get_node_or_null("/root/SaveManager")
+		if sm_save and sm_save.has_method("save_from_gamedata"):
+			sm_save.save_from_gamedata(GameData)
 
 		_dbg("Checkpoint inicial registrado -> %s" % first_checkpoint_id)
 	else:
@@ -131,17 +132,25 @@ func _ready() -> void:
 	_refresh_total_visual_corruption()
 	_conectar_pedestales()
 
-	# Intro de Mundo 3: solo la primera vez
-	if bool(GameData.intro_mundo3_done):
-		_force_despierta_overlay_off()
-		_dbg("Intro Mundo3 omitida porque intro_mundo3_done = true")
-	else:
-		if _intro_running:
-			_dbg("Intro Mundo3 ya estaba corriendo, evitando reentrada")
-			return
+	# Intro Mundo 3 con el mismo patrón estable de Mundo 2
+	_force_despierta_overlay_off()
 
-		_intro_running = true
-		call_deferred("_start_intro_mundo3_deferred")
+	print("========== [Mundo3Intro] _ready() ==========")
+	print("[Mundo3Intro] Scene:", get_tree().current_scene.scene_file_path)
+	print("[Mundo3Intro] GameData.intro_mundo3_done =", GameData.intro_mundo3_done)
+	print("[Mundo3Intro] despierta_anim_root =", despierta_anim_root)
+	print("[Mundo3Intro] despertar_anim_player =", despertar_anim_player)
+
+	if bool(GameData.intro_mundo3_done):
+		print("[Mundo3Intro] SALTANDO INTRO porque intro_mundo3_done=true")
+		return
+
+	if _running:
+		print("[Mundo3Intro] Ya estaba corriendo, evitando reentrar.")
+		return
+
+	_running = true
+	call_deferred("_start_intro_mundo3_deferred")
 
 
 func _exit_tree() -> void:
@@ -154,14 +163,13 @@ func _exit_tree() -> void:
 
 
 func _start_intro_mundo3_deferred() -> void:
-	_dbg("Iniciando intro Mundo3 deferred")
+	print("[Mundo3Intro] _start_intro_mundo3_deferred() ejecutando...")
 	await _run_intro_once()
-	_intro_running = false
 
 
 func _force_despierta_overlay_off() -> void:
 	if despierta_anim_root == null:
-		_dbg("⚠ DespiertaAnim no encontrado")
+		print("[Mundo3Intro] ❌ despierta_anim_root es null")
 		return
 
 	despierta_anim_root.visible = false
@@ -169,124 +177,135 @@ func _force_despierta_overlay_off() -> void:
 	if despertar_anim_player:
 		despertar_anim_player.stop()
 
+	print("[Mundo3Intro] Overlay OFF")
+
 
 func _force_despierta_overlay_on() -> void:
 	if despierta_anim_root == null:
-		_dbg("⚠ DespiertaAnim no encontrado")
+		print("[Mundo3Intro] ❌ despierta_anim_root es null")
 		return
 
 	despierta_anim_root.visible = true
+	print("[Mundo3Intro] Overlay ON")
 
 
 func _run_intro_once() -> void:
-	_dbg(">>> INICIANDO INTRO MUNDO3 ONCE")
+	print("[Mundo3Intro] >>> INICIANDO INTRO ONCE")
 
-	# 1) mostrar overlay y reproducir animación
+	# 1) mostrar overlay
 	_force_despierta_overlay_on()
 
+	# 2) animación
 	if despertar_anim_player == null:
-		_dbg("❌ No se encontró $DespiertaAnim/AnimationPlayer")
-		await get_tree().create_timer(1.5).timeout
+		print("[Mundo3Intro] ❌ despertar_anim_player es null")
+		await get_tree().create_timer(1.0).timeout
 	else:
+		print("[Mundo3Intro] Animations disponibles:", despertar_anim_player.get_animation_list())
 		if despertar_anim_player.has_animation(intro_anim_name):
-			_dbg("play anim -> %s" % intro_anim_name)
+			print("[Mundo3Intro] play anim:", intro_anim_name)
 			despertar_anim_player.stop()
 			despertar_anim_player.play(intro_anim_name)
 			await despertar_anim_player.animation_finished
-			_dbg("animation_finished -> %s" % intro_anim_name)
+			print("[Mundo3Intro] animation_finished OK")
 		else:
-			_dbg("❌ No existe animación '%s'" % intro_anim_name)
-			await get_tree().create_timer(1.5).timeout
+			print("[Mundo3Intro] ❌ No existe animación:", intro_anim_name)
+			await get_tree().create_timer(2.0).timeout
 
-	# 2) ocultar overlay al terminar
+	# 3) apagar overlay
 	_force_despierta_overlay_off()
 
-	# 3) mostrar diálogo justo después de la animación
+	# 4) diálogo
 	var dialogue_res: Resource = _load_intro_dialogue()
+	print("[Mundo3Intro] dialogue_res =", dialogue_res)
+
 	if dialogue_res != null:
 		_show_intro_dialogue(dialogue_res)
 		await _wait_dialogue_ended(dialogue_res)
 	else:
-		_dbg("⚠ No se pudo cargar el diálogo de intro Mundo3")
+		print("[Mundo3Intro] ⚠ No se pudo cargar diálogo")
 		await get_tree().create_timer(0.2).timeout
 
-	# 4) marcar flag para que NO vuelva a salir
+	# 5) flag + save
 	GameData.intro_mundo3_done = true
-	_dbg("GameData.intro_mundo3_done = true")
+	print("[Mundo3Intro] intro_mundo3_done = true")
 
-	var sm := get_node_or_null("/root/SaveManager")
+	var sm: Node = get_node_or_null("/root/SaveManager")
 	if sm and sm.has_method("save_from_gamedata"):
+		print("[Mundo3Intro] Guardando SaveManager.save_from_gamedata()")
 		sm.save_from_gamedata(GameData)
-		_dbg("SaveManager.save_from_gamedata(GameData) OK")
 	else:
-		_dbg("⚠ No SaveManager o no tiene save_from_gamedata()")
+		print("[Mundo3Intro] ⚠ No SaveManager o no save_from_gamedata()")
 
-	_dbg(">>> FIN INTRO MUNDO3 ONCE")
+	print("[Mundo3Intro] >>> FIN INTRO ONCE")
 
 
 func _load_intro_dialogue() -> Resource:
 	if intro_dialogue_path.strip_edges() == "":
-		_dbg("❌ intro_dialogue_path vacío")
+		print("[Mundo3Intro] ❌ intro_dialogue_path vacío")
 		return null
 
 	if not ResourceLoader.exists(intro_dialogue_path):
-		_dbg("❌ No existe diálogo: %s" % intro_dialogue_path)
+		print("[Mundo3Intro] ❌ No existe:", intro_dialogue_path)
 		return null
 
 	var res: Resource = load(intro_dialogue_path)
 	if res == null:
-		_dbg("❌ load() devolvió null: %s" % intro_dialogue_path)
+		print("[Mundo3Intro] ❌ load() devolvió null:", intro_dialogue_path)
 		return null
 
 	return res
 
 
 func _show_intro_dialogue(dialogue_res: Resource) -> void:
-	_dbg("_show_intro_dialogue key = %s" % intro_dialogue_key)
+	print("[Mundo3Intro] _show_intro_dialogue key =", intro_dialogue_key)
 
 	if Engine.has_singleton("DialogueManager"):
 		var dm = Engine.get_singleton("DialogueManager")
+		print("[Mundo3Intro] Engine DialogueManager =", dm)
 		if dm != null and dm.has_method("show_dialogue_balloon"):
+			print("[Mundo3Intro] dm.show_dialogue_balloon()")
 			dm.call("show_dialogue_balloon", dialogue_res, intro_dialogue_key)
-			_dbg("Dialogue mostrado por Engine singleton")
 			return
+		else:
+			print("[Mundo3Intro] ❌ Singleton DialogueManager sin show_dialogue_balloon()")
 
-	var dm_node := get_node_or_null("/root/DialogueManager")
+	var dm_node: Node = get_node_or_null("/root/DialogueManager")
+	print("[Mundo3Intro] /root/DialogueManager =", dm_node)
 	if dm_node != null and dm_node.has_method("show_dialogue_balloon"):
+		print("[Mundo3Intro] /root DialogueManager show_dialogue_balloon()")
 		dm_node.call("show_dialogue_balloon", dialogue_res, intro_dialogue_key)
-		_dbg("Dialogue mostrado por /root/DialogueManager")
 		return
 
-	_dbg("❌ DialogueManager no encontrado o sin show_dialogue_balloon()")
+	print("[Mundo3Intro] ❌ DialogueManager NO encontrado o sin método show_dialogue_balloon")
 
 
 func _wait_dialogue_ended(dialogue_res: Resource) -> void:
-	_dbg("Esperando DialogueManager.dialogue_ended ...")
+	print("[Mundo3Intro] Esperando DialogueManager.dialogue_ended ...")
 
 	if not is_inside_tree():
-		_dbg("Abort wait: node fuera del árbol")
+		print("[Mundo3Intro] Abort wait: no estoy dentro del árbol.")
 		return
 
-	var dm_node := get_node_or_null("/root/DialogueManager")
+	var dm_node: Node = get_node_or_null("/root/DialogueManager")
 	if dm_node == null and not Engine.has_singleton("DialogueManager"):
-		_dbg("⚠ No hay DialogueManager accesible, no espero")
+		print("[Mundo3Intro] ⚠ No hay DialogueManager accesible, no espero.")
 		return
 
-	var max_wait := 45.0
+	var max_wait: float = 45.0
 	var timer := get_tree().create_timer(max_wait)
 
 	while true:
 		if not is_inside_tree():
-			_dbg("Abort wait: salí del árbol durante la espera")
+			print("[Mundo3Intro] Abort wait: salí del árbol durante la espera.")
 			return
 
 		if typeof(DialogueManager) != TYPE_NIL:
 			var ended_res: Resource = await DialogueManager.dialogue_ended
-			_dbg("dialogue_ended recibido: %s" % str(ended_res))
+			print("[Mundo3Intro] dialogue_ended recibido:", ended_res)
 			return
 
 		await timer.timeout
-		_dbg("⚠ Timeout esperando diálogo")
+		print("[Mundo3Intro] ⚠ Timeout esperando diálogo.")
 		return
 
 

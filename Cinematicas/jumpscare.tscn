@@ -10,6 +10,10 @@ shader_parameter/wiggle = 0.04
 shader_parameter/wiggle_speed = 25.0
 shader_parameter/smear = 1.0
 shader_parameter/blur_samples = 15
+shader_parameter/brightness = 0.0
+shader_parameter/warm = 0.0
+shader_parameter/sacred = 0.0
+shader_parameter/sacred_soft = 0.0
 
 [node name="Jumpscare" type="CanvasLayer"]
 script = ExtResource("1_uul63")

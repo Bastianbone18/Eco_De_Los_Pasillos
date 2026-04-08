@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmdxulyg8sser"]
+
+[ext_resource type="Script" path="res://Pantallas/EncuentraMision.gd" id="1_osha2"]
+[ext_resource type="Shader" path="res://Pantallas/MisionPilaresFX.gdshader" id="2_3xi3g"]
+[ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="2_4ptdn"]
+[ext_resource type="Texture2D" uid="uid://nxkpw2yva6s5" path="res://Imagenes_pantallas/MANOSps2.png" id="2_xxyfx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2b22r"]
+shader = ExtResource("2_3xi3g")
+shader_parameter/progress_intensity = 0.0
+shader_parameter/mission_progress = 0.0
+shader_parameter/pulse_amount = 0.0
+shader_parameter/flash_amount = 0.0
+shader_parameter/scanline_strength = 0.08
+shader_parameter/noise_strength = 0.04
+shader_parameter/ghost_strength = 0.04
+shader_parameter/chroma_strength = 0.0015
+shader_parameter/glitch_strength = 0.02
+shader_parameter/band_shift_strength = 0.01
+shader_parameter/vignette_strength = 0.08
+shader_parameter/darkness_strength = 0.08
+shader_parameter/red_push = 0.12
+shader_parameter/curve_wave_strength = 0.01
+shader_parameter/scream_line_strength = 0.0
+shader_parameter/overlay_tint = Color(0.18, 0.05, 0.05, 0.16)
+
+[node name="EncuentraMision" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_osha2")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FXRect" type="ColorRect" parent="Root"]
+material = SubResource("ShaderMaterial_2b22r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopCenter" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -114.0
+offset_right = 160.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RitualLabel" type="Label" parent="Root/TopCenter"]
+texture_filter = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_4ptdn")
+theme_override_font_sizes/font_size = 22
+text = "Completa el ritual"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomLeft" type="HBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = 105.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_constants/separation = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="SigilIcon" type="TextureRect" parent="Root/BottomLeft"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_xxyfx")
+expand_mode = 1
+
+[node name="Control" type="Control" parent="Root/BottomLeft"]
+layout_mode = 2
+
+[node name="ObjectiveLabel" type="Label" parent="Root/BottomLeft"]
+texture_filter = 3
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_4ptdn")
+theme_override_font_sizes/font_size = 17
+text = "0/3"

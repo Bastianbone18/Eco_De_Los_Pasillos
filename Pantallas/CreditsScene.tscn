@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://yuw0detleque"]
+[gd_scene load_steps=7 format=3 uid="uid://yuw0detleque"]
 
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="1_c8ief"]
 [ext_resource type="Script" path="res://Pantallas/credits_scene.gd" id="1_r4t01"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="2_8th8x"]
-[ext_resource type="FontFile" uid="uid://dmeyw850i2eyb" path="res://Fuentes/nosferatu/Nosfo___.ttf" id="2_rsj82"]
 [ext_resource type="AudioStream" uid="uid://d2rgpxvsfmws2" path="res://Musica y sonidos/Sonidos/talk.ogg" id="4_3vt5t"]
 [ext_resource type="AudioStream" uid="uid://cpixucwb7rt2j" path="res://Musica y sonidos/Sonidos/Risa_de_lejos.ogg" id="6_fwngn"]
 
@@ -24,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_r4t01")
 
 [node name="Fondo" type="ColorRect" parent="."]
@@ -45,118 +44,46 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0685512, 0.00878408, 0.0088949, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Titulo" type="Label" parent="." groups=["title"]]
 texture_filter = 3
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.5
+offset_top = 8.0
+offset_right = 113.5
+offset_bottom = 40.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_c8ief")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "Echoes of the Forgotten"
 horizontal_alignment = 1
 
-[node name="Mensaje" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="TexoAgradecimiento" type="Label" parent="." groups=["title"]]
 texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 16
-text = "textotextotextoetxoteoteoetooosoa
-sajsajsajjsajsajsajsajasjjasja
-ajsjsajsajsajsajsjajsa
-jasjasjsajasj"
-horizontal_alignment = 1
-
-[node name="Creador" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -75.5
+offset_right = 109.0
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_c8ief")
 theme_override_font_sizes/font_size = 14
-text = "Creado por
-Juan Sebastian Prieto Montaña"
-horizontal_alignment = 1
-
-[node name="Game Desing" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 14
-text = "Game Design
-BastianBone"
-horizontal_alignment = 1
-
-[node name="Programming" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 14
-text = "Programming
-Juan Sebastian Prieto Montaña"
-horizontal_alignment = 1
-
-[node name="Level Design" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 14
-text = "Level Design
-BastianBone"
-horizontal_alignment = 1
-
-[node name="Environment Art" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 14
-text = "Environment Art
-Juan Sebastian Prieto Montaña"
-horizontal_alignment = 1
-
-[node name="Agredecimientos Especiales" type="Label" parent="ScrollContainer/VBoxContainer" groups=["title"]]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 16
-text = "Agradecimientos Especiales
-
-BastianBone
-Por mejoras en los diseños
-
-Brayan Danilo Méndez
-Por la creación del documento
-y apoyo como beta tester secundario
-
-Jerónimo Prieto Montaña
-Beta tester principal
-y apoyo en la búsqueda de más testers
-
-Diana Montaña
-Por su constante motivación
-y apoyo al equipo"
-horizontal_alignment = 1
-
-[node name="Copyright" type="Label" parent="ScrollContainer/VBoxContainer"]
-texture_filter = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rsj82")
-theme_override_font_sizes/font_size = 14
-text = "Echoes of Gorten
-Beta v0.3
-© 2026 Juan Prieto "
+text = "Gracias por jugar esta beta.
+Cada paso que diste
+cada momento que exploraste…
+ayudó a darle vida a este mundo.
+Este proyecto no sería lo mismo sin ti.
+Gracias por estar aquí
+por sentirlo y por formar parte de esto.
+Esto apenas comienza"
 horizontal_alignment = 1
 
 [node name="TalkSound" type="AudioStreamPlayer" parent="."]

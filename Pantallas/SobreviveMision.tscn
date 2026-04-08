@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxs1e2mmn6m5l"]
 
-[ext_resource type="Script" path="res://Pantallas/SobreviveMision.gd" id="1_v6l0n"]
+[ext_resource type="Script" path="res://Pantallas/SobreviveMision.gd" id="1_7nlmd"]
 [ext_resource type="FontFile" uid="uid://s73cy3w58bc7" path="res://Fuentes/nosferatu/NO.TTF" id="1_yjf8k"]
 
-[node name="SobreviveMisionHUD" type="CanvasLayer"]
+[node name="SobreviveMision" type="CanvasLayer"]
 layer = 20
-script = ExtResource("1_v6l0n")
+script = ExtResource("1_7nlmd")
 
 [node name="Root" type="Control" parent="."]
 layout_mode = 3
@@ -36,7 +36,7 @@ texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_yjf8k")
 theme_override_font_sizes/font_size = 22
-text = "01:25"
+text = "0/75"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -57,4 +57,4 @@ texture_filter = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_yjf8k")
 theme_override_font_sizes/font_size = 17
-text = "SOBREVIVE"
+text = "Sobrevive"

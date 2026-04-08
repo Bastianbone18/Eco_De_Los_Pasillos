@@ -1,10 +1,11 @@
-[gd_scene load_steps=60 format=3 uid="uid://dg6una74sgmdd"]
+[gd_scene load_steps=74 format=3 uid="uid://dg6una74sgmdd"]
 
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/mundo_3.gd" id="1_55m2s"]
 [ext_resource type="Texture2D" uid="uid://qpp1cw0g4q6y" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_BaseColor.png" id="1_qx3nu"]
 [ext_resource type="PackedScene" uid="uid://c728ra6cs3vud" path="res://Btas_y pruebas/player.tscn" id="1_wbihq"]
 [ext_resource type="Texture2D" uid="uid://01yormh7ewth" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Metallic.png" id="2_0lg2h"]
 [ext_resource type="Shader" path="res://shaders/Corrupcion_suelo.gdshader" id="2_2wqyl"]
+[ext_resource type="PackedScene" uid="uid://bms4dykbgd4hj" path="res://Props/FakeShadow .tscn" id="2_vvk3a"]
 [ext_resource type="Texture2D" uid="uid://clybrvvo671mm" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Normal.png" id="3_qeh8d"]
 [ext_resource type="Texture2D" uid="uid://6w6nxkefv84i" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Suelo_sueño_DefaultMaterial_Roughness.png" id="4_psyjc"]
 [ext_resource type="Texture2D" uid="uid://bofxjbkfdlv6d" path="res://Modelos_Blender/TerrenoMundo3/Suelo_Dream/Corrupcion.png" id="4_v5irg"]
@@ -21,12 +22,19 @@
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/area_3d_demonica.gd" id="18_iow8r"]
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/SueloCorruptoController.gd" id="19_ie0ma"]
 [ext_resource type="PackedScene" uid="uid://b4cvuoljlahlw" path="res://Pantallas/Mensaje_Final.tscn" id="19_jl4tx"]
+[ext_resource type="Shader" path="res://Modelos_Blender/TerrenoMundo3/AnilloFuegoSupremo.gdshader" id="21_g77i2"]
+[ext_resource type="Texture2D" uid="uid://x8cqs2vomdx0" path="res://COSAS_DECORATIVAS/VFXFUEGO/FuegoPrincipal.png" id="22_aw508"]
 [ext_resource type="PackedScene" uid="uid://dvlhq83603pk4" path="res://Props/PadreEntity .tscn" id="22_x445b"]
+[ext_resource type="Texture2D" uid="uid://pxdnaoytix2o" path="res://COSAS_DECORATIVAS/VFXFUEGO/Carne2.png" id="23_6xs5x"]
 [ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/MentalAlert.gd" id="23_hgcjr"]
+[ext_resource type="ArrayMesh" uid="uid://tm1r0xaxy5yy" path="res://COSAS_DECORATIVAS/VFXFUEGO/Cilindrodefuego.obj" id="23_ijrnh"]
 [ext_resource type="Shader" path="res://shaders/AlertaShader.gdshader" id="23_vnfh6"]
+[ext_resource type="Texture2D" uid="uid://dl6r8pt8aw82k" path="res://COSAS_DECORATIVAS/VFXFUEGO/Almas2.png" id="24_lhp6t"]
 [ext_resource type="PackedScene" uid="uid://c4ab0vmf62htn" path="res://Modelos_Blender/Foto/cuadro_marco_foto.tscn" id="25_5qu3o"]
 [ext_resource type="Texture2D" uid="uid://m4l381cfp0gv" path="res://Imagenes_pantallas/Dust2.png" id="27_1unts"]
 [ext_resource type="AudioStream" uid="uid://boyq0jb54rtib" path="res://Musica y sonidos/Sonidos/Respiracion_agitada.ogg" id="28_r8te0"]
+[ext_resource type="PackedScene" uid="uid://dmdxulyg8sser" path="res://Pantallas/MisionPilares.tscn" id="29_qmuf2"]
+[ext_resource type="Script" path="res://Modelos_Blender/TerrenoMundo3/LLuviBlod.gd" id="35_6kf5s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_prrtq"]
 sky_top_color = Color(0.0705882, 0.0745098, 0.0823529, 1)
@@ -212,7 +220,50 @@ material = SubResource("ShaderMaterial_lwiuo")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qa4b5"]
 height = 6.0
-radius = 5.0
+radius = 1.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_305md"]
+render_priority = 0
+shader = ExtResource("21_g77i2")
+shader_parameter/uv_scale = Vector2(3.5, 1)
+shader_parameter/speed = 1.0
+shader_parameter/souls_speed = 0.35
+shader_parameter/souls_strength = 2.0
+shader_parameter/souls_distortion = 0.03
+shader_parameter/souls_scale = Vector2(2, 1)
+shader_parameter/souls_color_a = Color(0.72549, 0.741176, 0.788235, 1)
+shader_parameter/souls_color_b = Color(0.431373, 0.454902, 0.509804, 1)
+shader_parameter/souls_color_c = Color(0.137255, 0.145098, 0.168627, 1)
+shader_parameter/flesh_scale = Vector2(2, 2)
+shader_parameter/flesh_strength = 0.95
+shader_parameter/flesh_distortion = 0.15
+shader_parameter/flesh_color_a = Color(0.227451, 0.0235294, 0.027451, 1)
+shader_parameter/flesh_color_b = Color(0.478431, 0.054902, 0.0627451, 1)
+shader_parameter/flesh_color_c = Color(0.756863, 0.164706, 0.121569, 1)
+shader_parameter/color_base = Color(0.0705882, 0.00784314, 0.0117647, 1)
+shader_parameter/color_mid = Color(0.227451, 0.0196078, 0.027451, 1)
+shader_parameter/color_hot = Color(0.541176, 0.109804, 0.0784314, 1)
+shader_parameter/color_tip = Color(0.898039, 0.282353, 0.164706, 1)
+shader_parameter/pulse_speed = 2.8
+shader_parameter/pulse_strength = 0.45
+shader_parameter/pulse_emission_boost = 0.18
+shader_parameter/pulse_alpha_boost = 0.06
+shader_parameter/pulse_color_a = Color(1, 0.227451, 0.164706, 1)
+shader_parameter/pulse_color_b = Color(0.227451, 0.0235294, 0.0235294, 1)
+shader_parameter/wave_strength = 0.18
+shader_parameter/wave_speed = 4.0
+shader_parameter/wave_frequency = 3.0
+shader_parameter/vertical_wave_strength = 0.035
+shader_parameter/top_influence = 1.8
+shader_parameter/top_fade_start = 1.0
+shader_parameter/top_fade_end = 0.01
+shader_parameter/top_edge_softness = 0.8
+shader_parameter/alpha_strength = 1.3
+shader_parameter/intensity = 4.0
+shader_parameter/edge_darkness = 0.65
+shader_parameter/fire_tex = ExtResource("22_aw508")
+shader_parameter/souls_tex = ExtResource("24_lhp6t")
+shader_parameter/flesh_tex = ExtResource("23_6xs5x")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6oriv"]
 render_priority = 0
@@ -381,8 +432,34 @@ _data = {
 "RESET": SubResource("Animation_lnpmk")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ehsit"]
+emission_shape = 3
+emission_box_extents = Vector3(180, 10, 180)
+direction = Vector3(0, -1, 0)
+spread = 4.0
+initial_velocity_min = 18.0
+initial_velocity_max = 22.0
+gravity = Vector3(0, -28, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smvex"]
+albedo_color = Color(0.639216, 0.227451, 0.164706, 1)
+emission_enabled = true
+emission = Color(0.639216, 0.227451, 0.164706, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdrjb"]
+material = SubResource("StandardMaterial3D_smvex")
+size = Vector3(0.035, 0.9, 0.035)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ej4s"]
+size = Vector3(120, 10, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lg1xp"]
+points = PackedVector3Array(-60.4054, -5.40541, -1.40541, 58.8565, 5, 0.995842, 60.4054, 5.13514, -1.40541, 60.4054, -5.40541, -1.40541, -60.4054, 5.13514, -1.40541, -55.7588, -5, 0.933472, -58.8565, 5, 0.995842, 55.7588, -5, 0.933472)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_55m2s")
+fake_shadow_scene = ExtResource("2_vvk3a")
+max_infestation_level = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4bevn")
@@ -412,6 +489,15 @@ shape = SubResource("ConvexPolygonShape3D_i1xuj")
 
 [node name="Player" parent="." instance=ExtResource("1_wbihq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976458, 29.5)
+sacred_fov_kick = 2.2
+sacred_fov_in_speed = 16.0
+sacred_fov_out_speed = 10.0
+sacred_vhs_boost = 0.18
+sacred_vhs_in_speed = 14.0
+sacred_vhs_out_speed = 10.0
+sacred_warm_boost = 0.18
+sacred_sfx = null
+sacred_sfx_volume_db = -6.0
 
 [node name="Pausa" parent="." instance=ExtResource("6_s787f")]
 visible = false
@@ -419,17 +505,23 @@ visible = false
 [node name="anillo_pedestal" parent="." instance=ExtResource("8_hcbqy")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -36, 0, 17)
 suelo_corrupto_controller_path = NodePath("../SueloCorruptoController")
+mission_hud_path = NodePath("../EncuentraMision")
+lluvia_controller_path = NodePath("../RainRoot")
 pentagram_manager_path = NodePath("../Pentagramas")
 
 [node name="Vela_pedestal" parent="." instance=ExtResource("9_g7c4n")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, -32)
 suelo_corrupto_controller_path = NodePath("../SueloCorruptoController")
+mission_hud_path = NodePath("../EncuentraMision")
+lluvia_controller_path = NodePath("../RainRoot")
 pentagram_manager_path = NodePath("../Pentagramas")
 pentagram_id = "vela"
 
 [node name="Campana_pedestal" parent="." instance=ExtResource("10_3owro")]
 transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, 36, -0.1, 17)
 suelo_corrupto_controller_path = NodePath("../SueloCorruptoController")
+mission_hud_path = NodePath("../EncuentraMision")
+lluvia_controller_path = NodePath("../RainRoot")
 flash_light_path = NodePath("../anillo_pedestal/FlashLight")
 pentagram_manager_path = NodePath("../Pentagramas")
 pentagram_id = "campana"
@@ -450,7 +542,7 @@ skeleton = NodePath("../..")
 [node name="PentagramSparks" type="GPUParticles3D" parent="Pentagramas/Pentagrama_Player"]
 material_override = SubResource("ShaderMaterial_1ru0x")
 emitting = false
-amount = 50
+amount = 80
 amount_ratio = 0.9655
 lifetime = 0.5
 speed_scale = 0.7
@@ -462,9 +554,23 @@ draw_pass_1 = SubResource("QuadMesh_7mn2i")
 script = ExtResource("18_iow8r")
 pentagram_manager_path = NodePath("../..")
 final_message_scene = ExtResource("19_jl4tx")
+mission_hud_path = NodePath("../../../EncuentraMision")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pentagramas/Pentagrama_Player/Area3D"]
 shape = SubResource("CylinderShape3D_qa4b5")
+
+[node name="Cilindrodefuego" type="MeshInstance3D" parent="Pentagramas/Pentagrama_Player"]
+transform = Transform3D(5, 0, 0, 0, 5.157, 0, 0, 0, 5, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_305md")
+cast_shadow = 0
+mesh = ExtResource("23_ijrnh")
+
+[node name="LuzFuegoCentral" type="OmniLight3D" parent="Pentagramas/Pentagrama_Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+light_color = Color(1, 0.352941, 0.164706, 1)
+light_energy = 20.0
+light_volumetric_fog_energy = 5.522
+omni_range = 6.86
 
 [node name="Pentagrama_anillo" type="MeshInstance3D" parent="Pentagramas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0.076, 36.1)
@@ -537,6 +643,8 @@ script = ExtResource("23_hgcjr")
 
 [node name="Cuadro_marco_foto" parent="." instance=ExtResource("25_5qu3o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684312, 12)
+mission_hud_path = NodePath("../EncuentraMision")
+mundo3_path = NodePath("..")
 proximity_radius = 50.0
 max_db = 5.0
 
@@ -566,3 +674,60 @@ bus = &"Atmosfera"
 libraries = {
 "": SubResource("AnimationLibrary_y142g")
 }
+
+[node name="EncuentraMision" parent="." instance=ExtResource("29_qmuf2")]
+
+[node name="RainRoot" type="Node3D" parent="."]
+script = ExtResource("35_6kf5s")
+
+[node name="LluviaSangre" type="GPUParticles3D" parent="RainRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+amount = 5000
+lifetime = 1.2
+preprocess = 1.0
+randomness = 0.3
+visibility_aabb = AABB(-20, -20, -20, 80, 40, 80)
+process_material = SubResource("ParticleProcessMaterial_ehsit")
+draw_pass_1 = SubResource("BoxMesh_hdrjb")
+
+[node name="Muros" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Muros"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 52)
+visible = false
+mesh = SubResource("BoxMesh_8ej4s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Muros/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Muros/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_lg1xp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Muros"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -52)
+visible = false
+mesh = SubResource("BoxMesh_8ej4s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Muros/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Muros/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_lg1xp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Muros"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 52, 4, -2.27299e-06)
+visible = false
+mesh = SubResource("BoxMesh_8ej4s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Muros/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Muros/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_lg1xp")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Muros"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -52, 4, 2.27299e-06)
+visible = false
+mesh = SubResource("BoxMesh_8ej4s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Muros/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Muros/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_lg1xp")

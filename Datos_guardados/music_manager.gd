@@ -1,7 +1,7 @@
 extends Node
 
-const BUS_NAME: String = "Musica"          # Bus para la música del juego (mundos, puzzles)
-const MENU_BUS: String = "Menu"            # Bus para la música del menú
+const BUS_NAME: String = "Musica"
+const MENU_BUS: String = "Menu"
 
 # =========================
 # STREAMS (ASIGNAR EN EDITOR)
@@ -15,15 +15,23 @@ const MENU_BUS: String = "Menu"            # Bus para la música del menú
 # VOLUMENES BASE
 # =========================
 @export var menu_db: float = -6.0
-@export var world1_db: float = -12.0
-@export var world1_puzzle_db: float = -14.0
-@export var world3_db: float = -8.0
+
+# Base general para música de gameplay
+@export var worlds_master_db: float = -10.5
+
+# Offsets finos por mundo
+@export var world1_offset_db: float = 0.0
+@export var world2_offset_db: float = -1.2
+@export var world3_offset_db: float = -2.0
+
+# Puzzle Mundo 1 un poco más presente
+@export var world1_puzzle_db: float = -11.2
 
 # =========================
 # PRESIÓN DEL PUZZLE (Mundo1)
 # =========================
-@export var puzzle_base_volume_db: float = -14.0
-@export var puzzle_danger_volume_db: float = -10.0
+@export var puzzle_base_volume_db: float = -11.2
+@export var puzzle_danger_volume_db: float = -8.8
 @export var puzzle_base_pitch: float = 1.0
 @export var puzzle_danger_pitch: float = 1.08
 
@@ -37,8 +45,8 @@ var did_menu_flash: bool = false
 # ==================================================
 # MUNDO 2 – SISTEMA DE PRESIÓN MUSICAL
 # ==================================================
-var world2_stage: int = 0                 # 0..3
-var world2_intensity: float = 0.0         # 0..10
+var world2_stage: int = 0
+var world2_intensity: float = 0.0
 
 var _bus_idx: int = -1
 var _fx_lowpass: AudioEffectLowPassFilter = null
@@ -50,7 +58,7 @@ var _fx_tween: Tween = null
 var _dialogue_ramp_tween: Tween = null
 var _base_intensity_for_stage: float = 0.0
 
-# Pitch wobble (WORLD2) - orgánico, pesado, incómodo
+# Pitch wobble (WORLD2)
 var _wobble_base_pitch: float = 1.0
 var _wobble_time: float = 0.0
 var _wobble_amp: float = 0.0
@@ -66,7 +74,6 @@ func _ready() -> void:
 
 	_player = AudioStreamPlayer.new()
 	add_child(_player)
-	# El bus se asignará dinámicamente según el stream; por defecto lo dejamos en "Musica"
 	_player.bus = BUS_NAME
 	_player.autoplay = false
 
@@ -77,20 +84,47 @@ func _ready() -> void:
 	reset_world2_fx(true)
 
 func _process(delta: float) -> void:
-	# ✅ SOLO WORLD2: wobble orgánico (no toca World1)
 	if not _wobble_enabled or _player == null:
 		return
 
 	_wobble_time += delta
 
-	# Drift lento + jitter irregular
 	var drift: float = sin(_wobble_time * TAU * _wobble_speed) * _wobble_amp
 	var jitter: float = sin(_wobble_time * TAU * (_wobble_speed * 7.0 + 1.3)) * _wobble_jitter_amp
-
-	# Asimetría: más caída que subida (pesado / nauseabundo)
 	var asym: float = -abs(drift) * 0.55
 
 	_player.pitch_scale = _wobble_base_pitch + drift + jitter + asym
+
+# ==================================================
+# HELPERS DE VOLUMEN
+# ==================================================
+func _get_world1_db() -> float:
+	return worlds_master_db + world1_offset_db
+
+func _get_world2_base_db() -> float:
+	return worlds_master_db + world2_offset_db
+
+func _get_world3_db() -> float:
+	return worlds_master_db + world3_offset_db
+
+func _get_target_db_for_stream(stream: AudioStream) -> float:
+	if stream == null:
+		return worlds_master_db
+
+	if stream == menu_stream:
+		return menu_db
+
+	if stream == world1_puzzle_stream:
+		return world1_puzzle_db
+
+	if stream == world1_stream:
+		return _get_world1_db()
+
+	if stream == world3_stream:
+		return _get_world3_db()
+
+	# Todo stream de gameplay extra lo tratamos como Mundo 2/base gameplay
+	return _get_world2_base_db()
 
 # ==================================================
 # SELECCIÓN DE BUS SEGÚN EL STREAM
@@ -104,7 +138,7 @@ func _set_bus_for_stream(stream: AudioStream) -> void:
 		print("[MusicManager] Cambiando a bus: ", BUS_NAME)
 
 # ==================================================
-# PLAYERS (MENU / WORLD1 / PUZZLE)
+# PLAYERS (MENU / WORLD1 / PUZZLE / WORLD3)
 # ==================================================
 func play_menu(fade: float = 0.5) -> void:
 	_set_bus_for_stream(menu_stream)
@@ -119,7 +153,7 @@ func play_world1(fade: float = 1.5) -> void:
 	_set_bus_for_stream(world1_stream)
 	_switch_stream(world1_stream)
 	_reset_pressure_to_world1()
-	await fade_to(world1_db, fade)
+	await fade_to(_get_world1_db(), fade)
 
 func play_world1_puzzle(fade: float = 0.3) -> void:
 	if world1_puzzle_stream == null:
@@ -144,15 +178,19 @@ func play_world3(fade: float = 1.5) -> void:
 
 	_set_bus_for_stream(world3_stream)
 	_switch_stream(world3_stream)
-	await fade_to(world3_db, fade)
+	await fade_to(_get_world3_db(), fade)
 
-func play_stream(stream: AudioStream, fade: float = 1.0, restart: bool = true, target_db: float = -12.0) -> void:
+func play_stream(stream: AudioStream, fade: float = 1.0, restart: bool = true, target_db: float = 9999.0) -> void:
 	if stream == null:
 		push_warning("MusicManager: play_stream recibió stream null")
 		return
 
 	_set_bus_for_stream(stream)
 	_kill_fade()
+
+	var final_db: float = target_db
+	if final_db == 9999.0:
+		final_db = _get_target_db_for_stream(stream)
 
 	var changed: bool = false
 	if _player.stream != stream:
@@ -169,7 +207,7 @@ func play_stream(stream: AudioStream, fade: float = 1.0, restart: bool = true, t
 		_player.play(0.0)
 
 	_fade_tween = create_tween()
-	_fade_tween.tween_property(_player, "volume_db", target_db, max(0.01, fade))
+	_fade_tween.tween_property(_player, "volume_db", final_db, max(0.01, fade))
 	await _fade_tween.finished
 
 func stop(immediate: bool = true) -> void:
@@ -196,13 +234,7 @@ func fade_to(target_db: float, duration: float = 0.5) -> void:
 	await _fade_tween.finished
 
 func fade_in(duration: float = 0.5) -> void:
-	var target_db: float = -10.0
-	if _player.stream == menu_stream:
-		target_db = menu_db
-	elif _player.stream == world1_puzzle_stream:
-		target_db = world1_puzzle_db
-	elif _player.stream == world1_stream:
-		target_db = world1_db
+	var target_db: float = _get_target_db_for_stream(_player.stream)
 
 	_player.volume_db = -60.0
 	if not _player.playing:
@@ -252,7 +284,7 @@ func reset_puzzle_pressure() -> void:
 	_player.volume_db = puzzle_base_volume_db
 
 # ==================================================
-# MUNDO 2 – FX CACHE (TIPADO FUERTE)
+# MUNDO 2 – FX CACHE
 # ==================================================
 func _cache_world2_fx() -> void:
 	_bus_idx = AudioServer.get_bus_index(BUS_NAME)
@@ -405,7 +437,7 @@ func world2_kill_music_like_tape(fade_time: float = 1.2) -> void:
 	reset_world2_fx(true)
 
 # ==================================================
-# MUNDO 2 – APLICAR FX (MÁS PESADO / TÉTRICO / LENTO)
+# MUNDO 2 – APLICAR FX
 # ==================================================
 func _apply_world2_fx(intensity: float, immediate: bool = false, smooth: float = 0.75) -> void:
 	if _bus_idx == -1 or _fx_lowpass == null or _fx_dist == null or _fx_chorus == null:
@@ -416,27 +448,17 @@ func _apply_world2_fx(intensity: float, immediate: bool = false, smooth: float =
 		return
 
 	var t01: float = clamp(intensity / 10.0, 0.0, 1.0)
-
-	# Curva no-lineal: el “feo” entra antes
 	var k: float = ease(t01, 1.55)
 
-	# LowPass: oscuro / pesado
 	var cutoff: float = lerp(18000.0, 1700.0, k)
-
-	# Distortion: grano/suciedad
 	var drive: float = lerp(0.02, 0.34, k)
-
-	# HF: cae para incomodidad
 	var keep_hf: float = lerp(16000.0, 5200.0, k)
-
-	# Chorus: mareo
 	var chorus_wet: float = lerp(0.0, 0.18, k)
-
-	# Pitch: más pesado
 	var pitch: float = lerp(1.0, 0.94, k)
 
-	# Volumen: casi estable
-	var volume: float = lerp(-12.0, -13.6, k)
+	# Mundo 2 parte un poco más bajo y en presión baja un poco más
+	var base_world2_db: float = _get_world2_base_db()
+	var volume: float = lerp(base_world2_db, base_world2_db - 2.0, k)
 
 	_kill_fx_tween()
 
@@ -469,7 +491,7 @@ func _apply_world2_fx(intensity: float, immediate: bool = false, smooth: float =
 	_fx_tween.tween_property(_fx_chorus, "wet", chorus_wet, smooth)
 
 # ==================================================
-# Pitch wobble (WORLD2) – orgánico, lento, pesado
+# Pitch wobble (WORLD2)
 # ==================================================
 func _start_pitch_wobble(stage: int) -> void:
 	_stop_pitch_wobble()

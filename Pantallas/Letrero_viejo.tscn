@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0r036tle61b2"]
+[gd_scene load_steps=3 format=3 uid="uid://b0r036tle61b2"]
 
+[ext_resource type="Script" path="res://Pantallas/letrero_viejoscrol.gd" id="1_0yrft"]
 [ext_resource type="Texture2D" uid="uid://bp7gyjcrhw1jn" path="res://Imagenes_pantallas/Letrero_viejo.png" id="1_slkj5"]
 
 [node name="Control" type="Control"]
@@ -11,6 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_0yrft")
+max_zoom = 1.25
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 3

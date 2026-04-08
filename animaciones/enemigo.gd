@@ -80,7 +80,7 @@ func apply_slow(mult: float, duration: float) -> void:
 
 	_slow_mult = min(_slow_mult, mult)
 	_slow_timer = max(_slow_timer, duration)
-	_stun_timer = max(_stun_timer, 0.25) # impacto real
+	_stun_timer = max(_stun_timer, 0.25)
 
 	print("[ENEMY] SLOW -> mult=", _slow_mult, " dur=", _slow_timer, " chase_time=", _chase_time)
 
@@ -91,7 +91,6 @@ func _ready() -> void:
 	_setup_touch_area()
 	_play(anim_idle)
 
-	# Luz: arranca apagada
 	if proximity_light:
 		proximity_light.light_energy = 0.0
 		_current_light_energy = 0.0
@@ -101,13 +100,12 @@ func _setup_touch_area() -> void:
 	if touch_area == null:
 		return
 
-	# TouchArea detecta SOLO al player por layer (configurable)
 	touch_area.collision_layer = 0
 	touch_area.collision_mask = 0
 	touch_area.set_collision_mask_value(player_collision_layer, true)
 
 	touch_area.monitorable = true
-	touch_area.monitoring = false # ✅ OFF al inicio (evita capturas antes de tiempo)
+	touch_area.monitoring = false
 
 	var shape := touch_area.get_node_or_null("CollisionShape3D")
 	if shape:
@@ -120,11 +118,12 @@ func _setup_touch_area() -> void:
 func _set_touch_enabled(enabled: bool) -> void:
 	if touch_area == null:
 		return
-	touch_area.monitoring = enabled
+
+	touch_area.set_deferred("monitoring", enabled)
 
 	var shape := touch_area.get_node_or_null("CollisionShape3D")
 	if shape:
-		shape.disabled = not enabled
+		shape.set_deferred("disabled", not enabled)
 
 
 # =========================
@@ -146,17 +145,14 @@ func prepare_and_show(at_transform: Transform3D) -> void:
 	_chase_time = 0.0
 	velocity = Vector3.ZERO
 
-	# reset slow/stun
 	_slow_mult = 1.0
 	_slow_timer = 0.0
 	_stun_timer = 0.0
 
-	# Luz reset
 	_current_light_energy = 0.0
 	if proximity_light:
 		proximity_light.light_energy = 0.0
 
-	# ✅ Touch OFF hasta que arranque el chase
 	_set_touch_enabled(false)
 
 	visible = true
@@ -175,8 +171,6 @@ func hold_idle() -> void:
 	set_physics_process(true)
 	_play(anim_idle)
 	_set_light_energy_target(0.0)
-
-	# ✅ no captura en idle
 	_set_touch_enabled(false)
 
 
@@ -188,13 +182,10 @@ func _do_scream_then_chase() -> void:
 	_locked = true
 	_chasing = false
 	_set_light_energy_target(0.0)
-
-	# ✅ todavía no captura (hasta que corra)
 	_set_touch_enabled(false)
 
 	_play(anim_scream)
 
-	# Audio 3D
 	var sfx := AudioStreamPlayer3D.new()
 	sfx.stream = scream_stream
 	sfx.volume_db = scream_volume_db
@@ -214,8 +205,6 @@ func _do_scream_then_chase() -> void:
 	_chasing = true
 	_chase_time = 0.0
 	_play(anim_run)
-
-	# ✅ AHORA sí puede capturar
 	_set_touch_enabled(true)
 
 
@@ -226,12 +215,9 @@ func stop_all() -> void:
 	velocity = Vector3.ZERO
 	_play(anim_idle)
 	_set_light_energy_target(0.0)
-
-	# ✅ no captura
 	_set_touch_enabled(false)
 
 
-# Para el HUD (FearOverlay.gd)
 func is_chasing() -> bool:
 	return _chasing and not _locked and not _has_captured and _target != null
 
@@ -244,25 +230,21 @@ func _physics_process(delta: float) -> void:
 		_update_light(delta, 0.0)
 		return
 
-	# 1) Timers: SLOW
 	if _slow_timer > 0.0:
 		_slow_timer -= delta
 		if _slow_timer <= 0.0:
 			_slow_timer = 0.0
 			_slow_mult = 1.0
 
-	# 2) Gravedad
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
 
-	# 3) Rotación hacia target
 	if _target != null:
 		var to_vec: Vector3 = (_target.global_position - global_position)
 		_face_target_horizontally(to_vec, delta)
 
-	# 4) STUN (impacto del medallón)
 	if _stun_timer > 0.0:
 		_stun_timer -= delta
 		velocity.x = 0.0
@@ -271,13 +253,11 @@ func _physics_process(delta: float) -> void:
 		_update_light(delta, _compute_light_target_energy())
 		return
 
-	# 5) Si no chase, solo slide (caída/idle)
 	if _locked or not _chasing or _target == null:
 		move_and_slide()
 		_update_light(delta, 0.0)
 		return
 
-	# 6) Chase: calcular dirección
 	_chase_time += delta
 
 	var flat: Vector3 = (_target.global_position - global_position)
@@ -291,20 +271,16 @@ func _physics_process(delta: float) -> void:
 
 	var dir: Vector3 = flat / dist
 
-	# 7) Velocidad por fase + catch-up
 	var base_spd: float = _get_current_phase_speed()
 	if dist > catchup_distance:
 		base_spd += catchup_extra_speed
 
-	# 8) Aplicar slow
 	var final_spd: float = base_spd * _slow_mult
 
 	velocity.x = dir.x * final_spd
 	velocity.z = dir.z * final_spd
 
 	move_and_slide()
-
-	# 9) Luz proximidad
 	_update_light(delta, _compute_light_target_energy())
 
 
@@ -328,30 +304,21 @@ func _face_target_horizontally(to_vec: Vector3, delta: float) -> void:
 
 
 func _on_touch_area_body_entered(body: Node) -> void:
-	# Debug opcional
-	# print("[ENEMY] TouchArea ENTER:", body.name)
-
 	if _has_captured:
 		return
 	if not body.is_in_group("Player"):
 		return
 
 	_has_captured = true
-
-	# Corta todo instantáneo
 	_locked = true
 	_chasing = false
 	set_physics_process(false)
 	velocity = Vector3.ZERO
 
 	_set_light_energy_target(0.0)
-
-	# ✅ apaga TouchArea para no re-disparar
 	_set_touch_enabled(false)
-
 	_play(anim_idle)
 
-	# emitir deferred para evitar weirdness en callback
 	call_deferred("_emit_captured_deferred", body)
 
 
@@ -375,12 +342,12 @@ func _compute_light_target_energy() -> float:
 	if not is_chasing():
 		return 0.0
 
-	var dist := global_position.distance_to(_target.global_position)
-	var t := inverse_lerp(fear_max_distance, fear_min_distance, dist)
+	var dist: float = global_position.distance_to(_target.global_position)
+	var t: float = inverse_lerp(fear_max_distance, fear_min_distance, dist)
 	t = clamp(t, 0.0, 1.0)
 	t = t * t
 
-	var pulse := 0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * light_pulse_speed)
+	var pulse: float = 0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * light_pulse_speed)
 	return t * max_light_energy * (0.6 + 0.4 * pulse)
 
 

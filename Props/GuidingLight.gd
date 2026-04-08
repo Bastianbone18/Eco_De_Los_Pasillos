@@ -83,7 +83,7 @@ func set_active(value: bool) -> void:
 
 	light_node.visible = value
 	sprite.visible = value
-	area.monitoring = value
+	area.set_deferred("monitoring", value)
 
 	if not value:
 		_t = 0.0
@@ -115,25 +115,19 @@ func _process(delta: float) -> void:
 	# =========================
 	_flicker_phase += delta
 
-	# Flicker duro tipo frame skip
 	var flicker_speed := (warning_flicker_speed if _visual_state == 1 else danger_flicker_speed)
 	var flicker := 1.0 if int(_flicker_phase * flicker_speed) % 2 == 0 else (0.45 if _visual_state == 1 else 0.18)
 
-	# Jitter cuantizado (PS1 real)
 	var jitter_amount := (warning_jitter if _visual_state == 1 else danger_jitter)
 	var jx := snappedf(randf_range(-jitter_amount, jitter_amount), jitter_step)
 	var jz := snappedf(randf_range(-jitter_amount, jitter_amount), jitter_step)
 
 	sprite.position = Vector3(_base_sprite_pos.x + jx, float_y, _base_sprite_pos.z + jz)
 
-	# Rotación snap retro
 	var snap_deg := 8.0 if _visual_state == 1 else 16.0
 	var target_deg := snappedf(rad_to_deg(sprite.rotation.y), snap_deg)
 	sprite.rotation.y = lerp_angle(sprite.rotation.y, deg_to_rad(target_deg) + sin(_t) * 0.12, 0.35)
 
-	# =========================
-	# BLACKOUT (solo danger)
-	# =========================
 	var is_blackout := false
 
 	if _visual_state == 2:
@@ -152,9 +146,6 @@ func _process(delta: float) -> void:
 		light_node.visible = true
 		sprite.visible = true
 
-	# =========================
-	# GLITCH COLOR (solo danger)
-	# =========================
 	if _visual_state == 2:
 		var g := danger_color_glitch_strength
 		var m := int(_t * 30.0) % 3
@@ -167,12 +158,10 @@ func _process(delta: float) -> void:
 	else:
 		sprite.modulate = Color.WHITE
 
-	# Energía
 	if _visual_state == 1:
 		light_node.light_energy = (1.85 + sin(_t * 8.0) * 0.25) * flicker
 	else:
 		light_node.light_energy = (2.10 + sin(_t * 14.0) * 0.55) * flicker
-
 
 # =====================================================
 # COLISIÓN (INSTANTÁNEA 🔥)
@@ -184,9 +173,8 @@ func _on_body_entered(body: Node) -> void:
 	if not body.is_in_group("Player") and body.name != "Player":
 		return
 
-	# 🔥 GAME OVER INMEDIATO / RECOGIDA INSTANTÁNEA
 	_collected = true
-	area.monitoring = false
+	area.set_deferred("monitoring", false)
 	set_active(false)
 
 	if pickup_audio:
@@ -199,7 +187,6 @@ func _on_body_entered(body: Node) -> void:
 		pickup_audio.play()
 
 	emit_signal("reached", self)
-
 
 # =====================================================
 # ESTADO VISUAL

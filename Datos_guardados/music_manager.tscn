@@ -14,5 +14,4 @@ loop = true
 [node name="MusicManager" type="Node"]
 script = ExtResource("1_ukxk2")
 world1_puzzle_stream = SubResource("AudioStreamOggVorbis_4c3ol")
-world1_db = 3.0
 world1_puzzle_db = 3.0

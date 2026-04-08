@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var video_player: VideoStreamPlayer = $VideoStreamPlayer
 
-@export var next_scene_path: String = "res://Pantallas/Game_over.tscn"
+@export var next_scene_path: String = "res://Pantallas/Game_Over.tscn"
 
 func _ready() -> void:
 	play_jumpscare()

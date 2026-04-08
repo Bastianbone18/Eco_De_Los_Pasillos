@@ -113,9 +113,9 @@ func _show_muneco_anim() -> void:
 	muneco_anim_instance = muneco_anim_scene.instantiate()
 	get_tree().get_current_scene().add_child(muneco_anim_instance)
 
-	var anim := muneco_anim_instance.find_child("AnimatedSprite2D", true, false) as AnimatedSprite2D
+	var anim := muneco_anim_instance.find_child("Muñeco_Anim", true, false) as AnimatedSprite2D
 	if not anim:
-		push_error("❌ No se encontró AnimatedSprite2D en la animación del muñeco")
+		push_error("❌ No se encontró Muñeco_Anim en la animación del muñeco")
 		return
 
 	anim.process_mode = Node.PROCESS_MODE_ALWAYS

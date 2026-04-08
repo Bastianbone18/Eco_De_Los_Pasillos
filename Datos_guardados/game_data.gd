@@ -1,6 +1,6 @@
 extends Node
 
-var player_name := ""
+var player_name: String = ""
 var current_slot_id: int = 0
 
 var current_scene_path: String = ""
@@ -56,9 +56,9 @@ var foto_familiar_done: bool = false
 # TIMER
 # ==================================================
 
-var survival_time := 0.0
-var _start_ticks := 0
-var _running := false
+var survival_time: float = 0.0
+var _start_ticks: int = 0
+var _running: bool = false
 
 
 func _ready() -> void:
@@ -92,7 +92,7 @@ func start_survival_timer() -> void:
 
 func stop_survival_timer() -> void:
 	if _running and _start_ticks > 0:
-		var elapsed_ms := Time.get_ticks_msec() - _start_ticks
+		var elapsed_ms: int = Time.get_ticks_msec() - _start_ticks
 		survival_time += float(elapsed_ms) / 1000.0
 	_running = false
 	_start_ticks = 0
@@ -112,7 +112,7 @@ func set_survival_time(seconds: float) -> void:
 
 func get_total_survival_time() -> float:
 	if _running and _start_ticks > 0:
-		var elapsed_ms := Time.get_ticks_msec() - _start_ticks
+		var elapsed_ms: int = Time.get_ticks_msec() - _start_ticks
 		return survival_time + float(elapsed_ms) / 1000.0
 	return survival_time
 
@@ -123,6 +123,10 @@ func get_total_survival_time() -> float:
 
 func to_save_dict() -> Dictionary:
 	return {
+		# slot / jugador
+		"player_name": player_name,
+		"current_slot_id": current_slot_id,
+
 		# escena
 		"scene_path": current_scene_path,
 		"checkpoint_id": current_checkpoint_id,
@@ -167,8 +171,11 @@ func to_save_dict() -> Dictionary:
 # ==================================================
 
 func apply_save_dict(d: Dictionary) -> void:
-	current_scene_path = d.get("scene_path", current_scene_path)
-	current_checkpoint_id = d.get("checkpoint_id", current_checkpoint_id)
+	player_name = str(d.get("player_name", player_name))
+	current_slot_id = int(d.get("current_slot_id", current_slot_id))
+
+	current_scene_path = str(d.get("scene_path", current_scene_path))
+	current_checkpoint_id = str(d.get("checkpoint_id", current_checkpoint_id))
 
 	# progreso
 	intro_done = bool(d.get("intro_done", intro_done))
@@ -194,8 +201,7 @@ func apply_save_dict(d: Dictionary) -> void:
 	arbol_caido_done = bool(d.get("arbol_caido_done", arbol_caido_done))
 
 	# atmósfera
-	world2_atmos_stage = int(d.get("world2_atmos_stage", world2_atmos_stage))
-	world2_atmos_stage = clamp(world2_atmos_stage, 0, 3)
+	world2_atmos_stage = clamp(int(d.get("world2_atmos_stage", world2_atmos_stage)), 0, 3)
 
 	# persecución
 	chase_capture_mode = str(d.get("chase_capture_mode", chase_capture_mode))
@@ -204,3 +210,39 @@ func apply_save_dict(d: Dictionary) -> void:
 	# tiempo
 	if d.has("play_time"):
 		set_survival_time(float(d.get("play_time", get_total_survival_time())))
+		
+func reset_all_progress() -> void:
+	player_name = ""
+	current_slot_id = 0
+
+	current_scene_path = ""
+	current_checkpoint_id = ""
+
+	intro_done = false
+	has_flashlight = false
+	world1_controls_shown = false
+
+	intro_mundo2_done = false
+	intro_mundo3_done = false
+
+	muneco_antiguo_done = false
+
+	buscar_linterna_done = false
+	angel_statua_done = false
+	letrero_viejo_done = false
+
+	chase_capture_mode = "knockout"
+	chase_retry_checkpoint_id = "before_mission2"
+
+	flashlight_on = false
+
+	hoja_encontrada_done = false
+
+	roca_accidente_done = false
+	arbol_caido_done = false
+
+	world2_atmos_stage = 0
+
+	foto_familiar_done = false
+
+	reset_survival_time()

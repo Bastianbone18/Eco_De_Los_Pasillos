@@ -10,12 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Eco_De_Los_Pasillos"
+config/name="Echoes of the Forgotten"
 run/main_scene="res://Pantallas/menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0431373, 0, 0.0117647, 1)
 boot_splash/image="res://Simbologia.png"
-config/icon="res://Echoes of the Forgotten.png"
+config/icon="res://Echoes of the ForgottenFinal.png"
 boot_splash/minimum_display_time=2500
 
 [autoload]
@@ -101,4 +101,4 @@ action_use={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogos/Primer_Dialogo.dialogue", "res://Dialogos/Dialogo_Diario.dialogue", "res://Dialogos/Puerta_cerrada.dialogue", "res://Dialogos/Puerta_cerrada_2.dialogue", "res://Dialogos/Llave_casa1.dialogue", "res://Dialogos/Int_fuego.dialogue", "res://Dialogos/Buscar_linterna.dialogue", "res://Dialogos/linterna_encontrada.dialogue", "res://Dialogos/Intro.dialogue", "res://Dialogos/Auto.dialogue", "res://Dialogos/llegada.dialogue", "res://Dialogos/hoja_encontrada.dialogue", "res://Dialogos/Arbol_caido.dialogue", "res://Dialogos/Roca_accidente.dialogue", "res://Dialogos/Muñeco_viejo.dialogue", "res://Dialogos/Letrero_viejo.dialogue", "res://Dialogos/Estatua.dialogue", "res://Dialogos/Intro_Mundo2.dialogue", "res://Dialogos/Audio_estatua.dialogue", "res://Dialogos/Enemigo_tunel.dialogue", "res://Dialogos/Anillo_de_rebeca.dialogue", "res://Dialogos/Vel.dialogue", "res://Dialogos/Vela_misa.dialogue", "res://Dialogos/Campana_Misa.dialogue", "res://Dialogos/FotoSueaño.dialogue", "res://Dialogos/Intro_mundo3.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogos/Primer_Dialogo.dialogue", "res://Dialogos/Dialogo_Diario.dialogue", "res://Dialogos/Puerta_cerrada.dialogue", "res://Dialogos/Puerta_cerrada_2.dialogue", "res://Dialogos/Llave_casa1.dialogue", "res://Dialogos/Int_fuego.dialogue", "res://Dialogos/Buscar_linterna.dialogue", "res://Dialogos/linterna_encontrada.dialogue", "res://Dialogos/Intro.dialogue", "res://Dialogos/Auto.dialogue", "res://Dialogos/llegada.dialogue", "res://Dialogos/hoja_encontrada.dialogue", "res://Dialogos/Arbol_caido.dialogue", "res://Dialogos/Roca_accidente.dialogue", "res://Dialogos/Muñeco_viejo.dialogue", "res://Dialogos/Letrero_viejo.dialogue", "res://Dialogos/Estatua.dialogue", "res://Dialogos/Intro_Mundo2.dialogue", "res://Dialogos/Audio_estatua.dialogue", "res://Dialogos/Enemigo_tunel.dialogue", "res://Dialogos/Anillo_de_rebeca.dialogue", "res://Dialogos/Vela_misa.dialogue", "res://Dialogos/Campana_Misa.dialogue", "res://Dialogos/FotoSueaño.dialogue", "res://Dialogos/Intro_mundo3.dialogue")

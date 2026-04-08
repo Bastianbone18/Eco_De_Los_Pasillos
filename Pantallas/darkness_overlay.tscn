@@ -1,4 +1,4 @@
-[gd_scene load_steps=184 format=3 uid="uid://di1yekcpcsmbo"]
+[gd_scene load_steps=185 format=3 uid="uid://di1yekcpcsmbo"]
 
 [ext_resource type="Script" path="res://Pantallas/darkness_overlay.gd" id="1_jmo1y"]
 [ext_resource type="Texture2D" uid="uid://dqnqt6l7uq7hr" path="res://PNG_OBJETOS/Manos/Manos0001.png" id="2_wyksl"]
@@ -182,6 +182,7 @@
 [ext_resource type="Texture2D" uid="uid://dayt378bv2djo" path="res://PNG_OBJETOS/Manos/Manos0179.png" id="180_gdsca"]
 [ext_resource type="Texture2D" uid="uid://b3jwy7h1plutn" path="res://PNG_OBJETOS/Manos/Manos0180.png" id="181_wv01v"]
 [ext_resource type="AudioStream" uid="uid://dhpuct8o2jm03" path="res://Musica y sonidos/Sonidos/Cuello_roto.ogg" id="182_qwr2e"]
+[ext_resource type="AudioStream" uid="uid://duoxckudxf1ao" path="res://Musica y sonidos/Sonidos/ManosSonido.ogg" id="183_rxlmu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nbhs3"]
 animations = [{
@@ -745,3 +746,7 @@ frame_progress = 1.0
 [node name="NeckSnap" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("182_qwr2e")
 volume_db = -4.0
+
+[node name="PressureLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("183_rxlmu")
+bus = &"Atmosfera"

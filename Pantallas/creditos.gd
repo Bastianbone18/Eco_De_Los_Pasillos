@@ -65,12 +65,12 @@ func play_click_sound() -> void:
 func _on_tiktok_pressed() -> void:
 	play_click_sound()
 	await get_tree().create_timer(0.05).timeout
-	OS.shell_open("https://www.tiktok.com/@bastianbone18")
+	OS.shell_open("https://github.com/Bastianbone18/Eco_De_Los_Pasillos")
 
 func _on_ig_pressed() -> void:
 	play_click_sound()
 	await get_tree().create_timer(0.05).timeout
-	OS.shell_open("https://www.instagram.com/juanchoprietom/")
+	OS.shell_open("https://github.com/datanilo")
 
 func _on_art_pressed() -> void:
 	play_click_sound()

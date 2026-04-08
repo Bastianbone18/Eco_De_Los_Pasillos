@@ -6,15 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://kiisn1bp36tj" path="res://Musica y sonidos/Sonidos/PentagramaSound.ogg" id="4_t4a22"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="5_gqjkn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_npkoy"]
-shader = ExtResource("1_7m1n8")
-shader_parameter/intensity = 0.0
-shader_parameter/glitch_strength = 0.0
-shader_parameter/chromatic_aberration = 0.0
-shader_parameter/noise_strength = 0.0
-shader_parameter/hell_red = 0.0
-shader_parameter/darkness = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ntiwr"]
 shader = ExtResource("5_gqjkn")
 shader_parameter/crt_curve = 0.01
@@ -25,8 +16,29 @@ shader_parameter/white_noise_rate = 0.068
 shader_parameter/wiggle = 0.03
 shader_parameter/wiggle_speed = 25.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npkoy"]
+shader = ExtResource("1_7m1n8")
+shader_parameter/intensity = 0.0
+shader_parameter/glitch_strength = 0.0
+shader_parameter/chromatic_aberration = 0.0
+shader_parameter/noise_strength = 0.0
+shader_parameter/hell_red = 0.0
+shader_parameter/darkness = 0.0
+
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_msxan")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ntiwr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_npkoy")
@@ -57,15 +69,3 @@ autowrap_mode = 2
 stream = ExtResource("4_t4a22")
 autoplay = true
 bus = &"Atmosfera"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="CRTOverlay" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_ntiwr")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
